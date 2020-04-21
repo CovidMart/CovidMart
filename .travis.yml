@@ -13,7 +13,7 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "covid-mart-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "puzzle-party-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
@@ -24,7 +24,7 @@ deploy: # see README for details on these keys
   skip_cleanup: true
   provider: heroku
   # app should be your heroku app name; see README
-  app: covid-mart
+  app: puzzle-party
   # the secure key indicates an encrypted value; see README
   api_key:
     secure: wt166s73Po+8UE2lQAReTs5A53miyX2Q25JpiJTYqjXmsMZf4euvhuCbVIENVOHWzgqVS074F1qw3x/QDzZ0W2W0/QhJ2OCq6IJAZ25dxjbNMibNOuUBzZH5VM4miuWl/mH8xCun7u9yT+t+MmYvshzBgrE0pJGzrlDN4n6BN4d7UBLf8j5/VIwcO0eCxQkFBbWIA5HDsjA8bw+Wz9WzscnZyk/tts18Bn5EesqeG0kONZfzpQh5GNPhR3CqnlPmMm/5yEpXzgIdYDWb7aLwtVWq/aAy2tXuEoM+bVTzDAf7B+4SaD8F/gfN/wVlMi0p20fRipFfWfZUc8vTIWNDxBQMpg1i63MSfzTlEsMTvjHg4BDudVTon1CQebjGMb3RtmVK2pLxElE6Ka0xOx3d2d2Cd3Z30ZRkh6h0dACHyOT3CKPxeeCLpoiNpzB5/Pz+CkaFiSrj23vYNAN9y6i1U1da/3ZWEBcmt8RPMMcySMtwHySC3bQdMv2Ii+ziiyRoYaPClyvAYk4Pz9sn+dsf23/tI/iVeRvJb0eyvgIhePuo/fJHFOSq/DGrr+HeKJ6QEv1Qz9KvI18jhsVAz9AOAvSuLPNJyxc3s4C7o11rGTg18p/y0Ma0NJntVPxwqAL8YpDzrsRcxd5qikZaONYsZ41P3vYRUI3qt8xpKLaGrDQ=
