@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import axios from 'axios'
 
 const ALL_PUZZLES="ALL_PUZZLES"
 
@@ -12,7 +12,7 @@ export const allPuzzles =(puzzles)=>{
 export const fetchAllPuzzle =() =>{
   return async dispatch =>{
     try{
-      const {data} = await Axios.get("......")
+      const {data} = await axios.get("......")
       dispatch(allPuzzles(data))
     }
     catch(error){
