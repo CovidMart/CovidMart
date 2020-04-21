@@ -39,13 +39,13 @@ export const SinglePuzzle = props => {
  */
 const mapState = state => {
   return {
-    title: state.user.title,
-    price: state.user.price,
-    description: state.user.description,
-    pieceCount: state.user.pieceCount,
-    dimensions: state.user.dimensions,
-    imageUrl: state.user.imageUrl,
-    category: state.user.category
+    title: state.puzzles.title,
+    price: state.puzzles.price,
+    description: state.puzzles.description,
+    pieceCount: state.puzzles.pieceCount,
+    dimensions: state.puzzles.dimensions,
+    imageUrl: state.puzzles.imageUrl,
+    category: state.puzzles.category
   }
 }
 
