@@ -12,7 +12,7 @@ export class AllPuzzles extends React.Component{
 
   }
   render(){
-    allPuzzles= this.props.puzzle
+    let allPuzzles= this.props.puzzle
     return(
       <div>
         {
