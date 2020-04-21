@@ -12,7 +12,7 @@ export const allPuzzles =(puzzles)=>{
 export const fetchAllPuzzles =() =>{
   return async dispatch =>{
     try{
-      const {data} = await axios.get("......")
+      const {data} = await axios.get("/api/puzzles")
       dispatch(allPuzzles(data))
     }
     catch(error){

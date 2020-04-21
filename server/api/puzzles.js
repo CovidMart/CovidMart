@@ -6,7 +6,7 @@ router.get('/', async (req, res, next) => {
   try {
     const allPuzzle = await Puzzle.findAll()
     res.json(allPuzzle)
-  } catch (err) {
+  } catch (err){
     next(err)
   }
 })
