@@ -1,0 +1,6 @@
+diff a/server/db/models/index.js b/server/db/models/index.js	(rejected hunks)
+@@ -14,2 +14,2 @@ Order.belongsToMany(Puzzle, { through: 'PuzzleOrders'});
+-User.hasMany(Order);
+-Order.belognsTo(User);
++User.hasMany(Order)
++Order.belognsTo(User)
