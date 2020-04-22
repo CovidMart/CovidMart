@@ -17,7 +17,7 @@ const Puzzle = db.define('puzzle', {
     type: Sequelize.INTEGER,
     defaultValue: 0
   },
-  dimentions: {
+  dimensions: {
     type: Sequelize.STRING,
     allowNull: false
   },
