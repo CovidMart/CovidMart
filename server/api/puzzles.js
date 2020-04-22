@@ -25,7 +25,7 @@ router.post('/', async (req, res, next) => {
       req.body.imageUrl =
         'https://atzcart.s3.ap-south-1.amazonaws.com/uploads/images/categories/default.png'
     }
-    const puzzle = await Puzzle.create(req.body)
+    const puzzle = await Puzzle.create(req.body) //want to destructure req.body first so all info cant be seen
     res.send(puzzle)
   } catch (error) {
     next(error)
@@ -34,7 +34,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:puzzleId', async (req, res, next) => {
   Puzzle.findByPk(req.params.puzzleId)
-    .then(puzzle => puzzle.update(req.body))
+    .then(puzzle => puzzle.update(req.body)) //want to destructure req.body first so all info cant be seen
     .catch(next)
 })
 
