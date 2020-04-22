@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const ALL_PUZZLES = 'ALL_PUZZLES'
 
+
 export const allPuzzles = allPuzzles => {
   return {
     type: ALL_PUZZLES,
@@ -28,5 +29,7 @@ export default function puzzleReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_PUZZLES:
       return {...state, puzzles: action.allPuzzles}
+    default: 
+      return state; 
   }
 }
