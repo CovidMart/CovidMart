@@ -1,11 +1,19 @@
 import axios from 'axios'
 
 const ALL_PUZZLES = 'ALL_PUZZLES'
+const SINGLE_PUZZLE = 'SINGLE_PUZZLE'
 
 export const allPuzzles = puzzles => {
   return {
     type: ALL_PUZZLES,
     puzzles
+  }
+}
+
+export const getSinglePuzzle = puzzle => {
+  return {
+    type: SINGLE_PUZZLE,
+    puzzle
   }
 }
 
@@ -20,13 +28,31 @@ export const fetchAllPuzzles = () => {
   }
 }
 
+export const fetchOnePuzzle = id => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/puzzles/${id}`)
+      dispatch(getSinglePuzzle(data))
+    } catch (error) {
+      dispatch(console.error(error))
+    }
+  }
+}
+
 const initialState = {
-  puzzles: []
+  allPuzzles: [],
+  loadingAll: true,
+  singlePuzzle: {},
+  loadingSingle: true
 }
 
 export default function puzzleReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_PUZZLE:
       return {...state, puzzles: action.puzzles}
+    case SINGLE_PUZZLE:
+      return {...state, single: action.puzzle}
+    default:
+      return state
   }
 }
