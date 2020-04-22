@@ -50,6 +50,8 @@ export default function puzzleReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_PUZZLES:
       return {...state, allPuzzles: action.allPuzzles}
+    case SINGLE_PUZZLE:
+      return {...state, singlePuzzle: action.puzzle, loadingSingle: false}
     default:
       return state
   }
