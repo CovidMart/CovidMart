@@ -10,3 +10,12 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:puzzleId', async (req, res, next) => {
+  try {
+    const onePuzzle = await Puzzle.findByPk(req.params.puzzleId)
+    res.json(onePuzzle)
+  } catch (err) {
+    next(err)
+  }
+})

@@ -48,8 +48,8 @@ const initialState = {
 
 export default function puzzleReducer(state = initialState, action) {
   switch (action.type) {
-    case ALL_PUZZLE:
-      return {...state, puzzles: action.puzzles}
+    case ALL_PUZZLES:
+      return {...state, allPuzzles: action.puzzles}
     case SINGLE_PUZZLE:
       return {...state, single: action.puzzle}
     default:
