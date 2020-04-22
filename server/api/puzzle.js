@@ -24,7 +24,7 @@ router.post('/', async (req, res, next) => {
 })
 
 router.put('/:puzzleId', async (req, res, next) => {
-  Puzzle.findById(req.params.puzzleId)
+  Puzzle.findByPk(req.params.puzzleId)
     .then(puzzle => puzzle.update(req.body))
     .catch(next)
 })
