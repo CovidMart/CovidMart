@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const {Puzzle} = require('../db/models')
 
-
 router.get('/', async (req, res, next) => {
   try {
     const puzzle = await Puzzle.findAll()
@@ -11,6 +10,14 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/:puzzleId', async (req, res, next) => {
+  try {
+    const onePuzzle = await Puzzle.findByPk(req.params.puzzleId)
+    res.json(onePuzzle)
+  } catch (err) {
+    next(err)
+  }
+})
 
 router.post('/', async (req, res, next) => {
   try {
@@ -40,4 +47,3 @@ router.delete('/:puzzleId', async (req, res, next) => {
 })
 
 module.exports = router
-

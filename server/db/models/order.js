@@ -4,12 +4,9 @@ const db = require('../db')
 const Order = db.define('orders', {
   //order date: automatically included as createdAt field
 
-  qty: {
-    //set on creation by calculation from cart
-    type: Sequelize.INTEGER
-  },
   stillInCart: {
     type: Sequelize.BOOLEAN,
+    allowNull: false,
     defaultValue: true
   },
   shippingStatus: {
@@ -18,6 +15,9 @@ const Order = db.define('orders', {
     validate: {
       isIn: [['Processing', 'Shipped', 'Delivered']]
     }
+  },
+  pricePaid: {
+    type: Sequelize.DECIMAL(10, 2)
   }
 })
 
