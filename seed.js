@@ -8,7 +8,7 @@ const puzzles = [
     price: 21.99,
     pieceCount: 700,
     dimensions: '27.56" x 19.69"',
-    imageUrl: '/puzzles/wharholTPmask.png',
+    imageUrl: '/puzzles/wharholTPmask.jpg',
     category: 'Art',
     description:
       'This stunning piece of modern art captures the zeitgeist of our times. A brilliant green background with Wharhol-esque screen printed foreground is sure to be fun for the whole family! As a rare 700-piece puzzle, this is a great transition from beginner into more advanced puzzling.'
@@ -18,7 +18,7 @@ const puzzles = [
     price: 31.91,
     pieceCount: 700,
     dimensions: '27.56" x 16.68"',
-    imageUrl: '/puzzles/wharholTPmask.png',
+    imageUrl: '/puzzles/pokerDogs.jpg',
     category: 'Art',
     description:
       'This famous kitsch artwork by Cassius Marcellus Coolidge is the perfect home entertainment for everyone, with a challenging 1,000-piece jigsaw spread on wood-board backing, this will last a lifetime.'
@@ -759,19 +759,24 @@ const users = [
 //(userId in order) --> manually add??
 const orders = [
   {
-    qty: 2,
     stillInCart: true,
-    shippingStatus: 'Processing'
+    shippingStatus: 'Processing',
+    pricePaid: 8.65
   },
   {
-    qty: 1,
     stillInCart: false,
-    shippingStatus: 'Delivered'
+    shippingStatus: 'Shipped',
+    pricePaid: 31.99
   },
   {
-    qty: 1,
     stillInCart: false,
-    shippingStatus: 'Delivered'
+    shippingStatus: 'Delivered',
+    pricePaid: 10.95
+  },
+  {
+    stillInCart: false,
+    shippingStatus: 'Delivered',
+    pricePaid: 28.32
   }
 ]
 
