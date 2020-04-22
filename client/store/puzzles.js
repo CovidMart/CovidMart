@@ -3,10 +3,10 @@ import axios from 'axios'
 const ALL_PUZZLES = 'ALL_PUZZLES'
 const SINGLE_PUZZLE = 'SINGLE_PUZZLE'
 
-export const allPuzzles = puzzles => {
+export const allPuzzles = allPuzzles => {
   return {
     type: ALL_PUZZLES,
-    puzzles
+    allPuzzles
   }
 }
 
@@ -49,9 +49,7 @@ const initialState = {
 export default function puzzleReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_PUZZLES:
-      return {...state, allPuzzles: action.puzzles}
-    case SINGLE_PUZZLE:
-      return {...state, single: action.puzzle}
+      return {...state, puzzles: action.allPuzzles}
     default:
       return state
   }
