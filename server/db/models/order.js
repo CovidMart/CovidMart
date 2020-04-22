@@ -13,11 +13,12 @@ const Order = db.define('orders', {
     type: Sequelize.STRING,
     defaultValue: 'Processing',
     validate: {
-      isIn: [['Processing', 'Shipped', 'Delivered']]
+      isIn: [['Processing', 'Shipped', 'Delivered']] //consider using enum
     }
   },
   pricePaid: {
     type: Sequelize.DECIMAL(10, 2)
+    //want to use integer & work in pennies & do calculation in a hook (to save as money?)
   }
 })
 
