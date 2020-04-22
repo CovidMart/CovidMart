@@ -11,26 +11,35 @@ export class SinglePuzzle extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.match.params.puzzleId, 'in componenet')
     const id = this.props.match.params.puzzleId
     this.props.fetchOnePuzzle(id)
   }
 
   render() {
+    console.log(this.props)
+
+    if (this.props.loadingSingle === true) {
+      return <div>LOADING!!!</div>
+    }
     return (
       <div>
-        <img src={imageUrl} width="600" height="600" />
-        <h2>{title}</h2>
-        <h3>${price}</h3>
+        <img src={this.props.imageUrl} height="300" width="300" />
+        <h2>{this.props.title}</h2>
+        <h3>${this.props.price}</h3>
         <p>
-          <strong>Number of Pieces:</strong> {pieceCount}
+          <strong>Number of Pieces:</strong> {this.props.pieceCount}
         </p>
         <p>
-          <strong>Dimensions:</strong> {dimensions}
+          <strong>Dimensions:</strong> {this.props.dimensions} inches
         </p>
         <p>
-          <strong>Category:</strong> {category}
+          <strong>Category:</strong> {this.props.category}
         </p>
-        <p>{description}</p>
+        <p>
+          <strong>Description: </strong>
+          {this.props.description}
+        </p>
       </div>
     )
   }
@@ -40,20 +49,21 @@ export class SinglePuzzle extends React.Component {
  * CONTAINER
  */
 const mapState = state => {
+  console.log('THIS IS STATE', state)
   return {
-    title: state.puzzles.title,
-    price: state.puzzles.price,
-    description: state.puzzles.description,
-    pieceCount: state.puzzles.pieceCount,
-    dimensions: state.puzzles.dimensions,
-    imageUrl: state.puzzles.imageUrl,
-    category: state.puzzles.category
+    title: state.puzzles.singlePuzzle.title,
+    price: state.puzzles.singlePuzzle.price,
+    description: state.puzzles.singlePuzzle.description,
+    pieceCount: state.puzzles.singlePuzzle.pieceCount,
+    dimensions: state.puzzles.singlePuzzle.dimensions,
+    category: state.puzzles.singlePuzzle.category,
+    imageUrl: state.puzzles.singlePuzzle.imageUrl
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchOnePuzzle: () => dispatch(fetchOnePuzzle())
+    fetchOnePuzzle: id => dispatch(fetchOnePuzzle(id))
   }
 }
 
