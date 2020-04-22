@@ -1,37 +1,39 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {fetchOnePuzzle} from '../store/puzzles'
 
 /**
  * COMPONENT
  */
-export const SinglePuzzle = props => {
-  const {
-    title,
-    price,
-    pieceCount,
-    dimensions,
-    imageUrl,
-    category,
-    description
-  } = props
+export class SinglePuzzle extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-  return (
-    <div>
-      <img src={imageUrl} width="600" height="600" />
-      <h2>{title}</h2>
-      <h3>${price}</h3>
-      <p>
-        <strong>Number of Pieces:</strong> {pieceCount}
-      </p>
-      <p>
-        <strong>Dimensions:</strong> {dimensions}
-      </p>
-      <p>
-        <strong>Category:</strong> {category}
-      </p>
-      <p>{description}</p>
-    </div>
-  )
+  componentDidMount() {
+    const id = this.props.match.params.puzzleId
+    this.props.fetchOnePuzzle(id)
+  }
+
+  render() {
+    return (
+      <div>
+        <img src={imageUrl} width="600" height="600" />
+        <h2>{title}</h2>
+        <h3>${price}</h3>
+        <p>
+          <strong>Number of Pieces:</strong> {pieceCount}
+        </p>
+        <p>
+          <strong>Dimensions:</strong> {dimensions}
+        </p>
+        <p>
+          <strong>Category:</strong> {category}
+        </p>
+        <p>{description}</p>
+      </div>
+    )
+  }
 }
 
 /**
@@ -49,7 +51,13 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(SinglePuzzle)
+const mapDispatch = dispatch => {
+  return {
+    fetchOnePuzzle: () => dispatch(fetchOnePuzzle())
+  }
+}
+
+export default connect(mapState, mapDispatch)(SinglePuzzle)
 
 /**
  * PROP TYPES
