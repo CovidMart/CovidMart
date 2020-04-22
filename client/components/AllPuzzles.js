@@ -13,12 +13,16 @@ export class AllPuzzles extends React.Component {
     let allPuzzles = this.props.puzzle
     return (
       <div>
-        {/* //   {allPuzzles &&
-      //     allPuzzles.map(puzzle => {
-      //       // <div key={puzzle.id}>
-      //       //   <SinglePuzzle puzzle={puzzle} />
-      //       // </div>
-      //     })} */}
+        {/* {allPuzzles &&
+          allPuzzles.map(puzzle => {
+            return(
+            <div key={puzzle.id}>
+              <img src={puzzle.imageUrl} />
+              <h3>{puzzle.title}</h3>
+              <h3>{puzzle.price}</h3>
+            </div>
+            )
+          })} */}
       </div>
     )
   }
@@ -26,7 +30,7 @@ export class AllPuzzles extends React.Component {
 
 const mapState = state => {
   return {
-    puzzles: state.puzzles.puzzles
+    puzzles: state.puzzles.allPuzzles
   }
 }
 
