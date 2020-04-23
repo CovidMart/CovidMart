@@ -36,18 +36,18 @@ const Puzzle = db.define('puzzle', {
   }
 })
 
-Puzzle.decimalMath = function(input) {
-  return input / 100
-}
+// Puzzle.decimalMath = function(input) {
+//   return input / 100
+// }
 
-const convertToDecimal = puzzle => {
-  if (puzzle.changed('price')) {
-    puzzle.price = Puzzle.decimalMath(puzzle.price)
-  }
-}
+// const convertToDecimal = puzzle => {
+//   if (puzzle.changed('price')) {
+//     puzzle.price = Puzzle.decimalMath(puzzle.price)
+//   }
+// }
 
-Puzzle.beforeCreate(convertToDecimal)
-Puzzle.beforeUpdate(convertToDecimal)
+// Puzzle.beforeCreate(convertToDecimal)
+// Puzzle.beforeUpdate(convertToDecimal)
 // Puzzle.beforeBulkCreate(price => {
 //   price.forEach(convertToDecimal)
 // })

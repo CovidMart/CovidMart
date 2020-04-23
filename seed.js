@@ -1,5 +1,5 @@
 const db = require('./server/db')
-const {User, Puzzle, Order} = require('./server/db/models')
+const {User, Puzzle, Order, PuzzleOrders} = require('./server/db/models')
 
 //feel free to add cool puzzles to the seed data!
 const puzzles = [
@@ -761,24 +761,58 @@ const orders = [
   {
     stillInCart: true,
     shippingStatus: 'Processing',
-    pricePaid: 8.65
+    pricePaid: 865
   },
   {
     stillInCart: false,
     shippingStatus: 'Shipped',
-    pricePaid: 31.99
+    pricePaid: 3199
   },
   {
     stillInCart: false,
     shippingStatus: 'Delivered',
-    pricePaid: 10.95
+    pricePaid: 1095
   },
   {
     stillInCart: false,
     shippingStatus: 'Delivered',
-    pricePaid: 28.32
+    pricePaid: 2832
   }
 ]
+
+// const orderproducts= [
+//   {
+//     quantity:3,
+//     subtotal:2200,
+//     total:2453,
+//     puzzleId:6,
+//     orde
+//   },
+//   {
+//     quantity:1,
+//     subtotal:800,
+//     total:1022,
+//     puzzleId:2
+//   },
+//   {
+//     quantity:7,
+//     subtotal:4567,
+//     total:5123,
+//     puzzleId:16
+//   },
+//   {
+//     quantity:5,
+//     subtotal:3321,
+//     total:3541,
+//     puzzleId:17
+//   },
+//   {
+//     quantity:9,
+//     subtotal:5634,
+//     total:6237,
+//     puzzleId:28
+//   },
+// ]
 
 const seed = async () => {
   try {
@@ -796,6 +830,9 @@ const seed = async () => {
       orders.map(item => {
         Order.create(item)
       })
+      // orderproducts.map(order =>{
+      //   PuzzleOrders.create(order)
+      // })
     )
 
     db.close()
