@@ -1,4 +1,6 @@
 const router = require('express').Router()
+// const {isAdmin} = require('./isAdmin')
+
 
 module.exports = router
 
@@ -11,3 +13,5 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+module.exports = router

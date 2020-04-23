@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchAllPuzzles} from '../store/puzzles'
 import AddCartButton from './AddCartButton'
 
@@ -19,8 +20,10 @@ export class AllPuzzles extends React.Component {
         {allPuzzles &&
           allPuzzles.map(puzzle => (
             <div key={puzzle.id}>
-              <img src={puzzle.imageUrl} />
-              <h3>{puzzle.title}</h3>
+              <Link to={`/puzzles/${puzzle.id}`}>
+                <img src={puzzle.imageUrl} />
+                <h3>{puzzle.title}</h3>
+              </Link>
               <h3>${puzzle.price / 100}</h3>
               <AddCartButton />
             </div>

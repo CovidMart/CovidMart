@@ -21,16 +21,24 @@ const User = db.define('user', {
     }
   },
   firstName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: true,
+    defaultValue: 'Puzzle Partier'
   },
   lastName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: true,
+    defaultValue: ''
   },
   phone: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: true,
+    defaultValue: ''
   },
   address: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: true,
+    defaultValue: ''
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
