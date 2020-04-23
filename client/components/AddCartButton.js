@@ -6,7 +6,7 @@ export default class AllPuzzles extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="allbuttons">
         <div>
           <button type="button">ADD TO CART</button>
         </div>
