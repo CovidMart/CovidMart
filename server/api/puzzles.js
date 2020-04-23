@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Puzzle} = require('../db/models')
+const isAdmin = require('./isAdmin')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -10,13 +11,21 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     if (!req.body.imageUrl) {
       req.body.imageUrl =
         'https://atzcart.s3.ap-south-1.amazonaws.com/uploads/images/categories/default.png'
     }
-    const puzzle = await Puzzle.create(req.body)
+    const puzzle = await Puzzle.create({
+      title: req.body.title,
+      price: req.body.price,
+      pieceCount: req.body.pieceCount,
+      dimentions: req.body.dimentions,
+      imageUrl: req.body.imageUrl,
+      category: req.body.category,
+      description: req.body.description
+    })
     res.send(puzzle)
   } catch (error) {
     next(error)
