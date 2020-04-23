@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const isAdmin = require('./isAdmin')
 
 module.exports = router
 
