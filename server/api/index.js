@@ -3,7 +3,7 @@ const isAdmin = require('./isAdmin')
 
 module.exports = router
 
-router.use('/users', require('./users'))
+router.use('/users', isAdmin, require('./users')) // we do want to protect all user info, isAdmin here should be fine
 router.use('/puzzles', require('./puzzles'))
 
 router.use((req, res, next) => {
