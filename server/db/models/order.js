@@ -21,4 +21,8 @@ const Order = db.define('orders', {
   }
 })
 
+Order.prototype.isInCart = function() {
+  return this.stillInCart
+}
+
 module.exports = Order
