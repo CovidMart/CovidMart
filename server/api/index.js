@@ -1,6 +1,5 @@
 const router = require('express').Router()
-
-module.exports = router
+// const {isAdmin} = require('./isAdmin')
 
 router.use('/users', require('./users')) // (removed IsAdmin middldeware)
 //we cannot put isAdmin here ^^ because non-admin users must access their own pages
@@ -12,3 +11,5 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+module.exports = router

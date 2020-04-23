@@ -7,10 +7,11 @@ const getPuzzlesForCart = guestPuzzles => ({
   guestPuzzles
 })
 
-export const fetchPuzzlesForCart = guestCartObj => {
+export const fetchPuzzlesForCart = localStor => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('/cart', guestCartObj)
+      const {data} = await axios.post('/api/cart', localStor)
+      console.log('Redux Fetched DATA:', data)
       dispatch(getPuzzlesForCart(data))
     } catch (error) {
       console.error(error)
@@ -19,13 +20,13 @@ export const fetchPuzzlesForCart = guestCartObj => {
 }
 
 const initialState = {
-  cart: []
+  guestCart: []
 }
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_LOCALSTORAGE_PUZZLES:
-      return {...state, cart: action.guestPuzzles}
+      return {...state, guestCart: action.guestPuzzles}
 
     default:
       return state
