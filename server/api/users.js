@@ -3,9 +3,8 @@ const {User} = require('../db/models')
 const isAdmin = require('./isAdmin')
 module.exports = router
 
-
-router.get('/', isAdmin, async (req, res, next) => {
-
+router.get('/', async (req, res, next) => {
+  //isAdmin can do this
 
   try {
     const users = await User.findAll({

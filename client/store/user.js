@@ -75,6 +75,8 @@ export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user
+    case GET_ALL_USERS:
+      return action.users
     case REMOVE_USER:
       return defaultUser
     default:
