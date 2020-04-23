@@ -8,6 +8,7 @@ import {
   UserHome,
   AllPuzzles,
   SinglePuzzle,
+  CreatePuzzle
   CartGuest,
   CartUser
 } from './components'
@@ -31,6 +32,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/puzzles" component={AllPuzzles} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
+        <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available if NOT logged in */}

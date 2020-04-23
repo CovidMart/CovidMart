@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchAddPuzzle} from '../store/addPuzzle'
+import {fetch} from '../store/addPuzzle'
 
 class CreatePuzzle extends Component {
   handleChangeTitle(event) {

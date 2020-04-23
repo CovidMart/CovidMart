@@ -7,10 +7,10 @@ const Puzzle = db.define('puzzle', {
     allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      min: 0.0
+      min: 0
     }
   },
   pieceCount: {
@@ -22,7 +22,7 @@ const Puzzle = db.define('puzzle', {
     allowNull: false
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     defaultValue:
       'https://atzcart.s3.ap-south-1.amazonaws.com/uploads/images/categories/default.png'
   },
@@ -35,5 +35,21 @@ const Puzzle = db.define('puzzle', {
     defaultValue: ''
   }
 })
+
+// Puzzle.decimalMath = function(input) {
+//   return input / 100
+// }
+
+// const convertToDecimal = puzzle => {
+//   if (puzzle.changed('price')) {
+//     puzzle.price = Puzzle.decimalMath(puzzle.price)
+//   }
+// }
+
+// Puzzle.beforeCreate(convertToDecimal)
+// Puzzle.beforeUpdate(convertToDecimal)
+// Puzzle.beforeBulkCreate(price => {
+//   price.forEach(convertToDecimal)
+// })
 
 module.exports = Puzzle
