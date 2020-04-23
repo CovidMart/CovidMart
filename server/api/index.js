@@ -1,9 +1,7 @@
 const router = require('express').Router()
-const isAdmin = require('./isAdmin')
+const {isAdmin} = require('./isAdmin')
 
-module.exports = router
-
-router.use('/users', isAdmin, require('./users'))
+router.use('/users', isAdmin, require('./users')) // we do want to protect all user info, isAdmin here is fine
 router.use('/puzzles', require('./puzzles'))
 
 router.use((req, res, next) => {
@@ -11,3 +9,5 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+module.exports = router

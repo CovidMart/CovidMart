@@ -8,30 +8,34 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div>
     <h1>PUZZLE PARTY</h1>
     <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          <Link to="/cart/:userId">Cart</Link>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/cart">Cart</Link>
-        </div>
-      )}
-      {/* need: check is Admin */}
-      {isAdmin ? (
-        <div>
-          <Link to="/admin/puzzle/create"> </Link>
-          <Link to="/admin/puzzle/edit"> </Link>
-        </div>
-      ) : null}
+      <div>
+        <Link to="/puzzles">All Puzzles</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/signup">Sign Up</Link>
+
+        {isLoggedIn ? (
+          <div>
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home">Home</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+            <Link to="/cart/:userId">Cart</Link>
+          </div>
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/cart">Cart</Link>
+          </div>
+        )}
+        {/* need: check is Admin */}
+        {isAdmin ? (
+          <div>
+            <Link to="/admin/puzzle/create"> </Link>
+            <Link to="/admin/puzzle/edit"> </Link>
+          </div>
+        ) : null}
+      </div>
     </nav>
     <hr />
   </div>
