@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchAllPuzzles} from '../store/puzzles'
+import AddCartButton from './AddCartButton'
 
 export class AllPuzzles extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ export class AllPuzzles extends React.Component {
               <img src={puzzle.imageUrl} />
               <h3>{puzzle.title}</h3>
               <h3>${puzzle.price / 100}</h3>
+              <AddCartButton />
             </div>
           ))}
       </div>
