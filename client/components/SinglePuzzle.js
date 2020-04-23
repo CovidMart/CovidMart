@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchOnePuzzle} from '../store/puzzles'
+import AddCartButton from './AddCartButton'
 
 /**
  * COMPONENT
@@ -40,6 +41,7 @@ export class SinglePuzzle extends React.Component {
           <strong>Description: </strong>
           {this.props.description}
         </p>
+        <AddCartButton />
       </div>
     )
   }
