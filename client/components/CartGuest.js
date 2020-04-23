@@ -1,28 +1,35 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Cart from './Cart'
+import {fetchPuzzlesForCart} from '../store/cart'
 
-export default class CartGuest extends React.Component {
+// on mount, this component copies data from window.localStorage
+// which thunk will dispatch in api request for the corresponding puzzle data
+// by sending the window.localStorage cartObj in the req.body as guestCart
+// the returned puzzles go on state for info display in the cart
+// quantity is added to the json data (array of puzzles) before res.jsoning it
+
+class CartGuest extends React.Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   cartObj: {},
-    // }
+    this.state = {
+      mounted: false
+    }
   }
 
   componentDidMount() {
-    this.setState({cartObj: window.localStorage})
-    console.log('Got Cart??-->\n', this.state.cartObj)
+    const cartData = window.localStorage
+    this.props.fetchCart(cartData)
+    this.setState({mounted: true})
   }
 
   render() {
-    //if stuff on the props-state (array of puzzles)
-    //load the cart, else...
-    if (this.state.cartObj) {
-      //(this.props.cartArray) {
+    if (this.state.mounted) {
+      const {cartArray} = this.props
+      console.log('Consolement from CartGuest component, our state:', cartArray)
       return (
         <div>
-          <Cart puzzleArr={this.state.cartObj} />
+          <Cart orderArray={cartArray} />
         </div>
       )
     } else {
@@ -30,8 +37,10 @@ export default class CartGuest extends React.Component {
         <div>
           <h2>Loading cart...</h2>
           <img
-            src="../../public/loadingPuzzleGif.webp"
+            src="loadingPuzzleGif.webp"
             alt="Animated Puzzle Pieces"
+            height="160"
+            width="160"
           />
         </div>
       )
@@ -39,9 +48,16 @@ export default class CartGuest extends React.Component {
   }
 }
 
-// on mount, this component will fetch data from window.localStorage
-// which is written as key (puzzle id): value (quantity in cart)
-// and thunk will dispatch api request for the corresponding puzzle data
-// by sending the window.localStorage cartObj in the req.body as guestCart
-// the returned puzzles go on state for info display in the cart
-// quantity is added to the json data (array of puzzles) before res.jsoning it
+const mapState = state => {
+  return {
+    cartArray: state.cart.guestCart
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    fetchCart: cartData => dispatch(fetchPuzzlesForCart(cartData))
+  }
+}
+
+export default connect(mapState, mapDispatch)(CartGuest)
