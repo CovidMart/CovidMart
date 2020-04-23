@@ -20,10 +20,9 @@ const setValue = (name, value) => {
   }
 }
 
-// thunk creator
-const AddPuzzle = () => {
+const fetchEditPuzzle = () => {
   return async dispatch => {
-    const {data} = await axios.post('/api/puzzles', {
+    const {data} = await axios.put('/api/puzzles', {
       title: this.state.title,
       imageUrl: this.state.imageUrl,
       dimensions: this.state.dimensions,
@@ -36,16 +35,16 @@ const AddPuzzle = () => {
   }
 }
 
-function addPuzzleReducer(state = initialState, action) {
+function EditPuzzleReducer(state = initialState, action) {
   switch (action.type) {
     case SET_VALUE:
       const copy = {...state}
-      copy[action.name] = action.value //modifying original copy, not copy of copy
+      copy[action.name] = action.value
       return copy
     default:
       return state
   }
 }
 
-export {setValue, AddPuzzle}
-export default addPuzzleReducer
+export {setValue, fetchEditPuzzle}
+export default EditPuzzleReducer

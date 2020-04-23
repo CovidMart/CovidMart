@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {AddPuzzle, setValue} from '../store/CreatePuzzle'
+import {fetchEditPuzzle, setValue} from '../store/CreatePuzzle'
 
-class CreatePuzzle extends Component {
+class EditPuzzle extends Component {
   handleChange(name, event) {
     this.props.changeValue(name, event.target.value)
   }
@@ -125,9 +125,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    submitPuzzle: () => dispatch(AddPuzzle()),
+    submitPuzzle: () => dispatch(fetchEditPuzzle()),
     changeValue: (name, value) => dispatch(setValue(name, value))
   }
 }
 
-export default connect(mapState, mapDispatch)(CreatePuzzle)
+export default connect(mapState, mapDispatch)(EditPuzzle)

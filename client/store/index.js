@@ -5,8 +5,9 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import puzzles from './puzzles'
 import CreatePuzzle from './CreatePuzzle'
+import EditPuzzle from './EditPuzzle'
 
-const reducer = combineReducers({user, puzzles, CreatePuzzle})
+const reducer = combineReducers({user, puzzles, CreatePuzzle, EditPuzzle})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
