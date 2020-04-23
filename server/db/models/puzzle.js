@@ -7,7 +7,7 @@ const Puzzle = db.define('puzzle', {
     allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.DECIMAL(10, 2), //change to int
     allowNull: false,
     validate: {
       min: 0.0
@@ -22,7 +22,7 @@ const Puzzle = db.define('puzzle', {
     allowNull: false
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING, //change to text
     defaultValue:
       'https://atzcart.s3.ap-south-1.amazonaws.com/uploads/images/categories/default.png'
   },
