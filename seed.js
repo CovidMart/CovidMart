@@ -1,11 +1,11 @@
 const db = require('./server/db')
-const {User, Puzzle, Order} = require('./server/db/models')
+const {User, Puzzle, Order, PuzzleOrders} = require('./server/db/models')
 
 //feel free to add cool puzzles to the seed data!
 const puzzles = [
   {
     title: 'Wharhol TP Mask',
-    price: 21.99,
+    price: 2199,
     pieceCount: 700,
     dimensions: '27.56" x 19.69"',
     imageUrl: '/puzzles/wharholTPmask.jpg',
@@ -15,7 +15,7 @@ const puzzles = [
   },
   {
     title: 'Dogs Playing Poker',
-    price: 31.91,
+    price: 3191,
     pieceCount: 700,
     dimensions: '27.56" x 16.68"',
     imageUrl: '/puzzles/pokerDogs.jpg',
@@ -25,7 +25,7 @@ const puzzles = [
   },
   {
     title: 'Voltsillam',
-    price: 35.29,
+    price: 3529,
     pieceCount: 5663,
     dimensions: '8x11',
     imageUrl: 'http://dummyimage.com/327x281.jpg/cc0000/ffffff',
@@ -34,7 +34,7 @@ const puzzles = [
   },
   {
     title: 'Span',
-    price: 33.62,
+    price: 3362,
     pieceCount: 353,
     dimensions: '12x18',
     imageUrl: 'http://dummyimage.com/397x356.jpg/5fa2dd/ffffff',
@@ -44,7 +44,7 @@ const puzzles = [
   },
   {
     title: 'Andalax',
-    price: 37.96,
+    price: 3796,
     pieceCount: 3104,
     dimensions: '22.5x34',
     imageUrl: 'http://dummyimage.com/200x328.jpg/dddddd/000000',
@@ -54,7 +54,7 @@ const puzzles = [
   },
   {
     title: 'Alpha',
-    price: 42.56,
+    price: 4256,
     pieceCount: 1591,
     dimensions: '10x8',
     imageUrl: 'http://dummyimage.com/258x297.jpg/5fa2dd/ffffff',
@@ -64,7 +64,7 @@ const puzzles = [
   },
   {
     title: 'Wrapsafe',
-    price: 22.41,
+    price: 2241,
     pieceCount: 1870,
     dimensions: '22.5x34',
     imageUrl: 'http://dummyimage.com/278x374.jpg/5fa2dd/ffffff',
@@ -74,7 +74,7 @@ const puzzles = [
   },
   {
     title: 'Transcof',
-    price: 34.04,
+    price: 3404,
     pieceCount: 5670,
     dimensions: '12x18',
     imageUrl: 'http://dummyimage.com/213x238.jpg/5fa2dd/ffffff',
@@ -84,7 +84,7 @@ const puzzles = [
   },
   {
     title: 'Subin',
-    price: 29.58,
+    price: 2958,
     pieceCount: 2886,
     dimensions: '10x8',
     imageUrl: 'http://dummyimage.com/225x270.jpg/cc0000/ffffff',
@@ -94,7 +94,7 @@ const puzzles = [
   },
   {
     title: 'Viva',
-    price: 4.42,
+    price: 442,
     pieceCount: 6652,
     dimensions: '32x46',
     imageUrl: 'http://dummyimage.com/361x290.jpg/dddddd/000000',
@@ -104,7 +104,7 @@ const puzzles = [
   },
   {
     title: 'Zamit',
-    price: 49.48,
+    price: 4948,
     pieceCount: 5126,
     dimensions: '12x18',
     imageUrl: 'http://dummyimage.com/340x203.jpg/5fa2dd/ffffff',
@@ -114,7 +114,7 @@ const puzzles = [
   },
   {
     title: 'Vagrammo',
-    price: 5.21,
+    price: 521,
     pieceCount: 2802,
     dimensions: '12x18',
     imageUrl: 'http://dummyimage.com/266x320.jpg/5fa2dd/ffffff',
@@ -124,7 +124,7 @@ const puzzles = [
   },
   {
     title: 'Stronghold',
-    price: 39.53,
+    price: 3953,
     pieceCount: 8958,
     dimensions: '10x8',
     imageUrl: 'http://dummyimage.com/366x262.jpg/5fa2dd/ffffff',
@@ -134,7 +134,7 @@ const puzzles = [
   },
   {
     title: 'Thunder Storm',
-    price: 5.25,
+    price: 525,
     pieceCount: 2787,
     dimensions: '10x8',
     imageUrl: 'http://dummyimage.com/352x388.jpg/ff4444/ffffff',
@@ -144,7 +144,7 @@ const puzzles = [
   },
   {
     title: 'Kitten Soccer',
-    price: 16.01,
+    price: 1601,
     pieceCount: 8548,
     dimensions: '16x24',
     imageUrl: 'http://dummyimage.com/281x276.jpg/5fa2dd/ffffff',
@@ -154,7 +154,7 @@ const puzzles = [
   },
   {
     title: 'Bigtax',
-    price: 54.32,
+    price: 5432,
     pieceCount: 3554,
     dimensions: '22.5x34',
     imageUrl: 'http://dummyimage.com/362x216.jpg/dddddd/000000',
@@ -164,7 +164,7 @@ const puzzles = [
   },
   {
     title: 'Gembucket',
-    price: 38.79,
+    price: 3879,
     pieceCount: 9107,
     dimensions: '11x16',
     imageUrl: 'http://dummyimage.com/309x397.jpg/cc0000/ffffff',
@@ -174,7 +174,7 @@ const puzzles = [
   },
   {
     title: 'Stage Craft',
-    price: 29.72,
+    price: 2972,
     pieceCount: 6916,
     dimensions: '8x11',
     imageUrl: 'http://dummyimage.com/219x354.jpg/dddddd/000000',
@@ -184,7 +184,7 @@ const puzzles = [
   },
   {
     title: 'Alpine Way',
-    price: 13.93,
+    price: 1393,
     pieceCount: 2857,
     dimensions: '32x46',
     imageUrl: 'http://dummyimage.com/302x233.jpg/ff4444/ffffff',
@@ -194,7 +194,7 @@ const puzzles = [
   },
   {
     title: 'Regrant',
-    price: 41.72,
+    price: 4172,
     pieceCount: 650,
     dimensions: '12x18',
     imageUrl: 'http://dummyimage.com/371x228.jpg/dddddd/000000',
@@ -204,7 +204,7 @@ const puzzles = [
   },
   {
     title: 'Veribet',
-    price: 44.36,
+    price: 4436,
     pieceCount: 4442,
     dimensions: '22.5x34',
     imageUrl: 'http://dummyimage.com/342x313.jpg/ff4444/ffffff',
@@ -214,7 +214,7 @@ const puzzles = [
   },
   {
     title: 'Holdlamis',
-    price: 19.7,
+    price: 197,
     pieceCount: 5934,
     dimensions: '8x11',
     imageUrl: 'http://dummyimage.com/318x293.jpg/5fa2dd/ffffff',
@@ -224,7 +224,7 @@ const puzzles = [
   },
   {
     title: 'Cookley',
-    price: 32.22,
+    price: 3222,
     pieceCount: 1957,
     dimensions: '22.5x34',
     imageUrl: 'http://dummyimage.com/280x232.jpg/cc0000/ffffff',
@@ -234,7 +234,7 @@ const puzzles = [
   },
   {
     title: 'Stronghold',
-    price: 16.74,
+    price: 1674,
     pieceCount: 6902,
     dimensions: '8x11',
     imageUrl: 'http://dummyimage.com/200x302.jpg/5fa2dd/ffffff',
@@ -244,7 +244,7 @@ const puzzles = [
   },
   {
     title: 'Konklux',
-    price: 25.32,
+    price: 2532,
     pieceCount: 6467,
     dimensions: '16x24',
     imageUrl: 'http://dummyimage.com/254x201.jpg/5fa2dd/ffffff',
@@ -254,7 +254,7 @@ const puzzles = [
   },
   {
     title: 'Mat Lam Tam',
-    price: 14.84,
+    price: 1484,
     pieceCount: 7163,
     dimensions: '16x24',
     imageUrl: 'http://dummyimage.com/376x350.jpg/ff4444/ffffff',
@@ -264,7 +264,7 @@ const puzzles = [
   },
   {
     title: 'Matsoft',
-    price: 4.49,
+    price: 449,
     pieceCount: 6742,
     dimensions: '32x46',
     imageUrl: 'http://dummyimage.com/328x201.jpg/5fa2dd/ffffff',
@@ -274,7 +274,7 @@ const puzzles = [
   },
   {
     title: 'Hogwarts',
-    price: 19.39,
+    price: 1939,
     pieceCount: 9574,
     dimensions: '12x18',
     imageUrl: 'http://dummyimage.com/277x367.jpg/cc0000/ffffff',
@@ -284,7 +284,7 @@ const puzzles = [
   },
   {
     title: 'Y-find',
-    price: 3.18,
+    price: 318,
     pieceCount: 9463,
     dimensions: '10x8',
     imageUrl: 'http://dummyimage.com/213x382.jpg/cc0000/ffffff',
@@ -294,7 +294,7 @@ const puzzles = [
   },
   {
     title: 'Fintone',
-    price: 9.12,
+    price: 912,
     pieceCount: 2961,
     dimensions: '16x24',
     imageUrl: 'http://dummyimage.com/388x256.jpg/dddddd/000000',
@@ -304,7 +304,7 @@ const puzzles = [
   },
   {
     title: 'Stim',
-    price: 30.62,
+    price: 3062,
     pieceCount: 1671,
     dimensions: '11x16',
     imageUrl: 'http://dummyimage.com/266x305.jpg/5fa2dd/ffffff',
@@ -314,7 +314,7 @@ const puzzles = [
   },
   {
     title: 'Wrigley Field',
-    price: 23.09,
+    price: 2309,
     pieceCount: 7397,
     dimensions: '12x18',
     imageUrl: 'http://dummyimage.com/226x338.jpg/cc0000/ffffff',
@@ -324,7 +324,7 @@ const puzzles = [
   },
   {
     title: 'Treeflex',
-    price: 32.29,
+    price: 3229,
     pieceCount: 1629,
     dimensions: '32x46',
     imageUrl: 'http://dummyimage.com/383x317.jpg/ff4444/ffffff',
@@ -334,7 +334,7 @@ const puzzles = [
   },
   {
     title: 'Domainer',
-    price: 10.22,
+    price: 1022,
     pieceCount: 744,
     dimensions: '12x18',
     imageUrl: 'http://dummyimage.com/322x336.jpg/dddddd/000000',
@@ -761,24 +761,58 @@ const orders = [
   {
     stillInCart: true,
     shippingStatus: 'Processing',
-    pricePaid: 8.65
+    pricePaid: 865
   },
   {
     stillInCart: false,
     shippingStatus: 'Shipped',
-    pricePaid: 31.99
+    pricePaid: 3199
   },
   {
     stillInCart: false,
     shippingStatus: 'Delivered',
-    pricePaid: 10.95
+    pricePaid: 1095
   },
   {
     stillInCart: false,
     shippingStatus: 'Delivered',
-    pricePaid: 28.32
+    pricePaid: 2832
   }
 ]
+
+// const orderproducts= [
+//   {
+//     quantity:3,
+//     subtotal:2200,
+//     total:2453,
+//     puzzleId:6,
+//     orde
+//   },
+//   {
+//     quantity:1,
+//     subtotal:800,
+//     total:1022,
+//     puzzleId:2
+//   },
+//   {
+//     quantity:7,
+//     subtotal:4567,
+//     total:5123,
+//     puzzleId:16
+//   },
+//   {
+//     quantity:5,
+//     subtotal:3321,
+//     total:3541,
+//     puzzleId:17
+//   },
+//   {
+//     quantity:9,
+//     subtotal:5634,
+//     total:6237,
+//     puzzleId:28
+//   },
+// ]
 
 const seed = async () => {
   try {
@@ -796,6 +830,9 @@ const seed = async () => {
       orders.map(item => {
         Order.create(item)
       })
+      // orderproducts.map(order =>{
+      //   PuzzleOrders.create(order)
+      // })
     )
 
     db.close()

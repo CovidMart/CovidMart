@@ -20,7 +20,7 @@ export class AllPuzzles extends React.Component {
             <div key={puzzle.id}>
               <img src={puzzle.imageUrl} />
               <h3>{puzzle.title}</h3>
-              <h3>{puzzle.price}</h3>
+              <h3>${puzzle.price / 100}</h3>
             </div>
           ))}
       </div>

@@ -26,7 +26,7 @@ export class SinglePuzzle extends React.Component {
       <div>
         <img src={this.props.imageUrl} height="300" width="300" />
         <h2>{this.props.title}</h2>
-        <h3>${this.props.price}</h3>
+        <h3>${this.props.price / 100}</h3>
         <p>
           <strong>Number of Pieces:</strong> {this.props.pieceCount}
         </p>
