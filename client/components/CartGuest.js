@@ -11,28 +11,25 @@ export default class CartGuest extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({cartObj: window.localStorage})
-    console.log('Got Cart??-->\n', this.state.cartObj)
+    this.props.cartObj = window.localStorage
+    console.log('Got Cart??-->\n', this.props.cartObj)
   }
 
   render() {
     //if stuff on the props-state (array of puzzles)
     //load the cart, else...
-    if (this.state.cartObj) {
+    if (this.props.cartObj) {
       //(this.props.cartArray) {
       return (
         <div>
-          <Cart puzzleArr={this.state.cartObj} />
+          <Cart puzzleArr={this.props.cartObj} />
         </div>
       )
     } else {
       return (
         <div>
           <h2>Loading cart...</h2>
-          <img
-            src="../../public/loadingPuzzleGif.webp"
-            alt="Animated Puzzle Pieces"
-          />
+          <img src="loadingPuzzleGif.webp" alt="Animated Puzzle Pieces" />
         </div>
       )
     }
