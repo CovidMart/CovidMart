@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
+const GET_ALL_USERS = 'GET_ALL_USERS'
 const REMOVE_USER = 'REMOVE_USER'
 
 /**
@@ -16,6 +17,7 @@ const defaultUser = {}
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
+const getAllUser = user => ({type: GET_ALL_USERS, users})
 const removeUser = () => ({type: REMOVE_USER})
 
 /**
@@ -25,6 +27,16 @@ export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
     dispatch(getUser(res.data || defaultUser))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const fetchAllUsers = () => async dispatch => {
+  //only admin
+  try {
+    const res = await axios.get('/users')
+    dispatch(fetchAllUsers(res.data))
   } catch (err) {
     console.error(err)
   }
