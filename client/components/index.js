@@ -4,5 +4,10 @@
  * having to figure out which file they belong to!
  */
 export {default as Navbar} from './navbar'
-export {default as UserHome} from './user-home'
+export {default as UserHome} from './UserHome'
 export {Login, Signup} from './auth-form'
+export {default as AllPuzzles} from './AllPuzzles'
+export {default as SinglePuzzle} from './SinglePuzzle'
+export {default as CreatePuzzle} from './SinglePuzzle'
+export {default as CartGuest} from './CartGuest'
+export {default as CartUser} from './CartUser'

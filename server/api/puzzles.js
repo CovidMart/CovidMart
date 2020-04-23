@@ -11,6 +11,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/:puzzleId', async (req, res, next) => {
+  try {
+    const onePuzzle = await Puzzle.findByPk(req.params.puzzleId)
+    res.json(onePuzzle)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//want to destructure req.body first so all info cant be seen
 router.post('/', isAdmin, async (req, res, next) => {
   try {
     if (!req.body.imageUrl) {
@@ -32,13 +42,24 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.put('/:puzzleId', async (req, res, next) => {
+//want to destructure req.body first so all info cant be seen
+router.put('/:puzzleId', isAdmin, async (req, res, next) => {
   Puzzle.findByPk(req.params.puzzleId)
-    .then(puzzle => puzzle.update(req.body))
+    .then(puzzle =>
+      puzzle.update({
+        title: req.body.title,
+        price: req.body.price,
+        pieceCount: req.body.pieceCount,
+        dimentions: req.body.dimentions,
+        imageUrl: req.body.imageUrl,
+        category: req.body.category,
+        description: req.body.description
+      })
+    )
     .catch(next)
 })
 
-router.delete('/:puzzleId', async (req, res, next) => {
+router.delete('/:puzzleId', isAdmin, async (req, res, next) => {
   Puzzle.destroy({
     where: {
       id: req.params.puzzleId
