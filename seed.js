@@ -780,40 +780,6 @@ const orders = [
   }
 ]
 
-// const orderproducts= [
-//   {
-//     quantity:3,
-//     subtotal:2200,
-//     total:2453,
-//     puzzleId:6,
-//     orde
-//   },
-//   {
-//     quantity:1,
-//     subtotal:800,
-//     total:1022,
-//     puzzleId:2
-//   },
-//   {
-//     quantity:7,
-//     subtotal:4567,
-//     total:5123,
-//     puzzleId:16
-//   },
-//   {
-//     quantity:5,
-//     subtotal:3321,
-//     total:3541,
-//     puzzleId:17
-//   },
-//   {
-//     quantity:9,
-//     subtotal:5634,
-//     total:6237,
-//     puzzleId:28
-//   },
-// ]
-
 const seed = async () => {
   try {
     await db.sync({force: true})

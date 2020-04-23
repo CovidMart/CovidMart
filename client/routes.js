@@ -8,7 +8,7 @@ import {
   UserHome,
   AllPuzzles,
   SinglePuzzle,
-  CreatePuzzle
+  CreatePuzzle,
   CartGuest,
   CartUser
 } from './components'
