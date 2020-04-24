@@ -4,7 +4,6 @@ const Cart = props => {
   const {orderArray} = props
   //handlers for add and delete will have to be passed in as well
   //If nothing is in the cart guide the user back to shopping
-  console.log('Got props?', orderArray)
   return (
     <div>
       <h1>Party Carty!</h1>

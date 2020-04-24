@@ -5,10 +5,8 @@ module.exports = router
 //----Guest Cart----//
 
 router.post('/', async (req, res, next) => {
-  console.log('What is on REQBODY???', req.body)
   const guestCart = JSON.parse(req.body.guestCart)
   const cartPuzzles = []
-  console.log('Route received from thunk:', guestCart)
   try {
     // eslint-disable-next-line guard-for-in
     for (let puzzleId in guestCart) {
@@ -19,7 +17,6 @@ router.post('/', async (req, res, next) => {
         cartPuzzles.push(foundPuzzle)
       }
     }
-    console.log('API route response:', cartPuzzles)
     res.json(cartPuzzles)
   } catch (error) {
     next(error)
