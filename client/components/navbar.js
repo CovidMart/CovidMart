@@ -29,7 +29,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
           </div>
         )}
         {/* need: check is Admin */}
-        {isAdmin ? <Link to="/admin/puzzle/create"> </Link> : null}
+        {isAdmin ? (
+          <div>
+            <Link to="/admin/puzzle/create"> </Link>
+            <Link to="/admin/puzzle/edit"> </Link>
+          </div>
+        ) : null}
       </div>
     </nav>
     <hr />

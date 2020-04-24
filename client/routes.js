@@ -8,9 +8,10 @@ import {
   UserHome,
   AllPuzzles,
   SinglePuzzle,
-  CreatePuzzle,
   CartGuest,
-  CartUser
+  CartUser,
+  CreatePuzzle,
+  EditPuzzle
 } from './components'
 
 import {me} from './store'
@@ -47,6 +48,20 @@ class Routes extends Component {
             <Route exact path="/cart/:userId" component={CartUser} />
           </Switch>
         )}
+
+        {isLoggedIn &&
+          isAdmin && (
+            <Switch>
+              {/* Routes placed here are only available after admin logging in */}
+              <Route
+                exact
+                path="/admin/puzzle/create"
+                component={CreatePuzzle}
+              />
+              <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
+            </Switch>
+          )}
+
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>

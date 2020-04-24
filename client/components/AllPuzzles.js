@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {fetchAllPuzzles, removePuzzle} from '../store/puzzles'
 import {Link} from 'react-router-dom'
-import {fetchAllPuzzles} from '../store/puzzles'
 import AddCartButton from './AddCartButton'
 
 export class AllPuzzles extends React.Component {
@@ -15,11 +15,21 @@ export class AllPuzzles extends React.Component {
 
   render() {
     let allPuzzles = this.props.puzzles
+    const deletePuzzle = this.props.deletePuzzle
+
     return (
       <div>
         {allPuzzles &&
           allPuzzles.map(puzzle => (
             <div key={puzzle.id}>
+              <div>
+                <input
+                  type="button"
+                  value="x"
+                  onClick={deletePuzzle.bind(this, puzzle.id)}
+                />
+              </div>
+
               <Link to={`/puzzles/${puzzle.id}`}>
                 <img src={puzzle.imageUrl} />
                 <h3>{puzzle.title}</h3>
@@ -41,7 +51,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchAllPuzzles: () => dispatch(fetchAllPuzzles())
+    fetchAllPuzzles: () => dispatch(fetchAllPuzzles()),
+    deletePuzzle: () => dispatch(removePuzzle())
   }
 }
 
