@@ -12,14 +12,11 @@ export class SinglePuzzle extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match.params.puzzleId, 'in componenet')
     const id = this.props.match.params.puzzleId
     this.props.fetchOnePuzzle(id)
   }
 
   render() {
-    console.log(this.props)
-
     if (this.props.loadingSingle === true) {
       return <div>LOADING!!!</div>
     }
@@ -51,7 +48,6 @@ export class SinglePuzzle extends React.Component {
  * CONTAINER
  */
 const mapState = state => {
-  console.log('THIS IS STATE', state)
   return {
     title: state.puzzles.singlePuzzle.title,
     price: state.puzzles.singlePuzzle.price,
