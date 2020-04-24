@@ -22,7 +22,7 @@ export class AllPuzzles extends React.Component {
               <img src={puzzle.imageUrl} />
               <h3>{puzzle.title}</h3>
               <h3>${puzzle.price / 100}</h3>
-              <AddCartButton />
+              <AddCartButton id={puzzle.id} />
             </div>
           ))}
       </div>

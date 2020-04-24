@@ -34,20 +34,20 @@ PuzzleOrders.pullQuantity = function() {
   return 2
 }
 PuzzleOrders.pullPrice = function() {
-  return Puzzle.price
+  if (PuzzleOrders.puzzleId === Puzzle.id) return Puzzle.price
 }
 
-PuzzleOrders.generateSubtotal = function(quantity, subtotal) {
-  return quantity * subtotal
+PuzzleOrders.generateSubtotal = function(quantity, price) {
+  return quantity * price
 }
 
 /**
  * hooks
  */
 const generateOrderData = PuzzleOrders => {
-  const quant = (PuzzleOrders.quantity = PuzzleOrders.pullQuantity())
-  const sub = (PuzzleOrders.price = PuzzleOrders.pullPrice())
-  PuzzleOrders.subtotal = PuzzleOrders.generateSubtotal(quant, sub)
+  const quantity = (PuzzleOrders.quantity = PuzzleOrders.pullQuantity())
+  const price = (PuzzleOrders.price = PuzzleOrders.pullPrice())
+  PuzzleOrders.subtotal = PuzzleOrders.generateSubtotal(quantity, price)
 }
 
 PuzzleOrders.beforeCreate(generateOrderData)
