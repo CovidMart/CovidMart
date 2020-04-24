@@ -3,6 +3,9 @@ import {connect} from 'react-redux'
 import {fetchAllPuzzles} from '../store/puzzles'
 import AddCartButton from './AddCartButton'
 
+/**
+ * COMPONENT
+ */
 export class AllPuzzles extends React.Component {
   constructor(props) {
     super(props)
@@ -22,13 +25,17 @@ export class AllPuzzles extends React.Component {
               <img src={puzzle.imageUrl} />
               <h3>{puzzle.title}</h3>
               <h3>${puzzle.price / 100}</h3>
-              <AddCartButton id={puzzle.id} />
+              <AddCartButton id={puzzle.id} price={puzzle.price} />
             </div>
           ))}
       </div>
     )
   }
 }
+
+/**
+ * CONTAINER
+ */
 
 const mapState = state => {
   return {

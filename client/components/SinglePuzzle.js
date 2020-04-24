@@ -41,7 +41,7 @@ export class SinglePuzzle extends React.Component {
           <strong>Description: </strong>
           {this.props.description}
         </p>
-        <AddCartButton id={this.props.id} />
+        <AddCartButton id={this.props.id} price={this.props.price} />
       </div>
     )
   }
