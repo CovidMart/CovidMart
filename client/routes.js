@@ -10,6 +10,7 @@ import {
   SinglePuzzle,
   CartGuest,
   CartUser,
+  AllUsers,
   CreatePuzzle,
   EditPuzzle
 } from './components'
@@ -34,6 +35,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={AllPuzzles} />
         <Route exact path="/puzzles" component={AllPuzzles} />
+        <Route exact path="/users" component={AllUsers} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
         <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
         {!isLoggedIn && (
@@ -77,7 +79,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.singleUser.id
   }
 }
 
