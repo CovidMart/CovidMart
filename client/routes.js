@@ -8,10 +8,13 @@ import {
   UserHome,
   AllPuzzles,
   SinglePuzzle,
-  CreatePuzzle,
   CartGuest,
-  CartUser
+  CartUser,
+  AllUsers,
+  CreatePuzzle,
+  EditPuzzle
 } from './components'
+
 import {me} from './store'
 
 /**
@@ -31,6 +34,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/puzzles" component={AllPuzzles} />
+        <Route exact path="/users" component={AllUsers} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
         <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
         {!isLoggedIn && (
@@ -46,6 +50,20 @@ class Routes extends Component {
             <Route exact path="/cart/:userId" component={CartUser} />
           </Switch>
         )}
+
+        {isLoggedIn &&
+          isAdmin && (
+            <Switch>
+              {/* Routes placed here are only available after admin logging in */}
+              <Route
+                exact
+                path="/admin/puzzle/create"
+                component={CreatePuzzle}
+              />
+              <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
+            </Switch>
+          )}
+
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
@@ -60,7 +78,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.singleUser.id
   }
 }
 
