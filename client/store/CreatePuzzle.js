@@ -4,7 +4,7 @@ const initialState = {
   title: '',
   imageUrl: '',
   dimensions: '',
-  price: 0.0,
+  price: 0,
   pieceCount: 0,
   category: '',
   description: ''
@@ -23,16 +23,20 @@ const setValue = (name, value) => {
 // thunk creator
 const AddPuzzle = () => {
   return async dispatch => {
-    const {data} = await axios.post('/api/puzzles', {
-      title: this.state.title,
-      imageUrl: this.state.imageUrl,
-      dimensions: this.state.dimensions,
-      price: this.state.price,
-      pieceCount: this.state.pieceCount,
-      category: this.state.category,
-      description: this.state.description
-    })
-    dispatch(setValue(data))
+    try {
+      const {data} = await axios.post('/api/puzzles', {
+        title: this.state.title,
+        imageUrl: this.state.imageUrl,
+        dimensions: this.state.dimensions,
+        price: this.state.price,
+        pieceCount: this.state.pieceCount,
+        category: this.state.category,
+        description: this.state.description
+      })
+      dispatch(setValue(data))
+    } catch (error) {
+      dispatch(console.error(error))
+    }
   }
 }
 

@@ -22,16 +22,20 @@ const setValue = (name, value) => {
 
 const fetchEditPuzzle = () => {
   return async dispatch => {
-    const {data} = await axios.put('/api/puzzles', {
-      title: this.state.title,
-      imageUrl: this.state.imageUrl,
-      dimensions: this.state.dimensions,
-      price: this.state.price,
-      pieceCount: this.state.pieceCount,
-      category: this.state.category,
-      description: this.state.description
-    })
-    dispatch(setValue(data))
+    try {
+      const {data} = await axios.put('/api/puzzles', {
+        title: this.state.title,
+        imageUrl: this.state.imageUrl,
+        dimensions: this.state.dimensions,
+        price: this.state.price,
+        pieceCount: this.state.pieceCount,
+        category: this.state.category,
+        description: this.state.description
+      })
+      dispatch(setValue(data))
+    } catch (error) {
+      dispatch(console.error(error))
+    }
   }
 }
 
