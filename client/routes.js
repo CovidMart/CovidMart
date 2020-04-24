@@ -10,7 +10,8 @@ import {
   SinglePuzzle,
   CreatePuzzle,
   CartGuest,
-  CartUser
+  CartUser,
+  AllUsers
 } from './components'
 
 import {me} from './store'

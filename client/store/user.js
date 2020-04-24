@@ -17,7 +17,7 @@ const defaultUser = {}
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
-const getAllUser = user => ({type: GET_ALL_USERS, users})
+const getAllUsers = users => ({type: GET_ALL_USERS, users})
 const removeUser = () => ({type: REMOVE_USER})
 
 /**
@@ -35,8 +35,8 @@ export const me = () => async dispatch => {
 export const fetchAllUsers = () => async dispatch => {
   //only admin
   try {
-    const res = await axios.get('/users')
-    dispatch(fetchAllUsers(res.data))
+    const res = await axios.get('/api/users')
+    dispatch(getAllUsers(res.data))
   } catch (err) {
     console.error(err)
   }

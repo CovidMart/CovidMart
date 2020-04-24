@@ -13,18 +13,17 @@ export class AllUsers extends React.Component {
   }
 
   render() {
-    console.log('hey')
-    console.log(this.props)
-    let AllUsers = this.props.user
+    console.log(this.props, 'THIS IS PROPS')
+    let allUsers = this.props.user
     return (
       <div>
         {allUsers &&
           allUsers.map(user => (
             <div key={user.id}>
               <Link to={`/user/${user.id}`}>
-                <h3>{user.name}</h3>
+                <h3>{user.email}</h3>
               </Link>
-              <h3>{user.address}</h3>
+              <h3>{user.id}</h3>
             </div>
           ))}
       </div>
@@ -34,7 +33,7 @@ export class AllUsers extends React.Component {
 
 const mapState = state => {
   return {
-    users: state.user
+    users: state.user.user
   }
 }
 
