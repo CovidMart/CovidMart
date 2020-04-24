@@ -24,8 +24,18 @@ router.post('/', async (req, res, next) => {
 })
 
 //----User Cart----//
+//NOTE: This route must be protected (TBD)!!!
 
-router.get('/:userId', (req, res, next) => {
-  //logged in user should route here
-  res.send('Welcome to logged-in cart!')
+router.get('/:userId', async (req, res, next) => {
+  const uid = req.params.userId
+  try {
+    const currentUser = await User.findByPk(uid)
+    const activeOrders = await currentUser.getOrders({
+      where: {stillInCart: true},
+      include: [{model: PuzzleOrders}, {model: puzzles}]
+    })
+    console.log('Got active orders?', activeOrders)
+  } catch (error) {
+    next(error)
+  }
 })

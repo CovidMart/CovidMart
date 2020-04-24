@@ -9,6 +9,7 @@ class CartGuest extends React.Component {
     this.state = {
       mounted: false
     }
+    this.lineItem = this.lineItem.bind(this)
   }
 
   componentDidMount() {
@@ -17,12 +18,16 @@ class CartGuest extends React.Component {
     this.setState({mounted: true})
   }
 
+  lineItem(qty, price) {
+    return qty * price
+  }
+
   render() {
     if (this.state.mounted) {
       const {cartArray} = this.props
       return (
         <div>
-          <Cart orderArray={cartArray} />
+          <Cart orderArray={cartArray} lineItem={this.lineItem} />
         </div>
       )
     } else {

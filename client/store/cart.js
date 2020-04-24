@@ -27,7 +27,7 @@ export const fetchPuzzlesForCart = localStor => {
 export const fetchUserOrdersForCart = userId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/cart/${userId}`)
+      const {data} = await axios.get(`/api/cart/${userId}`)
       dispatch(getUserOrdersForCart(data))
     } catch (error) {
       console.error(error)
