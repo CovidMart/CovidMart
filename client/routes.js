@@ -33,6 +33,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route exact path="/" component={AllPuzzles} />
         <Route exact path="/puzzles" component={AllPuzzles} />
         <Route exact path="/users" component={AllUsers} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />

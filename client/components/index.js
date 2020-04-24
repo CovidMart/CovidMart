@@ -11,6 +11,5 @@ export {default as AllUsers} from './AllUsers'
 export {default as SinglePuzzle} from './SinglePuzzle'
 export {default as CartGuest} from './CartGuest'
 export {default as CartUser} from './CartUser'
-export {default as CreatePuzzle} from './SinglePuzzle'
-export {default as EditPuzzle} from './CartUser'
-
+export {default as CreatePuzzle} from './Admin/CreatePuzzle'
+export {default as EditPuzzle} from './Admin/EditPuzzle'
