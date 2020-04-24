@@ -110,8 +110,6 @@ class EditPuzzle extends Component {
         <br />
         <br />
         <br />
-        <br />
-        <br />
       </form>
     )
   }
