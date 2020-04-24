@@ -14,7 +14,7 @@ export class AllUsers extends React.Component {
 
   render() {
     console.log(this.props, 'THIS IS PROPS')
-    let allUsers = this.props.user
+    let allUsers = this.props.users
     return (
       <div>
         {allUsers &&
@@ -33,7 +33,7 @@ export class AllUsers extends React.Component {
 
 const mapState = state => {
   return {
-    users: state.user.user
+    users: state.user.allUsers
   }
 }
 

@@ -11,6 +11,12 @@ const REMOVE_USER = 'REMOVE_USER'
 /**
  * INITIAL STATE
  */
+let initialState = {
+  singleUser: {},
+  userLoading: true,
+  allUsers: [],
+  allUsersLoading: true
+}
 const defaultUser = {}
 
 /**
@@ -26,7 +32,7 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || defaultUser))
+    dispatch(getUser(res.data || initialState.defaultUser))
   } catch (err) {
     console.error(err)
   }
@@ -71,14 +77,14 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
+      return {...state, singleUser: action.user}
     case GET_ALL_USERS:
-      return action.users
+      return {...state, allUsers: action.users, allUsersLoading: false}
     case REMOVE_USER:
-      return defaultUser
+      return {...state, singleUser: {}}
     default:
       return state
   }
