@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {isAdmin} = require('./isAdmin')
+const isAdmin = require('./isAdmin')
 
 router.use('/users', isAdmin, require('./users')) // we do want to protect all user info, isAdmin here is fine
 router.use('/puzzles', require('./puzzles'))

@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchAllPuzzles, allPuzzles} from '../store/puzzles'
+import {fetchAllPuzzles, removePuzzle} from '../store/puzzles'
 import {Link} from 'react-router-dom'
-import axios from 'axios'
+import AddCartButton from './AddCartButton'
 
 export class AllPuzzles extends React.Component {
   constructor(props) {
@@ -13,13 +13,9 @@ export class AllPuzzles extends React.Component {
     this.props.fetchAllPuzzles()
   }
 
-  async removePuzzle(id) {
-    await axios.delete(`api/puzzles/${id}`)
-    this.props.fetchAllPuzzles()
-  }
-
   render() {
     let allPuzzles = this.props.puzzles
+    const deletePuzzle = this.props.deletePuzzle
 
     return (
       <div>
@@ -30,7 +26,7 @@ export class AllPuzzles extends React.Component {
                 <input
                   type="button"
                   value="x"
-                  onClick={this.removePuzzle.bind(this, puzzle.id)}
+                  onClick={deletePuzzle.bind(this, puzzle.id)}
                 />
               </div>
 
@@ -39,6 +35,7 @@ export class AllPuzzles extends React.Component {
                 <h3>{puzzle.title}</h3>
               </Link>
               <h3>${puzzle.price / 100}</h3>
+              <AddCartButton />
             </div>
           ))}
       </div>
@@ -54,7 +51,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchAllPuzzles: () => dispatch(fetchAllPuzzles())
+    fetchAllPuzzles: () => dispatch(fetchAllPuzzles()),
+    deletePuzzle: () => dispatch(removePuzzle())
   }
 }
 

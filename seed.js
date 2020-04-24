@@ -351,7 +351,8 @@ const users = [
     firstName: 'Annie',
     lastName: 'Smythers',
     phone: '808-249-5051',
-    address: '42 Rainbow Lane, Ourtown, OH, 78965'
+    address: '42 Rainbow Lane, Ourtown, OH, 78965',
+    isAdmin: false
   },
   {
     email: 'ariddler0@nifty.com',
@@ -359,7 +360,8 @@ const users = [
     firstName: 'Alfy',
     lastName: 'Riddler',
     phone: '163-797-4152',
-    address: '4364 Mockingbird Lane'
+    address: '4364 Mockingbird Lane',
+    isAdmin: false
   },
   {
     email: 'mrogge1@w3.org',
@@ -367,7 +369,8 @@ const users = [
     firstName: 'Mab',
     lastName: 'Rogge',
     phone: 'error: Access denied to method String.',
-    address: '5 Commercial Terrace'
+    address: '5 Commercial Terrace',
+    isAdmin: false
   },
   {
     email: 'mpurches2@opensource.org',
@@ -375,7 +378,8 @@ const users = [
     firstName: 'Morty',
     lastName: 'Purches',
     phone: '942-703-2472',
-    address: '0 Briar Crest Pass'
+    address: '0 Briar Crest Pass',
+    isAdmin: false
   },
   {
     email: 'dfonso3@toplist.cz',
@@ -383,7 +387,8 @@ const users = [
     firstName: 'Dickie',
     lastName: 'Fonso',
     phone: '122-223-4456',
-    address: '1017 Heffernan Park'
+    address: '1017 Heffernan Park',
+    isAdmin: false
   },
   {
     email: 'eballentime4@devhub.com',
@@ -391,7 +396,8 @@ const users = [
     firstName: 'Ethelin',
     lastName: 'Ballentime',
     phone: '233-254-5564',
-    address: '2082 Summerview Terrace'
+    address: '2082 Summerview Terrace',
+    isAdmin: false
   },
   {
     email: 'mrisley5@goo.gl',
@@ -399,7 +405,8 @@ const users = [
     firstName: 'Magdaia',
     lastName: 'Risley',
     phone: '241-254-6587',
-    address: '6 Twin Pines Avenue'
+    address: '6 Twin Pines Avenue',
+    isAdmin: false
   },
   {
     email: 'bsickert6@virginia.edu',
@@ -407,7 +414,8 @@ const users = [
     firstName: 'Bald',
     lastName: 'Sickert',
     phone: '221-556-9981',
-    address: '561 Oxford Street'
+    address: '561 Oxford Street',
+    isAdmin: false
   },
   {
     email: 'mrhydderch7@hhs.gov',
@@ -415,7 +423,8 @@ const users = [
     firstName: 'Marnie',
     lastName: 'Rhydderch',
     phone: '321-654-9871',
-    address: '1756 Longview Terrace'
+    address: '1756 Longview Terrace',
+    isAdmin: false
   },
   {
     email: 'ljaray8@apache.org',
@@ -423,7 +432,8 @@ const users = [
     firstName: 'Leanor',
     lastName: 'Jaray',
     phone: '111-442-3574',
-    address: '526 Surrey Parkway'
+    address: '526 Surrey Parkway',
+    isAdmin: false
   },
   {
     email: 'bwagen9@google.cn',
@@ -431,7 +441,8 @@ const users = [
     firstName: 'Baron',
     lastName: 'Wagen',
     phone: '763-261-5434',
-    address: '22512 Parkside Terrace'
+    address: '22512 Parkside Terrace',
+    isAdmin: false
   },
   {
     email: 'aleheudea@cornell.edu',
@@ -439,7 +450,8 @@ const users = [
     firstName: 'Anselma',
     lastName: 'Leheude',
     phone: '320-255-8874',
-    address: '4812 North Terrace'
+    address: '4812 North Terrace',
+    isAdmin: true
   },
   {
     email: 'ddurnb@reverbnation.com',
@@ -447,7 +459,8 @@ const users = [
     firstName: 'Darci',
     lastName: 'Durn',
     phone: '612-261-7345',
-    address: '2 Sachtjen Park'
+    address: '2 Sachtjen Park',
+    isAdmin: false
   },
   {
     email: 'ttreacec@pagesperso-orange.fr',
@@ -455,7 +468,8 @@ const users = [
     firstName: 'Trueman',
     lastName: 'Treace',
     phone: '369-5678-1245',
-    address: '1 Mitchell Alley'
+    address: '1 Mitchell Alley',
+    isAdmin: false
   },
   {
     email: 'lbosseld@admin.ch',
@@ -463,7 +477,8 @@ const users = [
     firstName: 'Lydia',
     lastName: 'Bossel',
     phone: '255-485-1212',
-    address: '94 Morrow Way'
+    address: '94 Morrow Way',
+    isAdmin: false
   },
   {
     email: 'igeldarde@slideshare.net',
@@ -471,7 +486,8 @@ const users = [
     firstName: 'Ileana',
     lastName: 'Geldard',
     phone: '320-249-5656',
-    address: '5 Utah Street'
+    address: '5 Utah Street',
+    isAdmin: false
   },
   {
     email: 'bcesconif@patch.com',
@@ -479,7 +495,8 @@ const users = [
     firstName: 'Banky',
     lastName: 'Cesconi',
     phone: '612-369-4826',
-    address: '852 Buell Drive'
+    address: '852 Buell Drive',
+    isAdmin: false
   },
   {
     email: 'jpinchong@nyu.edu',
@@ -487,7 +504,8 @@ const users = [
     firstName: 'Julieta',
     lastName: 'Pinchon',
     phone: '414-775-3188',
-    address: '41 Express Circle'
+    address: '41 Express Circle',
+    isAdmin: false
   },
   {
     email: 'agovesh@shinystat.com',
@@ -495,7 +513,8 @@ const users = [
     firstName: 'Adriana',
     lastName: 'Goves',
     phone: '269-543-2294',
-    address: '3104 Grover Junction'
+    address: '3104 Grover Junction',
+    isAdmin: false
   },
   {
     email: 'nmcmanamoni@google.it',
@@ -503,7 +522,8 @@ const users = [
     firstName: 'Nora',
     lastName: 'McManamon',
     phone: '269-797-0194',
-    address: '4899 Crescent Oaks Center'
+    address: '4899 Crescent Oaks Center',
+    isAdmin: false
   },
   {
     email: 'mkynastonj@php.net',
@@ -511,7 +531,8 @@ const users = [
     firstName: 'Myrta',
     lastName: 'Kynaston',
     phone: '732-620-0680',
-    address: '6753 Comanche Terrace'
+    address: '6753 Comanche Terrace',
+    isAdmin: true
   },
   {
     email: 'lbeartk@census.gov',
@@ -519,7 +540,8 @@ const users = [
     firstName: 'Lezley',
     lastName: 'Beart',
     phone: '564-841-3883',
-    address: '9 Vermont Drive'
+    address: '9 Vermont Drive',
+    isAdmin: false
   },
   {
     email: 'sdartel@theguardian.com',
@@ -527,7 +549,8 @@ const users = [
     firstName: 'Silvan',
     lastName: 'Darte',
     phone: '876-703-1092',
-    address: '17024 Fisk Way'
+    address: '17024 Fisk Way',
+    isAdmin: false
   },
   {
     email: 'ejeannonm@ehow.com',
@@ -535,7 +558,8 @@ const users = [
     firstName: 'Emmi',
     lastName: 'Jeannon',
     phone: '558-982-5431',
-    address: '10 Namekagon Point'
+    address: '10 Namekagon Point',
+    isAdmin: false
   },
   {
     email: 'icoweuppen@imdb.com',
@@ -543,7 +567,8 @@ const users = [
     firstName: 'Idelle',
     lastName: 'Coweuppe',
     phone: '450-156-1099',
-    address: '2 Anhalt Place'
+    address: '2 Anhalt Place',
+    isAdmin: false
   },
   {
     email: 'ahallwardo@tinypic.com',
@@ -551,7 +576,8 @@ const users = [
     firstName: 'Agosto',
     lastName: 'Hallward',
     phone: '718-874-3820',
-    address: '662 Packers Parkway'
+    address: '662 Packers Parkway',
+    isAdmin: false
   },
   {
     email: 'vcowtonp@europa.eu',
@@ -559,7 +585,8 @@ const users = [
     firstName: 'Viva',
     lastName: 'Cowton',
     phone: '586-601-9762',
-    address: '55369 Union Parkway'
+    address: '55369 Union Parkway',
+    isAdmin: false
   },
   {
     email: 'nbeszantq@addtoany.com',
@@ -567,7 +594,8 @@ const users = [
     firstName: 'Niki',
     lastName: 'Beszant',
     phone: '712-617-0174',
-    address: '4 Dexter Way'
+    address: '4 Dexter Way',
+    isAdmin: false
   },
   {
     email: 'ggavaganr@bloglovin.com',
@@ -575,7 +603,8 @@ const users = [
     firstName: 'Gregorius',
     lastName: 'Gavagan',
     phone: '946-970-5543',
-    address: '6 Moulton Court'
+    address: '6 Moulton Court',
+    isAdmin: false
   },
   {
     email: 'gnuddes@mysql.com',
@@ -583,7 +612,8 @@ const users = [
     firstName: 'Guido',
     lastName: 'Nudde',
     phone: '946-970-3193',
-    address: '98 Sundown Drive'
+    address: '98 Sundown Drive',
+    isAdmin: false
   },
   {
     email: 'tmacsherryt@dmoz.org',
@@ -591,7 +621,8 @@ const users = [
     firstName: 'Theodora',
     lastName: 'MacSherry',
     phone: '539-705-3918',
-    address: '5891 Saint Paul Parkway'
+    address: '5891 Saint Paul Parkway',
+    isAdmin: false
   },
   {
     email: 'icoddu@cocolog-nifty.com',
@@ -599,7 +630,8 @@ const users = [
     firstName: 'Irvin',
     lastName: 'Codd',
     phone: '673-334-3304',
-    address: '6 Ramsey Center'
+    address: '6 Ramsey Center',
+    isAdmin: false
   },
   {
     email: 'dcoasev@naver.com',
@@ -607,7 +639,8 @@ const users = [
     firstName: 'Dorelle',
     lastName: 'Coase',
     phone: '755-815-3349',
-    address: '13 Badeau Center'
+    address: '13 Badeau Center',
+    isAdmin: true
   },
   {
     email: 'uizzardw@accuweather.com',
@@ -615,7 +648,8 @@ const users = [
     firstName: 'Ulberto',
     lastName: 'Izzard',
     phone: '736-621-5984',
-    address: '3 7th Pass'
+    address: '3 7th Pass',
+    isAdmin: false
   },
   {
     email: 'siglesiasx@delicious.com',
@@ -623,7 +657,8 @@ const users = [
     firstName: 'Silvanus',
     lastName: 'Iglesias',
     phone: '304-233-9838',
-    address: '67 Brickson Park Drive'
+    address: '67 Brickson Park Drive',
+    isAdmin: false
   },
   {
     email: 'mvandersony@people.com.cn',
@@ -631,7 +666,8 @@ const users = [
     firstName: 'Max',
     lastName: 'Vanderson',
     phone: '272-198-0635',
-    address: '10 Pearson Plaza'
+    address: '10 Pearson Plaza',
+    isAdmin: false
   },
   {
     email: 'daubrunz@wikispaces.com',
@@ -639,7 +675,8 @@ const users = [
     firstName: 'Danice',
     lastName: 'Aubrun',
     phone: '617-358-7090',
-    address: '9 Blaine Park'
+    address: '9 Blaine Park',
+    isAdmin: false
   },
   {
     email: 'pdood10@digg.com',
@@ -647,7 +684,8 @@ const users = [
     firstName: 'Puff',
     lastName: 'Dood',
     phone: '164-430-1050',
-    address: '5 Rowland Junction'
+    address: '5 Rowland Junction',
+    isAdmin: true
   },
   {
     email: 'tazema11@ebay.com',
@@ -655,7 +693,8 @@ const users = [
     firstName: 'Tome',
     lastName: 'Azema',
     phone: '624-466-6040',
-    address: '67091 Beilfuss Place'
+    address: '67091 Beilfuss Place',
+    isAdmin: false
   },
   {
     email: 'kbalducci12@jugem.jp',
@@ -663,7 +702,8 @@ const users = [
     firstName: 'Konrad',
     lastName: 'Balducci',
     phone: '811-186-6742',
-    address: '555 Farmco Point'
+    address: '555 Farmco Point',
+    isAdmin: false
   },
   {
     email: 'rwillcock13@berkeley.edu',
@@ -671,7 +711,8 @@ const users = [
     firstName: 'Rudyard',
     lastName: 'Willcock',
     phone: '452-178-0139',
-    address: '354 Northridge Street'
+    address: '354 Northridge Street',
+    isAdmin: false
   },
   {
     email: 'sstetlye14@cornell.edu',
@@ -679,7 +720,8 @@ const users = [
     firstName: 'Simeon',
     lastName: 'Stetlye',
     phone: '367-237-6674',
-    address: '54645 Bunker Hill Terrace'
+    address: '54645 Bunker Hill Terrace',
+    isAdmin: true
   },
   {
     email: 'jcanedo15@imgur.com',
@@ -687,7 +729,8 @@ const users = [
     firstName: 'Jarvis',
     lastName: 'Canedo',
     phone: '926-535-6934',
-    address: '98 Green Ridge Circle'
+    address: '98 Green Ridge Circle',
+    isAdmin: false
   },
   {
     email: 'fsilman16@ask.com',
@@ -695,7 +738,8 @@ const users = [
     firstName: 'Frances',
     lastName: 'Silman',
     phone: '338-577-8506',
-    address: '0436 Hermina Drive'
+    address: '0436 Hermina Drive',
+    isAdmin: false
   },
   {
     email: 'vwray17@infoseek.co.jp',
@@ -703,7 +747,8 @@ const users = [
     firstName: 'Vassili',
     lastName: 'Wray',
     phone: '239-609-3721',
-    address: '721 Bartillon Street'
+    address: '721 Bartillon Street',
+    isAdmin: true
   },
   {
     email: 'mvidgen18@unblog.fr',
@@ -711,7 +756,8 @@ const users = [
     firstName: 'Marlon',
     lastName: 'Vidgen',
     phone: '540-584-6185',
-    address: '09823 Florence Court'
+    address: '09823 Florence Court',
+    isAdmin: false
   },
   {
     email: 'chartas19@mapy.cz',
@@ -719,7 +765,8 @@ const users = [
     firstName: 'Clarette',
     lastName: 'Hartas',
     phone: '710-354-6023',
-    address: '7221 Meadow Ridge Junction'
+    address: '7221 Meadow Ridge Junction',
+    isAdmin: false
   },
   {
     email: 'egershom1a@ucoz.com',
@@ -727,7 +774,8 @@ const users = [
     firstName: 'Edd',
     lastName: 'Gershom',
     phone: '614-892-3003',
-    address: '48162 Killdeer Parkway'
+    address: '48162 Killdeer Parkway',
+    isAdmin: false
   },
   {
     email: 'lgason1b@hexun.com',
@@ -735,7 +783,8 @@ const users = [
     firstName: 'Lenore',
     lastName: 'Gason',
     phone: '904-971-6441',
-    address: '34 Reindahl Road'
+    address: '34 Reindahl Road',
+    isAdmin: false
   },
   {
     email: 'mlevane1c@cyberchimps.com',
@@ -743,7 +792,8 @@ const users = [
     firstName: 'Marielle',
     lastName: 'Levane',
     phone: '396-242-0326',
-    address: '2295 Thackeray Way'
+    address: '2295 Thackeray Way',
+    isAdmin: false
   },
   {
     email: 'cgallichan1d@bandcamp.com',
@@ -751,7 +801,8 @@ const users = [
     firstName: 'Conchita',
     lastName: 'Gallichan',
     phone: '544-774-5526',
-    address: '587 Washington Place'
+    address: '587 Washington Place',
+    isAdmin: false
   }
 ]
 
@@ -779,40 +830,6 @@ const orders = [
     pricePaid: 2832
   }
 ]
-
-// const orderproducts= [
-//   {
-//     quantity:3,
-//     subtotal:2200,
-//     total:2453,
-//     puzzleId:6,
-//     orde
-//   },
-//   {
-//     quantity:1,
-//     subtotal:800,
-//     total:1022,
-//     puzzleId:2
-//   },
-//   {
-//     quantity:7,
-//     subtotal:4567,
-//     total:5123,
-//     puzzleId:16
-//   },
-//   {
-//     quantity:5,
-//     subtotal:3321,
-//     total:3541,
-//     puzzleId:17
-//   },
-//   {
-//     quantity:9,
-//     subtotal:5634,
-//     total:6237,
-//     puzzleId:28
-//   },
-// ]
 
 const seed = async () => {
   try {

@@ -19,3 +19,28 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+.minus,
+.plus {
+  width: 25px;
+  height: 38px;
+  background: whitesmoke;
+  border-radius: 4px;
+  padding: 8px 5px 8px 5px;
+  border: 1px solid #ddd;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+input {
+  height: 34px;
+  width: 80px;
+  text-align: center;
+  font-size: 24px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.allbuttons {
+  display: flex;
+}
