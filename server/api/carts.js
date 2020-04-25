@@ -34,7 +34,6 @@ router.get('/:userId', async (req, res, next) => {
       where: {stillInCart: true},
       include: [{model: Puzzle}]
     })
-    const puzzleOrder = activeOrders.puzzles ? activeOrders.puzzles : []
     res.json(activeOrders)
   } catch (error) {
     next(error)
