@@ -42,7 +42,7 @@ export class AddCartButton extends React.Component {
 
   render() {
     return (
-      <div className="allbuttons">
+      <div className="cart">
         <div>
           <button type="button" onClick={this.clickAddToCart}>
             ADD TO CART
