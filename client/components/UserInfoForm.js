@@ -29,13 +29,13 @@ class UserInfoForm extends React.Component {
   handleSubmit = event => {
     const user = this.state
     event.preventDefault()
-    this.props.updateUser(UserInfoForm)
+    this.props.updateUser(user)
   }
 
   render() {
     return (
       <div className="userInfo">
-        <h3>ENTER YOUR USER INFO:</h3>
+        <h3>UPDATE USER INFO:</h3>
         <form onSubmit={this.handleSubmit}>
           <p>First Name:</p>
           <input type="text" name="firstName" onChange={this.handleChange} />
@@ -60,10 +60,10 @@ const mapState = state => {
   }
 }
 
-// const mapDispatch = dispatch =>({
-//   updateUser: (user)=>{
-//     dispatch(updateUser(user))
-//   }
-// })
+const mapDispatch = dispatch => ({
+  updateUser: user => {
+    dispatch(updateUser(user))
+  }
+})
 
-export default connect(mapState)(UserInfoForm)
+export default connect(mapState, mapDispatch)(UserInfoForm)

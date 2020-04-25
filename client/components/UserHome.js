@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import UserInfoForm from './UserInfoForm'
 
 /**
  * COMPONENT
@@ -28,7 +29,7 @@ export class UserHome extends React.Component {
           width="400"
           height="300"
         />
-        <h3>Account Info:</h3>
+        <h3>Current User Info On File:</h3>
         <p>
           <strong>Name:</strong> {firstName} {lastName}
         </p>
@@ -41,6 +42,7 @@ export class UserHome extends React.Component {
         <p>
           <strong>Address:</strong> {address}
         </p>
+        <UserInfoForm />
       </div>
     )
   }
