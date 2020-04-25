@@ -18,7 +18,6 @@ router.get('/', isAdmin, async (req, res, next) => {
 })
 
 router.get('/:userId', userLoggedIn, async (req, res, next) => {
-  console.log('Got User???', req.params.userId)
   const uid = req.params.userId
   try {
     const user = await User.findByPk(uid)
