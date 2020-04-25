@@ -1,11 +1,13 @@
 const router = require('express').Router()
 const {User, Puzzle} = require('../db/models')
+const {userLoggedIn} = require('./gatekeepers')
 module.exports = router
 
 //----Guest Cart----//
 
 router.post('/', async (req, res, next) => {
-  const guestCart = JSON.parse(req.body.guestCart)
+  const guestCart = req.body.guestCart ? JSON.parse(req.body.guestCart) : {}
+  console.log('Routes guest car', guestCart)
   const cartPuzzles = []
   try {
     // eslint-disable-next-line guard-for-in
@@ -24,9 +26,8 @@ router.post('/', async (req, res, next) => {
 })
 
 //----User Cart----//
-//NOTE: This route must be protected (TBD)!!!
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
   try {
     const currentUser = await User.findByPk(uid)
