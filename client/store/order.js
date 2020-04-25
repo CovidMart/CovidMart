@@ -12,7 +12,7 @@ export const addPuzzleOrder = order => {
 export const addToCart = event => {
   return async dispatch => {
     try {
-      const {data} = await Axios.post('/api/cart/:id', event)
+      const {data} = await axios.post('/api/cart', event)
       dispatch(addPuzzleOrder(data))
     } catch (error) {
       dispatch(console.error(error))
@@ -25,9 +25,9 @@ const initialState = {
 }
 
 export default function orderReducer(state = initialState, action) {
-  switch (Action.type) {
+  switch (action.type) {
     case ADD_TO_CART:
-      return {...state, purchasedPuzzle: action.puzzle}
+      return {...state, purchasedPuzzle: action.order}
     default:
       return state
   }

@@ -1,30 +1,39 @@
 const router = require('express').Router()
-const {User, Puzzle} = require('../db/models')
+const {User, Puzzle, PuzzleOrders} = require('../db/models')
 module.exports = router
 
 //----Guest Cart----//
 
-router.post('/', async (req, res, next) => {
-  const guestCart = JSON.parse(req.body.guestCart)
-  const cartPuzzles = []
-  try {
-    // eslint-disable-next-line guard-for-in
-    for (let puzzleId in guestCart) {
-      let foundPuzzle = await Puzzle.findByPk(puzzleId)
-      if (foundPuzzle) {
-        //add qty to puzzle just for guest vv
-        foundPuzzle.dataValues.qty = guestCart[puzzleId]
-        cartPuzzles.push(foundPuzzle)
-      }
-    }
-    res.json(cartPuzzles)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.post('/', async (req, res, next) => {
+//   const guestCart = JSON.parse(req.body.guestCart)
+//   const cartPuzzles = []
+//   try {
+//     // eslint-disable-next-line guard-for-in
+//     for (let puzzleId in guestCart) {
+//       let foundPuzzle = await Puzzle.findByPk(puzzleId)
+//       if (foundPuzzle) {
+//         //add qty to puzzle just for guest vv
+//         foundPuzzle.dataValues.qty = guestCart[puzzleId]
+//         cartPuzzles.push(foundPuzzle)
+//       }
+//     }
+//     res.json(cartPuzzles)
+//   }catch (error) {
+//     next(error)
+//   }
+// })
 
 //----User Cart----//
 //NOTE: This route must be protected (TBD)!!!
+
+router.get('/', async (req, res, next) => {
+  try {
+    const orders = await PuzzleOrders.findAll()
+    res.json(orders)
+  } catch (err) {
+    next(err)
+  }
+})
 
 router.get('/:userId', async (req, res, next) => {
   const uid = req.params.userId
@@ -42,7 +51,7 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 ///route to add item to the cart
-router.post('/:id', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const newOrderItem = await PuzzleOrders.create(req.body)
     res.json(newOrderItem)

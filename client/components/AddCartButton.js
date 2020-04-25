@@ -8,7 +8,9 @@ export class AddCartButton extends React.Component {
     this.state = {
       quantity: 0,
       puzzleId: this.props.id,
-      price: this.props.price
+      price: this.props.price,
+      orderId: 1,
+      userId: 1
     }
     this.clickAddToCart = this.clickAddToCart.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -16,15 +18,21 @@ export class AddCartButton extends React.Component {
 
   clickAddToCart(event) {
     event.preventDefault()
-    const newOrder = {
-      quantity: this.state.quantity,
-      puzzleId: this.state.puzzleId,
-      price: this.state.price
+    try {
+      const newOrder = {
+        quantity: this.state.quantity,
+        puzzleId: this.state.puzzleId,
+        price: this.state.price,
+        orderId: this.state.orderId,
+        userId: this.state.userId
+      }
+      this.props.addToCart(newOrder)
+      // this.setState({
+      //   quantity: 0
+      // })
+    } catch (err) {
+      console.log(err)
     }
-    this.props.addToCart(newOrder)
-    this.setState({
-      quantity: 0
-    })
   }
 
   handleChange(event) {
@@ -41,7 +49,13 @@ export class AddCartButton extends React.Component {
           </button>
         </div>
         <div />
-        <input name="quantity" type="number" onChange={this.handleChange} />
+        <input
+          name="quantity"
+          type="number"
+          defaultValue="0"
+          onChange={this.handleChange}
+          value={this.state.quantity}
+        />
       </div>
     )
   }
