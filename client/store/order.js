@@ -12,7 +12,7 @@ export const addPuzzleOrder = order => {
 export const addToCart = event => {
   return async dispatch => {
     try {
-      const {data} = await Axios.post('/api/cart', event)
+      const {data} = await Axios.post('/api/cart/:id', event)
       dispatch(addPuzzleOrder(data))
     } catch (error) {
       dispatch(console.error(error))
