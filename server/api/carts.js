@@ -33,4 +33,23 @@ router.get('/:userId', (req, res, next) => {
   res.send('Welcome to logged-in cart!')
 })
 
-router.put('/:userid', async (req, res, next) => {})
+///route to add item to the cart
+router.post('/:orderId', async (req, res, next) => {
+  try {
+    const newOrderItem = await PuzzleOrders.create(req.body)
+    res.json(newOrderItem)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//route to update items once in the cart
+router.put('/:orderId', async (req, res, next) => {
+  try {
+    const orderItem = await PuzzleOrders.findByPk(req.params.id)
+    const update = await orderItem.update(req.body)
+    res.json(update)
+  } catch (err) {
+    next(err)
+  }
+})
