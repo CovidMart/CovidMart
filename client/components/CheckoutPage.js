@@ -26,8 +26,14 @@ export class CheckoutPage extends React.Component {
     if (this.state.mounted) {
       return (
         <div>
-          <h1>USER INFO FORM:</h1>
           <UserInfoForm />
+          <h2>CART COMPONENT STUFFFFF</h2>
+          <ul>
+            <li>COOL PUZZLE 1</li>
+            <li>COOL PUZZLE 2</li>
+            <li>COOL PUZZLE 3</li>
+            <li>COOL PUZZLE 4</li>
+          </ul>
         </div>
       )
     } else {
@@ -48,7 +54,7 @@ export class CheckoutPage extends React.Component {
 
 const mapState = state => {
   return {
-    hi: 'hey'
+    isLoggedIn: !!state.user.singleUser.id
   }
 }
 

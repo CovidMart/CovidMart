@@ -34,15 +34,17 @@ class UserInfoForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="userInfo">
         <h3>ENTER YOUR USER INFO:</h3>
         <form onSubmit={this.handleSubmit}>
           <p>First Name:</p>
           <input type="text" name="firstName" onChange={this.handleChange} />
           <p>Last Name:</p>
           <input type="text" name="lastName" onChange={this.handleChange} />
-          <p>Email:</p>
-          <input type="text" name="email" onChange={this.handleChange} />
+          <p>Address:</p>
+          <input type="text" name="address" onChange={this.handleChange} />
+          <p>Phone Number:</p>
+          <input type="text" name="address" onChange={this.handleChange} />
           <p>
             <button type="submit">submit</button>
           </p>
