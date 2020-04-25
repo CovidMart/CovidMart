@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  display: flex;
+  /* display: flex; */
   align-content: center;
 }
 
@@ -55,8 +55,8 @@ form div {
 }
 
 body {
-  background: #007bff;
-  background: linear-gradient(to right, #0062e6, #33aeff);
+  /* background: #007bff; */
+  background: linear-gradient(to right, #e6e9ec, white);
   align-items: center;
 }
 
