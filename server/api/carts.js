@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Puzzle} = require('../db/models')
+const {userLoggedIn} = require('./gatekeepers')
 module.exports = router
 
 //----Guest Cart----//
@@ -24,9 +25,8 @@ router.post('/', async (req, res, next) => {
 })
 
 //----User Cart----//
-//NOTE: This route must be protected (TBD)!!!
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
   try {
     const currentUser = await User.findByPk(uid)
@@ -34,7 +34,6 @@ router.get('/:userId', async (req, res, next) => {
       where: {stillInCart: true},
       include: [{model: Puzzle}]
     })
-    const puzzleOrder = activeOrders.puzzles ? activeOrders.puzzles : []
     res.json(activeOrders)
   } catch (error) {
     next(error)
