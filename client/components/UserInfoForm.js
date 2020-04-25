@@ -11,6 +11,8 @@ import {addUserInfo} from '../store/user'
 class UserInfoForm extends React.Component {
   constructor(props) {
     super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
       firstName: '',
       lastName: '',
@@ -20,7 +22,9 @@ class UserInfoForm extends React.Component {
   }
 
   handleChange(event) {
-    console.log(this.state, '----state----')
+    console.log(this)
+    // console.log(this.state, '----state----')
+
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -44,7 +48,7 @@ class UserInfoForm extends React.Component {
           <p>Address:</p>
           <input type="text" name="address" onChange={this.handleChange} />
           <p>Phone Number:</p>
-          <input type="text" name="address" onChange={this.handleChange} />
+          <input type="text" name="phone" onChange={this.handleChange} />
           <p>
             <button type="submit">submit</button>
           </p>
