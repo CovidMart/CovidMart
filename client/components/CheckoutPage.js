@@ -1,5 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import UserInfoForm from './UserInfoForm'
+import Cart from './Cart'
 import {fetchPuzzlesForCart} from '../store/cart'
 
 // on mount, this component copies data from window.localStorage
@@ -8,43 +10,30 @@ import {fetchPuzzlesForCart} from '../store/cart'
 // the returned puzzles go on state for info display in the cart
 // quantity is added to the json data (array of puzzles) before res.jsoning it
 
-class CheckoutPage extends React.Component {
+export class CheckoutPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      firstName: '',
-      lastName: '',
-      address: '',
-      phone: ''
+      mounted: false
     }
   }
 
-  handleChange(event) {
-    console.log(this.state, '----state----')
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
-
-  handleSubmit = event => {
-    const student = this.state
-    event.preventDefault()
-    this.props.addStudentToStore(student)
+  componentDidMount() {
+    this.setState({mounted: true})
   }
 
   render() {
     if (this.state.mounted) {
-      const {cartArray} = this.props
-      console.log('Consolement from CartGuest component, our state:', cartArray)
       return (
         <div>
-          <Cart orderArray={cartArray} />
+          <h1>USER INFO FORM:</h1>
+          <UserInfoForm />
         </div>
       )
     } else {
       return (
         <div>
-          <h2>Loading cart...</h2>
+          <h2>Loading user info...</h2>
           <img
             src="loadingPuzzleGif.webp"
             alt="Animated Puzzle Pieces"
@@ -59,14 +48,14 @@ class CheckoutPage extends React.Component {
 
 const mapState = state => {
   return {
-    cartArray: state.cart.guestCart
+    hi: 'hey'
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    fetchCart: cartData => dispatch(fetchPuzzlesForCart(cartData))
-  }
-}
+// const mapDispatch = dispatch => {
+//   return {
+//     fetchCart: cartData => dispatch(fetchPuzzlesForCart(cartData))
+//   }
+// }
 
-export default connect(mapState, mapDispatch)(CartGuest)
+export default connect(mapState)(CheckoutPage)

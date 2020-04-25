@@ -13,4 +13,5 @@ export {default as CartGuest} from './CartGuest'
 export {default as CartUser} from './CartUser'
 export {default as CreatePuzzle} from './SinglePuzzle'
 export {default as EditPuzzle} from './CartUser'
-
+export {default as CheckoutPage} from './CheckoutPage'
+export {default as UserInfoForm} from './UserInfoForm'

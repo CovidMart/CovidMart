@@ -11,6 +11,7 @@ import {
   CartGuest,
   // CartUser,
   AllUsers,
+  CheckoutPage,
   CreatePuzzle,
   EditPuzzle
 } from './components'
@@ -34,6 +35,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/puzzles" component={AllPuzzles} />
+        <Route exact path="/checkout" component={CheckoutPage} />
         <Route exact path="/users" component={AllUsers} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
         <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
