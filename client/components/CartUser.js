@@ -17,12 +17,16 @@ class CartUser extends React.Component {
     this.setState({mounted: true})
   }
 
+  lineItem(item) {
+    return item.PuzzleOrders.subtotal
+  }
+
   render() {
     if (this.state.mounted) {
       const {cartArray} = this.props
       return (
         <div>
-          <Cart orderArray={cartArray} />
+          <Cart orderArray={cartArray} lineItemSubtotal={this.lineItem} />
         </div>
       )
     } else {
@@ -30,7 +34,7 @@ class CartUser extends React.Component {
         <div>
           <h2>Loading cart...</h2>
           <img
-            src="loadingPuzzleGif.webp"
+            src="/loadingPuzzleGif.webp"
             alt="Animated Puzzle Pieces"
             height="160"
             width="160"

@@ -28,7 +28,7 @@ export const fetchUserOrdersForCart = userId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/cart/${userId}`)
-      dispatch(getUserOrdersForCart(data))
+      dispatch(getUserOrdersForCart(data[0].puzzles))
     } catch (error) {
       console.error(error)
     }

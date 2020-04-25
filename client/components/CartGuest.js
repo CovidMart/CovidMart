@@ -18,8 +18,8 @@ class CartGuest extends React.Component {
     this.setState({mounted: true})
   }
 
-  lineItem(qty, price) {
-    return qty * price
+  lineItem(item) {
+    return item.qty * item.price
   }
 
   render() {
@@ -27,7 +27,7 @@ class CartGuest extends React.Component {
       const {cartArray} = this.props
       return (
         <div>
-          <Cart orderArray={cartArray} lineItem={this.lineItem} />
+          <Cart orderArray={cartArray} lineItemSubtotal={this.lineItem} />
         </div>
       )
     } else {
@@ -35,7 +35,7 @@ class CartGuest extends React.Component {
         <div>
           <h2>Loading cart...</h2>
           <img
-            src="loadingPuzzleGif.webp"
+            src="/loadingPuzzleGif.webp"
             alt="Animated Puzzle Pieces"
             height="160"
             width="160"

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Puzzle, Order} = require('../db/models')
+const {User, Puzzle} = require('../db/models')
 module.exports = router
 
 //----Guest Cart----//
@@ -32,9 +32,10 @@ router.get('/:userId', async (req, res, next) => {
     const currentUser = await User.findByPk(uid)
     const activeOrders = await currentUser.getOrders({
       where: {stillInCart: true},
-      include: [{model: PuzzleOrders}, {model: puzzles}]
+      include: [{model: Puzzle}]
     })
-    console.log('Got active orders?', activeOrders)
+    const puzzleOrder = activeOrders.puzzles ? activeOrders.puzzles : []
+    res.json(activeOrders)
   } catch (error) {
     next(error)
   }
