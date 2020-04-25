@@ -3,18 +3,13 @@ import {connect} from 'react-redux'
 import Cart from './Cart'
 import {fetchPuzzlesForCart} from '../store/cart'
 
-// on mount, this component copies data from window.localStorage
-// which thunk will dispatch in api request for the corresponding puzzle data
-// by sending the window.localStorage cartObj in the req.body as guestCart
-// the returned puzzles go on state for info display in the cart
-// quantity is added to the json data (array of puzzles) before res.jsoning it
-
 class CartGuest extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       mounted: false
     }
+    this.lineItem = this.lineItem.bind(this)
   }
 
   componentDidMount() {
@@ -23,13 +18,16 @@ class CartGuest extends React.Component {
     this.setState({mounted: true})
   }
 
+  lineItem(item) {
+    return item.qty * item.price
+  }
+
   render() {
     if (this.state.mounted) {
       const {cartArray} = this.props
-      console.log('Consolement from CartGuest component, our state:', cartArray)
       return (
         <div>
-          <Cart orderArray={cartArray} />
+          <Cart orderArray={cartArray} lineItemSubtotal={this.lineItem} />
         </div>
       )
     } else {
@@ -37,7 +35,7 @@ class CartGuest extends React.Component {
         <div>
           <h2>Loading cart...</h2>
           <img
-            src="loadingPuzzleGif.webp"
+            src="/loadingPuzzleGif.webp"
             alt="Animated Puzzle Pieces"
             height="160"
             width="160"
