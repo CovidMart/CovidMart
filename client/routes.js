@@ -13,7 +13,8 @@ import {
   AllUsers,
   CheckoutPage,
   CreatePuzzle,
-  EditPuzzle
+  EditPuzzle,
+  AddCartButton
 } from './components'
 
 import {me} from './store'
@@ -54,6 +55,11 @@ class Routes extends Component {
               exact
               path={`/cart/${userId}`}
               render={props => <CartUser {...props} userId={userId} />}
+            />
+            <Route
+              exact
+              path={`/cart/${userId}`}
+              render={props => <AddCartButton {...props} userId={userId} />}
             />
           </Switch>
         )}

@@ -61,7 +61,7 @@ router.post('/:userId', async (req, res, next) => {
 })
 
 // route to update items once in the cart
-router.put('/:id', async (req, res, next) => {
+router.put('/:userId', async (req, res, next) => {
   try {
     const orderItem = await PuzzleOrders.findByPk(req.params.id)
     const update = await orderItem.update(req.body)

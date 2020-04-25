@@ -29,30 +29,30 @@ const PuzzleOrders = db.define('PuzzleOrders', {
   }
 })
 
-// PuzzleOrders.pullQuantity = function() {
-//   return 2
-// }
-// PuzzleOrders.pullPrice = function() {
-//   if (PuzzleOrders.puzzleId === Puzzle.id) return Puzzle.price
-// }
+PuzzleOrders.pullQuantity = function() {
+  return 2
+}
+PuzzleOrders.pullPrice = function() {
+  return Puzzle.price
+}
 
-// PuzzleOrders.generateSubtotal = function(quantity, price) {
-//   return quantity * price
-// }
+PuzzleOrders.generateSubtotal = function(quantity, subtotal) {
+  return quantity * subtotal
+}
 
-// /**
-//  * hooks
-//  */
-// const generateOrderData = PuzzleOrders => {
-//   const quantity = (PuzzleOrders.quantity = PuzzleOrders.pullQuantity())
-//   const price = (PuzzleOrders.price = PuzzleOrders.pullPrice())
-//   PuzzleOrders.subtotal = PuzzleOrders.generateSubtotal(quantity, price)
-// }
+/**
+ * hooks
+ */
+const generateOrderData = PuzzleOrders => {
+  const quant = (PuzzleOrders.quantity = PuzzleOrders.pullQuantity())
+  const sub = (PuzzleOrders.price = PuzzleOrders.pullPrice())
+  PuzzleOrders.subtotal = PuzzleOrders.generateSubtotal(quant, sub)
+}
 
-// PuzzleOrders.beforeCreate(generateOrderData)
-// PuzzleOrders.beforeUpdate(generateOrderData)
-// PuzzleOrders.beforeBulkCreate(puzzle => {
-//   puzzle.forEach(generateOrderData)
-// })
+PuzzleOrders.beforeCreate(generateOrderData)
+PuzzleOrders.beforeUpdate(generateOrderData)
+PuzzleOrders.beforeBulkCreate(puzzle => {
+  puzzle.forEach(generateOrderData)
+})
 
 module.exports = PuzzleOrders
