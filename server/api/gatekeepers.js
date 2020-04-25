@@ -6,14 +6,14 @@ const unauthorized = next => {
 
 const isAdmin = (req, res, next) => {
   console.log('------************------\n Are you an ADMIN, Dave?\n')
-  if (!req.session.passport.isAdmin) {
+  if (!req.session.passport || !req.session.passport.isAdmin) {
     unauthorized(next)
   }
   next()
 }
 
 const userLoggedIn = (req, res, next) => {
-  if (req.session.passport.user) {
+  if (req.session.passport && req.session.passport.user) {
     const thisUser = req.session.passport.user
     const accessedUser = parseInt(req.params.userId)
     if (accessedUser !== thisUser && !req.session.passport.isAdmin) {
