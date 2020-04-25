@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
   display: flex;
+  align-content: center;
 }
 
 a {
@@ -56,6 +57,7 @@ form div {
 body {
   background: #007bff;
   background: linear-gradient(to right, #0062e6, #33aeff);
+  align-items: center;
 }
 
 .card-signin {
@@ -77,6 +79,7 @@ body {
 div .card-body {
   border-radius: 1rem;
   background-color: white;
+  width: 300px;
 }
 
 .form-signin {
