@@ -4,24 +4,24 @@ module.exports = router
 
 // ----Guest Cart----//
 
-// router.post('/', async (req, res, next) => {
-//   const guestCart = JSON.parse(req.body.guestCart)
-//   const cartPuzzles = []
-//   try {
-//     // eslint-disable-next-line guard-for-in
-//     for (let puzzleId in guestCart) {
-//       let foundPuzzle = await Puzzle.findByPk(puzzleId)
-//       if (foundPuzzle) {
-//         //add qty to puzzle just for guest vv
-//         foundPuzzle.dataValues.qty = guestCart[puzzleId]
-//         cartPuzzles.push(foundPuzzle)
-//       }
-//     }
-//     res.json(cartPuzzles)
-//   }catch (error) {
-//     next(error)
-//   }
-// })
+router.post('/', async (req, res, next) => {
+  const guestCart = JSON.parse(req.body.guestCart)
+  const cartPuzzles = []
+  try {
+    // eslint-disable-next-line guard-for-in
+    for (let puzzleId in guestCart) {
+      let foundPuzzle = await Puzzle.findByPk(puzzleId)
+      if (foundPuzzle) {
+        //add qty to puzzle just for guest vv
+        foundPuzzle.dataValues.qty = guestCart[puzzleId]
+        cartPuzzles.push(foundPuzzle)
+      }
+    }
+    res.json(cartPuzzles)
+  } catch (error) {
+    next(error)
+  }
+})
 
 // ----User Cart----//
 // NOTE: This route must be protected (TBD)!!!
@@ -51,7 +51,7 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 ///route to add item to the cart
-router.post('/', async (req, res, next) => {
+router.post('/:userId', async (req, res, next) => {
   try {
     const newOrderItem = await PuzzleOrders.create(req.body)
     res.json(newOrderItem)
@@ -60,7 +60,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-//route to update items once in the cart
+// route to update items once in the cart
 router.put('/:id', async (req, res, next) => {
   try {
     const orderItem = await PuzzleOrders.findByPk(req.params.id)
