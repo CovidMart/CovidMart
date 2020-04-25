@@ -5,7 +5,6 @@ const unauthorized = next => {
 }
 
 const isAdmin = (req, res, next) => {
-  console.log('------************------\n Are you an ADMIN, Dave?\n')
   if (!req.session.passport.isAdmin) {
     unauthorized(next)
   }

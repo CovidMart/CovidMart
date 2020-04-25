@@ -14,6 +14,7 @@ class CartGuest extends React.Component {
 
   componentDidMount() {
     const cartData = window.localStorage
+    console.log('Component CartData to fetch with:', cartData)
     this.props.fetchCart(cartData)
     this.setState({mounted: true})
   }
