@@ -21,9 +21,9 @@ export class UserHome extends React.Component {
         <p>
           <strong>Name:</strong> {firstName} {lastName}
         </p>
-        <p>
+        <h3>
           <strong>Email:</strong> {email}
-        </p>
+        </h3>
         <p>
           <strong>Phone Number:</strong> {phone}
         </p>
