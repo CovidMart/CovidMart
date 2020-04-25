@@ -7,10 +7,10 @@ export class AddCartButton extends React.Component {
     super(props)
     this.state = {
       quantity: 0,
-      puzzleId: this.props.id,
-      price: this.props.price,
-      orderId: 1,
-      userId: 1
+      puzzleId: this.props.id || this.props.singleId,
+      price: this.props.price || this.props.singlePrice,
+      orderId: 4,
+      userId: 3
     }
     this.clickAddToCart = this.clickAddToCart.bind(this)
     this.handleChange = this.handleChange.bind(this)

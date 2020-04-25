@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {User, Puzzle, PuzzleOrders} = require('../db/models')
 module.exports = router
 
-//----Guest Cart----//
+// ----Guest Cart----//
 
 // router.post('/', async (req, res, next) => {
 //   const guestCart = JSON.parse(req.body.guestCart)
@@ -23,8 +23,8 @@ module.exports = router
 //   }
 // })
 
-//----User Cart----//
-//NOTE: This route must be protected (TBD)!!!
+// ----User Cart----//
+// NOTE: This route must be protected (TBD)!!!
 
 router.get('/', async (req, res, next) => {
   try {

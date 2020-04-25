@@ -20,6 +20,7 @@ export class SinglePuzzle extends React.Component {
     if (this.props.loadingSingle === true) {
       return <div>LOADING!!!</div>
     }
+    console.log(this.props.price)
     return (
       <div>
         <img src={this.props.imageUrl} height="300" width="300" />
@@ -38,7 +39,12 @@ export class SinglePuzzle extends React.Component {
           <strong>Description: </strong>
           {this.props.description}
         </p>
-        <AddCartButton id={this.props.id} price={this.props.price} />
+        {this.props.price && (
+          <AddCartButton
+            id={this.props.match.params.puzzleId}
+            price={this.props.price}
+          />
+        )}
       </div>
     )
   }
