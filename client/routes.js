@@ -27,13 +27,14 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn, isAdmin} = this.props
+    const {isLoggedIn, isAdmin, userId} = this.props
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route exact path="/" component={AllPuzzles} />
         <Route exact path="/puzzles" component={AllPuzzles} />
         <Route exact path="/checkout" component={CheckoutPage} />
         <Route exact path="/users" component={AllUsers} />
@@ -49,22 +50,21 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            <Route exact path="/cart/:userId" component={CartUser} />
+            <Route
+              exact
+              path={`/cart/${userId}`}
+              render={props => <CartUser {...props} userId={userId} />}
+            />
           </Switch>
         )}
 
-        {isLoggedIn &&
-          isAdmin && (
-            <Switch>
-              {/* Routes placed here are only available after admin logging in */}
-              <Route
-                exact
-                path="/admin/puzzle/create"
-                component={CreatePuzzle}
-              />
-              <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
-            </Switch>
-          )}
+        {isLoggedIn && isAdmin && (
+          <Switch>
+            {/* Routes placed here are only available after admin logging in */}
+            <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
+            <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
+          </Switch>
+        )}
 
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
@@ -80,8 +80,9 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.singleUser.id,
-    isAdmin: !!state.user.singleUser.isAdmin
+    isLoggedIn: !!state.user.singleUser,
+    userId: state.user.singleUser.id,
+    isAdmin: state.user.singleUser.isAdmin
   }
 }
 
