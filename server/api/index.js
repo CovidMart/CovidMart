@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const isAdmin = require('./isAdmin')
 
 router.use('/users', require('./users'))
 router.use('/puzzles', require('./puzzles'))
