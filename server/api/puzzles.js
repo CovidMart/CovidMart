@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {Puzzle} = require('../db/models')
-const isAdmin = require('./isAdmin')
+const {isAdmin} = require('./gatekeepers')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -12,15 +12,15 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:puzzleId', async (req, res, next) => {
+  const pid = req.params.puzzleId
   try {
-    const onePuzzle = await Puzzle.findByPk(req.params.puzzleId)
+    const onePuzzle = await Puzzle.findByPk(pid)
     res.json(onePuzzle)
   } catch (err) {
     next(err)
   }
 })
 
-//want to destructure req.body first so all info cant be seen
 router.post('/', isAdmin, async (req, res, next) => {
   try {
     if (!req.body.imageUrl) {
@@ -42,27 +42,30 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 })
 
-//want to destructure req.body first so all info cant be seen
 router.put('/:puzzleId', isAdmin, async (req, res, next) => {
-  Puzzle.findByPk(req.params.puzzleId)
-    .then(puzzle =>
-      puzzle.update({
-        title: req.body.title,
-        price: req.body.price,
-        pieceCount: req.body.pieceCount,
-        dimentions: req.body.dimentions,
-        imageUrl: req.body.imageUrl,
-        category: req.body.category,
-        description: req.body.description
-      })
-    )
-    .catch(next)
+  const pid = req.params.puzzleId
+  try {
+    const updatePuzzle = await Puzzle.findByPk(pid)
+    await updatePuzzle.update({
+      title: req.body.title,
+      price: req.body.price,
+      pieceCount: req.body.pieceCount,
+      dimentions: req.body.dimentions,
+      imageUrl: req.body.imageUrl,
+      category: req.body.category,
+      description: req.body.description
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.delete('/:puzzleId', isAdmin, async (req, res, next) => {
-  Puzzle.destroy({
+  const id = req.params.puzzleId
+  await Puzzle.destroy({
     where: {
-      id: req.params.puzzleId
+      id
     }
   })
 })

@@ -11,14 +11,7 @@ export class UserHome extends React.Component {
   }
   render() {
     console.log(this.props, 'this.props')
-    const {
-      email,
-      firstName,
-      lastName,
-      phone,
-      address,
-      userImg
-    } = this.props.singleUser
+    const {email, firstName, lastName, phone, address} = this.props.singleUser
 
     return (
       <div>
