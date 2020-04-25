@@ -55,12 +55,13 @@ class Routes extends Component {
               exact
               path={`/cart/${userId}`}
               render={props => <CartUser {...props} userId={userId} />}
+              render={props => <AddCartButton {...props} userId={userId} />}
             />
-            <Route
+            {/* <Route
               exact
               path={`/cart/${userId}`}
               render={props => <AddCartButton {...props} userId={userId} />}
-            />
+            /> */}
           </Switch>
         )}
 
