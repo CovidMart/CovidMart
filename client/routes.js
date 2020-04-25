@@ -9,7 +9,7 @@ import {
   AllPuzzles,
   SinglePuzzle,
   CartGuest,
-  CartUser,
+  // CartUser,
   AllUsers,
   CreatePuzzle,
   EditPuzzle
