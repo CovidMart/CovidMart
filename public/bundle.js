@@ -645,7 +645,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _UserInfoForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserInfoForm */ "./client/components/UserInfoForm.js");
 /* harmony import */ var _Cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Cart */ "./client/components/Cart.js");
-/* harmony import */ var _store_cart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/cart */ "./client/store/cart.js");
+/* harmony import */ var _CartUser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CartUser */ "./client/components/CartUser.js");
+/* harmony import */ var _CartGuest__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CartGuest */ "./client/components/CartGuest.js");
+/* harmony import */ var _store_cart__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/cart */ "./client/store/cart.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -663,6 +665,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -701,10 +705,14 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.props, 'checkoutpage this.props');
+
       if (this.state.mounted) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfoForm__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "CART COMPONENT STUFFFFF"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "COOL PUZZLE 1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "COOL PUZZLE 2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "COOL PUZZLE 3"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "COOL PUZZLE 4")));
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfoForm__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartUser__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          userId: this.props.userId
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "CART COMPONENT STUFFFFF"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "COOL PUZZLE 1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "COOL PUZZLE 2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "COOL PUZZLE 3"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "COOL PUZZLE 4")));
       } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading user info..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading Checkout Page..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: "loadingPuzzleGif.webp",
           alt: "Animated Puzzle Pieces",
           height: "160",
@@ -719,7 +727,8 @@ function (_React$Component) {
 
 var mapState = function mapState(state) {
   return {
-    isLoggedIn: !!state.user.singleUser.id
+    isLoggedIn: !!state.user.singleUser.id,
+    userId: state.user.singleUser.id
   };
 }; // const mapDispatch = dispatch => {
 //   return {

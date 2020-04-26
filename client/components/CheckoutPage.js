@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
 import Cart from './Cart'
+import CartUser from './CartUser'
+import CartGuest from './CartGuest'
 import {fetchPuzzlesForCart} from '../store/cart'
 
 // on mount, this component copies data from window.localStorage
@@ -23,10 +25,12 @@ export class CheckoutPage extends React.Component {
   }
 
   render() {
+    console.log(this.props, 'checkoutpage this.props')
     if (this.state.mounted) {
       return (
         <div>
           <UserInfoForm />
+          <CartUser userId={this.props.userId} />
           <h2>CART COMPONENT STUFFFFF</h2>
           <ul>
             <li>COOL PUZZLE 1</li>
@@ -39,7 +43,7 @@ export class CheckoutPage extends React.Component {
     } else {
       return (
         <div>
-          <h2>Loading user info...</h2>
+          <h2>Loading Checkout Page...</h2>
           <img
             src="loadingPuzzleGif.webp"
             alt="Animated Puzzle Pieces"
@@ -54,7 +58,8 @@ export class CheckoutPage extends React.Component {
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.singleUser.id
+    isLoggedIn: !!state.user.singleUser.id,
+    userId: state.user.singleUser.id
   }
 }
 
