@@ -856,6 +856,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _UserInfoForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserInfoForm */ "./client/components/UserInfoForm.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -873,6 +874,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -901,12 +903,15 @@ function (_React$Component) {
           firstName = _this$props$singleUse.firstName,
           lastName = _this$props$singleUse.lastName,
           phone = _this$props$singleUse.phone,
-          address = _this$props$singleUse.address;
+          address = _this$props$singleUse.address,
+          id = _this$props$singleUse.id;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Welcome, ", firstName, "!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "/happyPuzzlePiece.png",
         width: "220",
         height: "280"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Account Info:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Name:"), " ", firstName, " ", lastName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Email:"), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, email)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Phone Number:"), " ", phone), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Address:"), " ", address));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Current User Info On File:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Name:"), " ", firstName, " ", lastName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Email:"), " ", email), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Phone Number:"), " ", phone), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Address:"), " ", address), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfoForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        userId: id
+      }));
     }
   }]);
 
@@ -987,12 +992,15 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(UserInfoForm).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (event) {
-      var user = _this.state;
       event.preventDefault();
+      var user = _this.state;
+      var id = _this.props.user.id;
 
-      _this.props.updateUser(UserInfoForm);
+      _this.props.updateUser(user, id);
     });
 
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
       firstName: '',
       lastName: '',
@@ -1005,7 +1013,8 @@ function (_React$Component) {
   _createClass(UserInfoForm, [{
     key: "handleChange",
     value: function handleChange(event) {
-      console.log(this.state, '----state----');
+      console.log(this); // console.log(this.state, '----state----')
+
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
@@ -1013,7 +1022,7 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "userInfo"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "ENTER YOUR USER INFO:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "UPDATE USER INFO:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "First Name:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
@@ -1029,7 +1038,7 @@ function (_React$Component) {
         onChange: this.handleChange
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Phone Number:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        name: "address",
+        name: "phone",
         onChange: this.handleChange
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
@@ -1044,14 +1053,17 @@ var mapState = function mapState(state) {
   return {
     user: state.user.singleUser
   };
-}; // const mapDispatch = dispatch =>({
-//   updateUser: (user)=>{
-//     dispatch(updateUser(user))
-//   }
-// })
+};
 
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    updateUser: function updateUser(user, id) {
+      dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_2__["updateUserInStore"])(user, id));
+    }
+  };
+};
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState)(UserInfoForm));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(UserInfoForm));
 
 /***/ }),
 
@@ -1097,7 +1109,7 @@ var AuthForm = function AuthForm(props) {
     className: "card-body"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
     className: "card-title text-center"
-  }, "Sign In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+  }, displayName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     className: "form-signin",
     onSubmit: handleSubmit,
     name: name
@@ -1131,19 +1143,19 @@ var AuthForm = function AuthForm(props) {
   }, "Remember password")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn btn-lg btn-primary btn-block text-uppercase",
     type: "submit"
-  }, "Sign in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+  }, displayName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     className: "my-4"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn btn-lg btn-google btn-block text-uppercase",
     type: "submit"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fab fa-google mr-2"
-  }), " Sign in with Google"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }), " ", displayName, " with Google"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn btn-lg btn-facebook btn-block text-uppercase",
     type: "submit"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fab fa-facebook-f mr-2"
-  }), " Sign in with Facebook")))))));
+  }), " ", displayName, " with Facebook")))))));
 };
 
 {}
@@ -1996,7 +2008,7 @@ function cartReducer() {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, fetchAllUsers, auth, logout */
+/*! exports provided: default, me, fetchAllUsers, updateUserInStore, auth, logout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2015,6 +2027,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "me", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["me"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fetchAllUsers", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["fetchAllUsers"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateUserInStore", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["updateUserInStore"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "auth", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["auth"]; });
 
@@ -2245,13 +2259,14 @@ function puzzleReducer() {
 /*!******************************!*\
   !*** ./client/store/user.js ***!
   \******************************/
-/*! exports provided: me, fetchAllUsers, auth, logout, default */
+/*! exports provided: me, fetchAllUsers, updateUserInStore, auth, logout, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "me", function() { return me; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllUsers", function() { return fetchAllUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUserInStore", function() { return updateUserInStore; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "auth", function() { return auth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -2274,6 +2289,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  */
 
 var GET_USER = 'GET_USER';
+var UPDATE_USER = 'UPDATE_USER';
 var GET_ALL_USERS = 'GET_ALL_USERS';
 var REMOVE_USER = 'REMOVE_USER';
 /**
@@ -2294,6 +2310,13 @@ var defaultUser = {};
 var getUser = function getUser(user) {
   return {
     type: GET_USER,
+    user: user
+  };
+};
+
+var updateUser = function updateUser(user) {
+  return {
+    type: UPDATE_USER,
     user: user
   };
 };
@@ -2397,35 +2420,82 @@ var fetchAllUsers = function fetchAllUsers() {
     }()
   );
 };
-var auth = function auth(email, password, method) {
+var updateUserInStore = function updateUserInStore(user, id) {
   return (
     /*#__PURE__*/
     function () {
       var _ref3 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee3(dispatch) {
-        var res;
+        var firstName, lastName, address, phone, res;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
-                _context3.next = 3;
+                firstName = user.firstName, lastName = user.lastName, address = user.address, phone = user.phone;
+                _context3.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/users/".concat(id), {
+                  firstName: firstName,
+                  lastName: lastName,
+                  address: address,
+                  phone: phone
+                });
+
+              case 4:
+                res = _context3.sent;
+                dispatch(updateUser(res.data, id));
+                _context3.next = 11;
+                break;
+
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](0);
+                console.error(_context3.t0);
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 8]]);
+      }));
+
+      return function (_x3) {
+        return _ref3.apply(this, arguments);
+      };
+    }()
+  );
+};
+var auth = function auth(email, password, method) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref4 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee4(dispatch) {
+        var res;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _context4.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/auth/".concat(method), {
                   email: email,
                   password: password
                 });
 
               case 3:
-                res = _context3.sent;
-                _context3.next = 9;
+                res = _context4.sent;
+                _context4.next = 9;
                 break;
 
               case 6:
-                _context3.prev = 6;
-                _context3.t0 = _context3["catch"](0);
-                return _context3.abrupt("return", dispatch(getUser({
-                  error: _context3.t0
+                _context4.prev = 6;
+                _context4.t0 = _context4["catch"](0);
+                return _context4.abrupt("return", dispatch(getUser({
+                  error: _context4.t0
                 })));
 
               case 9:
@@ -2438,14 +2508,14 @@ var auth = function auth(email, password, method) {
 
               case 10:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, null, [[0, 6]]);
+        }, _callee4, null, [[0, 6]]);
       }));
 
-      return function (_x3) {
-        return _ref3.apply(this, arguments);
+      return function (_x4) {
+        return _ref4.apply(this, arguments);
       };
     }()
   );
@@ -2454,38 +2524,38 @@ var logout = function logout() {
   return (
     /*#__PURE__*/
     function () {
-      var _ref4 = _asyncToGenerator(
+      var _ref5 = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4(dispatch) {
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      regeneratorRuntime.mark(function _callee5(dispatch) {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                _context4.prev = 0;
-                _context4.next = 3;
+                _context5.prev = 0;
+                _context5.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/auth/logout');
 
               case 3:
                 dispatch(removeUser());
                 _history__WEBPACK_IMPORTED_MODULE_1__["default"].push('/login');
-                _context4.next = 10;
+                _context5.next = 10;
                 break;
 
               case 7:
-                _context4.prev = 7;
-                _context4.t0 = _context4["catch"](0);
-                console.error(_context4.t0);
+                _context5.prev = 7;
+                _context5.t0 = _context5["catch"](0);
+                console.error(_context5.t0);
 
               case 10:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, null, [[0, 7]]);
+        }, _callee5, null, [[0, 7]]);
       }));
 
-      return function (_x4) {
-        return _ref4.apply(this, arguments);
+      return function (_x5) {
+        return _ref5.apply(this, arguments);
       };
     }()
   );
@@ -2508,6 +2578,11 @@ var logout = function logout() {
       return _objectSpread({}, state, {
         allUsers: action.users,
         allUsersLoading: false
+      });
+
+    case UPDATE_USER:
+      return _objectSpread({}, state, {
+        singleUser: action.user
       });
 
     case REMOVE_USER:
