@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
+const UPDATE_USER = 'UPDATE_USER'
 const GET_ALL_USERS = 'GET_ALL_USERS'
 const REMOVE_USER = 'REMOVE_USER'
 
@@ -23,6 +24,7 @@ const defaultUser = {}
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
+const updateUser = user => ({type: UPDATE_USER, user})
 const getAllUsers = users => ({type: GET_ALL_USERS, users})
 const removeUser = () => ({type: REMOVE_USER})
 
@@ -43,6 +45,21 @@ export const fetchAllUsers = () => async dispatch => {
   try {
     const res = await axios.get('/api/users')
     dispatch(getAllUsers(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const updateUserInStore = (user, id) => async dispatch => {
+  try {
+    const {firstName, lastName, address, phone} = user
+    const res = await axios.put(`/api/users/${id}`, {
+      firstName,
+      lastName,
+      address,
+      phone
+    })
+    dispatch(updateUser(res.data, id))
   } catch (err) {
     console.error(err)
   }
@@ -83,6 +100,8 @@ export default function(state = initialState, action) {
       return {...state, singleUser: action.user}
     case GET_ALL_USERS:
       return {...state, allUsers: action.users, allUsersLoading: false}
+    case UPDATE_USER:
+      return {...state, singleUser: action.user}
     case REMOVE_USER:
       return {...state, singleUser: {}}
     default:
