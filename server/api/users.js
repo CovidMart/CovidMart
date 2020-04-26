@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-const isAdmin = require('./isAdmin')
+const {isAdmin, userLoggedIn} = require('./gatekeepers')
 module.exports = router
 
 router.get('/', isAdmin, async (req, res, next) => {
@@ -17,10 +17,14 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', userLoggedIn, async (req, res, next) => {
+  const uid = req.params.userId
   try {
-    const user = await User.findByPk(req.params.userId)
+    const user = await User.findByPk(uid)
     if (user) {
+      if (user.isAdmin) {
+        req.session.passport.isAdmin = true
+      }
       res.send(user)
     } else {
       res.status(404).send()
