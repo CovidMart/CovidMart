@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addUserInfo} from '../store/user'
+import {updateUserInStore} from '../store/user'
 
 // on mount, this component copies data from window.localStorage
 // which thunk will dispatch in api request for the corresponding puzzle data
@@ -11,6 +11,8 @@ import {addUserInfo} from '../store/user'
 class UserInfoForm extends React.Component {
   constructor(props) {
     super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
       firstName: '',
       lastName: '',
@@ -20,22 +22,25 @@ class UserInfoForm extends React.Component {
   }
 
   handleChange(event) {
-    console.log(this.state, '----state----')
+    console.log(this)
+    // console.log(this.state, '----state----')
+
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
   handleSubmit = event => {
-    const user = this.state
     event.preventDefault()
-    this.props.updateUser(UserInfoForm)
+    const user = this.state
+    const {id} = this.props.user
+    this.props.updateUser(user, id)
   }
 
   render() {
     return (
       <div className="userInfo">
-        <h3>ENTER YOUR USER INFO:</h3>
+        <h3>UPDATE USER INFO:</h3>
         <form onSubmit={this.handleSubmit}>
           <p>First Name:</p>
           <input type="text" name="firstName" onChange={this.handleChange} />
@@ -44,7 +49,7 @@ class UserInfoForm extends React.Component {
           <p>Address:</p>
           <input type="text" name="address" onChange={this.handleChange} />
           <p>Phone Number:</p>
-          <input type="text" name="address" onChange={this.handleChange} />
+          <input type="text" name="phone" onChange={this.handleChange} />
           <p>
             <button type="submit">submit</button>
           </p>
@@ -60,10 +65,10 @@ const mapState = state => {
   }
 }
 
-// const mapDispatch = dispatch =>({
-//   updateUser: (user)=>{
-//     dispatch(updateUser(user))
-//   }
-// })
+const mapDispatch = dispatch => ({
+  updateUser: (user, id) => {
+    dispatch(updateUserInStore(user, id))
+  }
+})
 
-export default connect(mapState)(UserInfoForm)
+export default connect(mapState, mapDispatch)(UserInfoForm)
