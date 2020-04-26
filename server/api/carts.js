@@ -27,7 +27,7 @@ router.post('/', async (req, res, next) => {
 
 //----User Cart----//
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
   try {
     const currentUser = await User.findByPk(uid)
