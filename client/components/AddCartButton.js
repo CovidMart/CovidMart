@@ -7,13 +7,13 @@ export class AddCartButton extends React.Component {
     super(props)
     this.state = {
       quantity: 0,
-      puzzleId: this.props.id || this.props.singleId,
-      price: this.props.price || this.props.singlePrice,
-      orderId: 4,
-      userId: 3
+      puzzleId: this.props.id,
+      price: this.props.price,
+      orderId: 6
     }
     this.clickAddToCart = this.clickAddToCart.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    // this.createOrderNumber=this.createOrderNumber.bind(this)
   }
 
   clickAddToCart(event) {
@@ -23,24 +23,31 @@ export class AddCartButton extends React.Component {
         quantity: this.state.quantity,
         puzzleId: this.state.puzzleId,
         price: this.state.price,
-        orderId: this.state.orderId,
-        userId: this.state.userId
+        orderId: this.state.orderId
       }
+      // this.createOrderNumber(newOrder.userId)
       this.props.addToCart(newOrder)
-      // this.setState({
-      //   quantity: 0
-      // })
+      console.log(newOrder)
+      this.setState({
+        quantity: 0
+      })
     } catch (err) {
       console.log(err)
     }
   }
+
+  // createOrderNumber(userid){
+  //   if(userid){
+  //     orderId= this.state.orderId
+  //     orderId=+1
+  //   }
+  // }
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className="cart">
         <div>
@@ -52,7 +59,6 @@ export class AddCartButton extends React.Component {
         <input
           name="quantity"
           type="number"
-          defaultValue="0"
           onChange={this.handleChange}
           value={this.state.quantity}
         />

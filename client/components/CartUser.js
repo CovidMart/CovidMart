@@ -12,7 +12,6 @@ class CartUser extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     const {userId} = this.props
     this.props.fetchCart(userId)
     this.setState({mounted: true})

@@ -11,23 +11,12 @@ export class UserHome extends React.Component {
   }
   render() {
     console.log(this.props, 'this.props')
-    const {
-      email,
-      firstName,
-      lastName,
-      phone,
-      address,
-      userImg
-    } = this.props.singleUser
+    const {email, firstName, lastName, phone, address} = this.props.singleUser
 
     return (
       <div>
         <h2>Welcome, {firstName}!</h2>
-        <img
-          src="https://w7.pngwing.com/pngs/874/225/png-transparent-happiness-smile-puzzle-symbol-jigsaw-piece-love-smiley-anger.png"
-          width="400"
-          height="300"
-        />
+        <img src="/happyPuzzlePiece.png" width="265" height="300" />
         <h3>Account Info:</h3>
         <p>
           <strong>Name:</strong> {firstName} {lastName}

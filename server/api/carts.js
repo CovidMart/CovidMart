@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {User, Puzzle, PuzzleOrders} = require('../db/models')
+const {User, Puzzle, Order, PuzzleOrders} = require('../db/models')
+const {userLoggedIn} = require('./gatekeepers')
 module.exports = router
 
 // ----Guest Cart----//
@@ -23,17 +24,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-// ----User Cart----//
-// NOTE: This route must be protected (TBD)!!!
-
-router.get('/', async (req, res, next) => {
-  try {
-    const orders = await PuzzleOrders.findAll()
-    res.json(orders)
-  } catch (err) {
-    next(err)
-  }
-})
+//----User Cart----//
 
 router.get('/:userId', async (req, res, next) => {
   const uid = req.params.userId
@@ -43,7 +34,6 @@ router.get('/:userId', async (req, res, next) => {
       where: {stillInCart: true},
       include: [{model: Puzzle}]
     })
-    const puzzleOrder = activeOrders.puzzles ? activeOrders.puzzles : []
     res.json(activeOrders)
   } catch (error) {
     next(error)
@@ -52,11 +42,13 @@ router.get('/:userId', async (req, res, next) => {
 
 ///route to add item to the cart
 router.post('/:userId', async (req, res, next) => {
-  try {
-    const newOrderItem = await PuzzleOrders.create(req.body)
-    res.json(newOrderItem)
-  } catch (err) {
-    next(err)
+  if (req.session.passport) {
+    try {
+      const currentUser = await User.findByPk(req.session.passport.user)
+      Order.create(req.body)
+    } catch (err) {
+      next(err)
+    }
   }
 })
 

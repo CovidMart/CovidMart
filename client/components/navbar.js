@@ -9,13 +9,21 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
     <h1>PUZZLE PARTY</h1>
     <nav>
       <div>
-        <Link to="/puzzles">All Puzzles</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link>
-
+        {userId && (
+          <Link
+            to={{
+              pathname: '/puzzles',
+              state: {
+                userId: userId
+              }
+            }}
+          >
+            All Puzzles
+          </Link>
+        )}
         {isLoggedIn ? (
           <div>
-            {/* The navbar will show these links after you log in */}
+            {/* The navbar will show these links AFTER you log in */}
             <Link to="/home">Home</Link>
             <a href="#" onClick={handleClick}>
               Logout
@@ -24,17 +32,19 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
           </div>
         ) : (
           <div>
-            {/* The navbar will show these links before you log in */}
+            {/* The navbar will show these links BEFORE you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
             <Link to="/cart">Cart</Link>
           </div>
         )}
-        {/* need: check is Admin */}
-        {isAdmin ? (
+        {isAdmin && (
           <div>
+            {/* Shows these links only to Admin */}
             <Link to="/admin/puzzle/create"> </Link>
             <Link to="/admin/puzzle/edit"> </Link>
           </div>
-        ) : null}
+        )}
       </div>
     </nav>
     <hr />
@@ -46,7 +56,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.singleUser,
+    isLoggedIn: !!state.user.singleUser.id,
     isAdmin: state.user.singleUser.isAdmin,
     userId: state.user.singleUser.id
   }
