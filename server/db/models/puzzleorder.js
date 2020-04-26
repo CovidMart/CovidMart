@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const Puzzle = require('./puzzle')
 
 const PuzzleOrders = db.define('PuzzleOrders', {
   quantity: {

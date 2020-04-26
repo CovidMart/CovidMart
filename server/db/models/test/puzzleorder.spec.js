@@ -17,7 +17,6 @@ describe('Model Associations', () => {
       let sandra
       let orderedPuzzle
       const qty = 2
-      let orderPrice
       let newOrder
       let puzzleOrder
 
@@ -37,17 +36,13 @@ describe('Model Associations', () => {
           category: 'Sports'
         })
 
-        orderPrice = orderedPuzzle.price * qty
-
-        newOrder = await Order.create({
-          pricePaid: orderPrice
-        })
-
-        await newOrder.setUser(sandra.id)
+        newOrder = await Order.create()
 
         await newOrder.addPuzzle(orderedPuzzle, {
           through: {quantity: qty, price: orderedPuzzle.price}
         })
+
+        await newOrder.setUser(sandra.id)
 
         puzzleOrder = await PuzzleOrders.findOne({
           where: {puzzleId: orderedPuzzle.id}
