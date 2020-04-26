@@ -16,7 +16,7 @@ export class UserHome extends React.Component {
     return (
       <div>
         <h2>Welcome, {firstName}!</h2>
-        <img src="/happyPuzzlePiece.png" width="265" height="300" />
+        <img src="/happyPuzzlePiece.png" width="220" height="280" />
         <h3>Account Info:</h3>
         <p>
           <strong>Name:</strong> {firstName} {lastName}
