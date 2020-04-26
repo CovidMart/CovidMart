@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const {User, Puzzle} = require('../db/models')
+const {User, Puzzle, Order, PuzzleOrders} = require('../db/models')
 const {userLoggedIn} = require('./gatekeepers')
 module.exports = router
 
-//----Guest Cart----//
+// ----Guest Cart----//
 
 router.post('/', async (req, res, next) => {
   const guestCart = req.body.guestCart ? JSON.parse(req.body.guestCart) : {}
@@ -38,5 +38,23 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
     res.json(activeOrders)
   } catch (error) {
     next(error)
+  }
+})
+
+///route to add item to the cart
+router.post('/:userId', async (req, res, next) => {
+  if (req.session.passport) {
+    try {
+      //findCurrentUser
+      const currentUser = await User.findByPk(req.session.passport.user)
+
+      console.log(req.body.puzzleId)
+      console.log(req.session.passport.user)
+
+      const newOrder = await Order.create(req.body)
+      res.json(newOrder)
+    } catch (err) {
+      next(err)
+    }
   }
 })

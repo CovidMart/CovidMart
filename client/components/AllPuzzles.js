@@ -4,6 +4,9 @@ import {fetchAllPuzzles, removePuzzle} from '../store/puzzles'
 import {Link} from 'react-router-dom'
 import AddCartButton from './AddCartButton'
 
+/**
+ * COMPONENT
+ */
 export class AllPuzzles extends React.Component {
   constructor(props) {
     super(props)
@@ -35,13 +38,17 @@ export class AllPuzzles extends React.Component {
                 <h3>{puzzle.title}</h3>
               </Link>
               <h3>${puzzle.price / 100}</h3>
-              <AddCartButton />
+              <AddCartButton id={puzzle.id} price={puzzle.price} />
             </div>
           ))}
       </div>
     )
   }
 }
+
+/**
+ * CONTAINER
+ */
 
 const mapState = state => {
   return {
