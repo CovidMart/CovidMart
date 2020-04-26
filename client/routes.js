@@ -54,7 +54,7 @@ class Routes extends Component {
             />
             <Route
               exact
-              path={`/checkout/${userId}`}
+              path={`/cart/checkout/${userId}`}
               render={props => <CheckoutPage {...props} id={userId} />}
             />
           </Switch>

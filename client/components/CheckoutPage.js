@@ -30,15 +30,8 @@ export class CheckoutPage extends React.Component {
       return (
         <div>
           <UserInfoForm />
-          <CartUser userId={this.props.userId} />
+          <CartUser {...this.props} userId={this.props.userId} />
           <CheckoutButton />
-          <h2>CART COMPONENT STUFFFFF</h2>
-          <ul>
-            <li>COOL PUZZLE 1</li>
-            <li>COOL PUZZLE 2</li>
-            <li>COOL PUZZLE 3</li>
-            <li>COOL PUZZLE 4</li>
-          </ul>
         </div>
       )
     } else {
