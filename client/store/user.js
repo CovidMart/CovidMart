@@ -59,7 +59,7 @@ export const updateUserInStore = (user, id) => async dispatch => {
       address,
       phone
     })
-    dispatch(updateUser(res.data))
+    dispatch(updateUser(res.data, id))
   } catch (err) {
     console.error(err)
   }

@@ -33,7 +33,7 @@ class UserInfoForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     const user = this.state
-    const {id} = this.props.singleUser
+    const {id} = this.props.user
     this.props.updateUser(user, id)
   }
 
