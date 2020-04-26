@@ -42,14 +42,12 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 ///route to add item to the cart
-router.post('/:userId', async (req, res, next) => {
+router.post('/:userId', userLoggedIn, async (req, res, next) => {
   if (req.session.passport) {
     try {
       const currentUser = await User.findByPk(req.session.passport.user)
-      Order.create(req.body)
-
-      console.log(currentUser)
-      console.log(req.body)
+      const newOrder = Order.create(req.body)
+      res.json(newOrder)
       ///res.send status
     } catch (err) {
       next(err)
