@@ -41,9 +41,6 @@ const calculateOrderTotalPrice = async order => {
   order.pricePaid = totalPrice
 }
 
-Order.beforeUpdate(calculateOrderTotalPrice)
-Order.beforeBulkCreate(order => {
-  order.forEach(calculateOrderTotalPrice)
-})
+Order.beforeSave(calculateOrderTotalPrice)
 
 module.exports = Order
