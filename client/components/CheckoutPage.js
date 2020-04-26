@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
-import Cart from './Cart'
+import CheckoutButton from './CheckoutButton'
 import CartUser from './CartUser'
 import CartGuest from './CartGuest'
 import {fetchPuzzlesForCart} from '../store/cart'
@@ -31,6 +31,7 @@ export class CheckoutPage extends React.Component {
         <div>
           <UserInfoForm />
           <CartUser userId={this.props.userId} />
+          <CheckoutButton />
           <h2>CART COMPONENT STUFFFFF</h2>
           <ul>
             <li>COOL PUZZLE 1</li>

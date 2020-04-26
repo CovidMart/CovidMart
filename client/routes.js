@@ -36,7 +36,6 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={AllPuzzles} />
         <Route exact path="/puzzles" component={AllPuzzles} />
-        <Route exact path="/checkout" component={CheckoutPage} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
         {!isLoggedIn && (
           <Switch>
@@ -52,6 +51,11 @@ class Routes extends Component {
               exact
               path={`/cart/${userId}`}
               render={props => <CartUser {...props} userId={userId} />}
+            />
+            <Route
+              exact
+              path={`/checkout/${userId}`}
+              render={props => <CheckoutPage {...props} id={userId} />}
             />
           </Switch>
         )}
