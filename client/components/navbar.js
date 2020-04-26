@@ -6,6 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
   <div>
+    <img src="/PuzzlePartyP.png" width="100" height="110" />
     <h1>PUZZLE PARTY</h1>
     <nav>
       <div>
