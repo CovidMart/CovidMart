@@ -5,14 +5,16 @@ const unauthorized = next => {
 }
 
 const isAdmin = (req, res, next) => {
-  if (!req.session.passport.isAdmin) {
-    unauthorized(next)
+  if (req.session.passport) {
+    if (!req.session.passport.isAdmin) {
+      unauthorized(next)
+    }
   }
   next()
 }
 
 const userLoggedIn = (req, res, next) => {
-  if (req.session.passport.user) {
+  if (req.session.passport) {
     const thisUser = req.session.passport.user
     const accessedUser = parseInt(req.params.userId)
     if (accessedUser !== thisUser && !req.session.passport.isAdmin) {
