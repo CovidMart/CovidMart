@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
+const UPDATE_USER = 'UPDATE_USER'
 const GET_ALL_USERS = 'GET_ALL_USERS'
 const REMOVE_USER = 'REMOVE_USER'
 
@@ -49,9 +50,9 @@ export const fetchAllUsers = () => async dispatch => {
   }
 }
 
-export const uodateUserInStore = user => async dispatch => {
+export const updateUserInStore = (user, id) => async dispatch => {
   try {
-    const {firstName, lastName, address, phone, id} = user
+    const {firstName, lastName, address, phone} = user
     const res = await axios.put(`/api/users/${id}`, {
       firstName,
       lastName,

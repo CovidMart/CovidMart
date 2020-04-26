@@ -18,7 +18,7 @@ export class UserHome extends React.Component {
       lastName,
       phone,
       address,
-      userImg
+      id
     } = this.props.singleUser
 
     return (
@@ -42,7 +42,7 @@ export class UserHome extends React.Component {
         <p>
           <strong>Address:</strong> {address}
         </p>
-        <UserInfoForm />
+        <UserInfoForm userId={id} />
       </div>
     )
   }

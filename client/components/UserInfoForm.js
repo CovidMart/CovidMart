@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addUserInfo} from '../store/user'
+import {updateUserInStore} from '../store/user'
 
 // on mount, this component copies data from window.localStorage
 // which thunk will dispatch in api request for the corresponding puzzle data
@@ -31,9 +31,10 @@ class UserInfoForm extends React.Component {
   }
 
   handleSubmit = event => {
-    const user = this.state
     event.preventDefault()
-    this.props.updateUser(user)
+    const user = this.state
+    const {id} = this.props.singleUser
+    this.props.updateUser(user, id)
   }
 
   render() {
@@ -65,8 +66,8 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => ({
-  updateUser: user => {
-    dispatch(updateUser(user))
+  updateUser: (user, id) => {
+    dispatch(updateUserInStore(user, id))
   }
 })
 
