@@ -27,7 +27,7 @@ router.post('/', async (req, res, next) => {
 
 //----User Cart----//
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
   try {
     const currentUser = await User.findByPk(uid)
@@ -42,26 +42,19 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 ///route to add item to the cart
-router.post('/:userId', userLoggedIn, async (req, res, next) => {
+router.post('/:userId', async (req, res, next) => {
   if (req.session.passport) {
     try {
+      //findCurrentUser
       const currentUser = await User.findByPk(req.session.passport.user)
-      const newOrder = Order.create(req.body)
+
+      console.log(req.body.puzzleId)
+      console.log(req.session.passport.user)
+
+      const newOrder = await Order.create(req.body)
       res.json(newOrder)
-      ///res.send status
     } catch (err) {
       next(err)
     }
-  }
-})
-
-// route to update items once in the cart
-router.put('/:userId', async (req, res, next) => {
-  try {
-    const orderItem = await PuzzleOrders.findByPk(req.params.id)
-    const update = await orderItem.update(req.body)
-    res.json(update)
-  } catch (err) {
-    next(err)
   }
 })

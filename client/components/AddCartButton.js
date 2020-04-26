@@ -9,7 +9,7 @@ export class AddCartButton extends React.Component {
       quantity: 0,
       puzzleId: this.props.id,
       price: this.props.price,
-      orderId: 6
+      orderId: 1
     }
     this.clickAddToCart = this.clickAddToCart.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -20,14 +20,12 @@ export class AddCartButton extends React.Component {
     event.preventDefault()
     try {
       const newOrder = {
-        quantity: this.state.quantity,
-        puzzleId: this.state.puzzleId,
+        quantity: parseInt(this.state.quantity, 10),
+        puzzleId: parseInt(this.state.puzzleId, 10),
         price: this.state.price,
         orderId: this.state.orderId
       }
-      // this.createOrderNumber(newOrder.userId)
       this.props.addToCart(newOrder)
-      console.log(newOrder)
       this.setState({
         quantity: 0
       })
@@ -35,13 +33,6 @@ export class AddCartButton extends React.Component {
       console.log(err)
     }
   }
-
-  // createOrderNumber(userid){
-  //   if(userid){
-  //     orderId= this.state.orderId
-  //     orderId=+1
-  //   }
-  // }
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})

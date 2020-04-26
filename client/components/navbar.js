@@ -11,18 +11,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
     <h1>PUZZLE PARTY</h1>
     <nav>
       <div>
-        {userId && (
-          <Link
-            to={{
-              pathname: '/puzzles',
-              state: {
-                userId: userId
-              }
-            }}
-          >
-            All Puzzles
-          </Link>
-        )}
+        {userId && <Link to="/puzzles">All Puzzles</Link>}
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links AFTER you log in */}

@@ -20,7 +20,6 @@ export class SinglePuzzle extends React.Component {
     if (this.props.loadingSingle === true) {
       return <div>LOADING!!!</div>
     }
-    console.log(this.props.price)
     return (
       <div>
         <img src={this.props.imageUrl} height="300" width="300" />

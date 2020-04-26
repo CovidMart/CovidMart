@@ -3,7 +3,6 @@ import store from './index'
 
 const ALL_PUZZLES = 'ALL_PUZZLES'
 const SINGLE_PUZZLE = 'SINGLE_PUZZLE'
-const ADD_TO_CART = 'ADD_TO_CART'
 
 export const allPuzzles = allPuzzles => {
   return {
@@ -16,13 +15,6 @@ export const getSinglePuzzle = puzzle => {
   return {
     type: SINGLE_PUZZLE,
     puzzle
-  }
-}
-
-export const addPuzzleOrder = order => {
-  return {
-    type: ADD_TO_CART,
-    order
   }
 }
 
@@ -58,25 +50,12 @@ export const removePuzzle = id => {
     }
   }
 }
-export const addToCart = event => {
-  const state = store.getState()
-  const userId = state.user.singleUser.id
-  return async dispatch => {
-    try {
-      const {data} = await axios.post(`/api/cart/${userId}`, event)
-      dispatch(addPuzzleOrder(data))
-    } catch (error) {
-      dispatch(console.error(error))
-    }
-  }
-}
 
 const initialState = {
   allPuzzles: [],
   loadingAll: true,
   singlePuzzle: {},
-  loadingSingle: true,
-  purchasedPuzzle: []
+  loadingSingle: true
 }
 
 export default function puzzleReducer(state = initialState, action) {
@@ -85,8 +64,6 @@ export default function puzzleReducer(state = initialState, action) {
       return {...state, allPuzzles: action.allPuzzles}
     case SINGLE_PUZZLE:
       return {...state, singlePuzzle: action.puzzle, loadingSingle: false}
-    case ADD_TO_CART:
-      return {...state, purchasedPuzzle: action.order}
     default:
       return state
   }

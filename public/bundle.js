@@ -163,7 +163,7 @@ function (_React$Component) {
       quantity: 0,
       puzzleId: _this.props.id,
       price: _this.props.price,
-      orderId: 6
+      orderId: 1
     };
     _this.clickAddToCart = _this.clickAddToCart.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this)); // this.createOrderNumber=this.createOrderNumber.bind(this)
@@ -178,27 +178,19 @@ function (_React$Component) {
 
       try {
         var newOrder = {
-          quantity: this.state.quantity,
-          puzzleId: this.state.puzzleId,
+          quantity: parseInt(this.state.quantity, 10),
+          puzzleId: parseInt(this.state.puzzleId, 10),
           price: this.state.price,
-          orderId: this.state.orderId // this.createOrderNumber(newOrder.userId)
-
+          orderId: this.state.orderId
         };
         this.props.addToCart(newOrder);
-        console.log(newOrder);
         this.setState({
           quantity: 0
         });
       } catch (err) {
         console.log(err);
       }
-    } // createOrderNumber(userid){
-    //   if(userid){
-    //     orderId= this.state.orderId
-    //     orderId=+1
-    //   }
-    // }
-
+    }
   }, {
     key: "handleChange",
     value: function handleChange(event) {
@@ -866,7 +858,6 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "LOADING!!!");
       }
 
-      console.log(this.props.price);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.imageUrl,
         height: "300",
@@ -1400,12 +1391,7 @@ var Navbar = function Navbar(_ref) {
       isAdmin = _ref.isAdmin,
       userId = _ref.userId;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "PUZZLE PARTY"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, userId && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: {
-      pathname: '/puzzles',
-      state: {
-        userId: userId
-      }
-    }
+    to: "/puzzles"
   }, "All Puzzles"), isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/home"
   }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -2181,7 +2167,6 @@ var addPuzzleOrder = function addPuzzleOrder(order) {
 var addToCart = function addToCart(newOrder) {
   var state = _index__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
   var userId = state.user.singleUser.id;
-  console.log(userId);
   return (
     /*#__PURE__*/
     function () {
@@ -2248,18 +2233,16 @@ function orderReducer() {
 /*!*********************************!*\
   !*** ./client/store/puzzles.js ***!
   \*********************************/
-/*! exports provided: allPuzzles, getSinglePuzzle, addPuzzleOrder, fetchAllPuzzles, fetchOnePuzzle, removePuzzle, addToCart, default */
+/*! exports provided: allPuzzles, getSinglePuzzle, fetchAllPuzzles, fetchOnePuzzle, removePuzzle, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "allPuzzles", function() { return allPuzzles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSinglePuzzle", function() { return getSinglePuzzle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPuzzleOrder", function() { return addPuzzleOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllPuzzles", function() { return fetchAllPuzzles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchOnePuzzle", function() { return fetchOnePuzzle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removePuzzle", function() { return removePuzzle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return puzzleReducer; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -2278,7 +2261,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var ALL_PUZZLES = 'ALL_PUZZLES';
 var SINGLE_PUZZLE = 'SINGLE_PUZZLE';
-var ADD_TO_CART = 'ADD_TO_CART';
 var allPuzzles = function allPuzzles(_allPuzzles) {
   return {
     type: ALL_PUZZLES,
@@ -2289,12 +2271,6 @@ var getSinglePuzzle = function getSinglePuzzle(puzzle) {
   return {
     type: SINGLE_PUZZLE,
     puzzle: puzzle
-  };
-};
-var addPuzzleOrder = function addPuzzleOrder(order) {
-  return {
-    type: ADD_TO_CART,
-    order: order
   };
 };
 var fetchAllPuzzles = function fetchAllPuzzles() {
@@ -2422,57 +2398,11 @@ var removePuzzle = function removePuzzle(id) {
     }()
   );
 };
-var addToCart = function addToCart(event) {
-  var state = _index__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
-  var userId = state.user.singleUser.id;
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref6 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4(dispatch) {
-        var _ref7, data;
-
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.prev = 0;
-                _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), event);
-
-              case 3:
-                _ref7 = _context4.sent;
-                data = _ref7.data;
-                dispatch(addPuzzleOrder(data));
-                _context4.next = 11;
-                break;
-
-              case 8:
-                _context4.prev = 8;
-                _context4.t0 = _context4["catch"](0);
-                dispatch(console.error(_context4.t0));
-
-              case 11:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, null, [[0, 8]]);
-      }));
-
-      return function (_x4) {
-        return _ref6.apply(this, arguments);
-      };
-    }()
-  );
-};
 var initialState = {
   allPuzzles: [],
   loadingAll: true,
   singlePuzzle: {},
-  loadingSingle: true,
-  purchasedPuzzle: []
+  loadingSingle: true
 };
 function puzzleReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -2488,11 +2418,6 @@ function puzzleReducer() {
       return _objectSpread({}, state, {
         singlePuzzle: action.puzzle,
         loadingSingle: false
-      });
-
-    case ADD_TO_CART:
-      return _objectSpread({}, state, {
-        purchasedPuzzle: action.order
       });
 
     default:
@@ -46352,7 +46277,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

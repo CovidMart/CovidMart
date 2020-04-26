@@ -28,4 +28,5 @@ const PuzzleOrders = db.define('PuzzleOrders', {
     }
   }
 })
+
 module.exports = PuzzleOrders
