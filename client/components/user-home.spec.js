@@ -9,14 +9,16 @@ import {UserHome} from './UserHome'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-xdescribe('UserHome', () => {
+describe('UserHome', () => {
   let userHome
 
   beforeEach(() => {
-    userHome = shallow(<UserHome email="cody@email.com" />)
+    const singleUser = {email: 'cody@email.com'}
+    // userHome = shallow(<UserHome email="cody@email.com" />)
+    userHome = shallow(<UserHome singleUser={singleUser} />)
   })
 
   it('renders the email in an h3', () => {
-    expect(userHome.find('h3').text()).to.be.equal('Welcome, cody@email.com')
+    expect(userHome.find('h3').text()).to.be.equal('cody@email.com')
   })
 })
