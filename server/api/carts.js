@@ -6,7 +6,8 @@ module.exports = router
 // ----Guest Cart----//
 
 router.post('/', async (req, res, next) => {
-  const guestCart = JSON.parse(req.body.guestCart)
+  const guestCart = req.body.guestCart ? JSON.parse(req.body.guestCart) : {}
+  console.log('Routes guest car', guestCart)
   const cartPuzzles = []
   try {
     // eslint-disable-next-line guard-for-in

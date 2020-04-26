@@ -37,9 +37,7 @@ class Routes extends Component {
         <Route exact path="/" component={AllPuzzles} />
         <Route exact path="/puzzles" component={AllPuzzles} />
         <Route exact path="/checkout" component={CheckoutPage} />
-        <Route exact path="/users" component={AllUsers} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
-        <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available if NOT logged in */}
@@ -68,6 +66,7 @@ class Routes extends Component {
                 component={CreatePuzzle}
               />
               <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
+              <Route exact path="/users" component={AllUsers} />
             </Switch>
           )}
 
@@ -85,7 +84,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.singleUser,
+    isLoggedIn: !!state.user.singleUser.id,
     userId: state.user.singleUser.id,
     isAdmin: state.user.singleUser.isAdmin
   }

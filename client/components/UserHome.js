@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import UserInfoForm from './UserInfoForm'
 
 /**
  * COMPONENT
@@ -11,13 +12,20 @@ export class UserHome extends React.Component {
   }
   render() {
     console.log(this.props, 'this.props')
-    const {email, firstName, lastName, phone, address} = this.props.singleUser
+    const {
+      email,
+      firstName,
+      lastName,
+      phone,
+      address,
+      id
+    } = this.props.singleUser
 
     return (
       <div>
         <h2>Welcome, {firstName}!</h2>
-        <img src="/happyPuzzlePiece.png" width="265" height="300" />
-        <h3>Account Info:</h3>
+        <img src="/happyPuzzlePiece.png" width="220" height="280" />
+        <h3>Current User Info On File:</h3>
         <p>
           <strong>Name:</strong> {firstName} {lastName}
         </p>
@@ -30,6 +38,7 @@ export class UserHome extends React.Component {
         <p>
           <strong>Address:</strong> {address}
         </p>
+        <UserInfoForm userId={id} />
       </div>
     )
   }
