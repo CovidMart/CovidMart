@@ -4,6 +4,11 @@ body {
   align-content: center;
 }
 
+h1 {
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 a {
   text-decoration: none;
 }
@@ -46,6 +51,28 @@ form div {
 
 .allbuttons {
   display: flex;
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border: 20px;
+  -ms-box-orient: horizontal;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.allPuzzles {
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+}
+
+.images {
+  width: 300px;
+  height: 300px;
 }
 
 /* LOGIN START */
