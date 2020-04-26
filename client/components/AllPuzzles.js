@@ -18,10 +18,10 @@ export class AllPuzzles extends React.Component {
     const deletePuzzle = this.props.deletePuzzle
 
     return (
-      <div>
+      <div className="container">
         {allPuzzles &&
           allPuzzles.map(puzzle => (
-            <div key={puzzle.id}>
+            <div className="allPuzzles" key={puzzle.id}>
               <div>
                 <input
                   type="button"
@@ -31,7 +31,7 @@ export class AllPuzzles extends React.Component {
               </div>
 
               <Link to={`/puzzles/${puzzle.id}`}>
-                <img src={puzzle.imageUrl} />
+                <img className="images" src={puzzle.imageUrl} />
                 <h3>{puzzle.title}</h3>
               </Link>
               <h3>${puzzle.price / 100}</h3>
