@@ -13,10 +13,18 @@ describe('UserHome', () => {
   let userHome
 
   beforeEach(() => {
-    userHome = shallow(<UserHome firstName="Thanos" />)
+    userHome = shallow(
+      <UserHome
+        firstName="Thanos"
+        lastName="Senior"
+        email="thanos@halfpop.org"
+        phone="666-666-6666"
+        address="Desolate Orb"
+      />
+    )
   })
 
-  it('renders the user name in an h2', () => {
+  it("renders user data, including the user's name in an h2", () => {
     expect(userHome.find('h2').text()).to.be.equal('Welcome, Thanos!')
   })
 })
