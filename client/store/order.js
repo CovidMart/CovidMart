@@ -13,6 +13,7 @@ export const addPuzzleOrder = order => {
 export const addToCart = newOrder => {
   const state = store.getState()
   const userId = state.user.singleUser.id
+  console.log(userId)
   return async dispatch => {
     try {
       const {data} = await axios.post(`/api/cart/${userId}`, newOrder)

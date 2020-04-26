@@ -2181,6 +2181,7 @@ var addPuzzleOrder = function addPuzzleOrder(order) {
 var addToCart = function addToCart(newOrder) {
   var state = _index__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
   var userId = state.user.singleUser.id;
+  console.log(userId);
   return (
     /*#__PURE__*/
     function () {

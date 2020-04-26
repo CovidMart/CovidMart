@@ -47,6 +47,10 @@ router.post('/:userId', async (req, res, next) => {
     try {
       const currentUser = await User.findByPk(req.session.passport.user)
       Order.create(req.body)
+
+      console.log(currentUser)
+      console.log(req.body)
+      ///res.send status
     } catch (err) {
       next(err)
     }
