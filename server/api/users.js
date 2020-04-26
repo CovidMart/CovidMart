@@ -32,9 +32,10 @@ router.get('/:userId', async (req, res, next) => {
 
 router.put('/:userId', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId)
-    if (user) {
-      res.send(user)
+    const foundUser = await User.findByPk(req.params.userId)
+    if (foundUser) {
+      const updatedUser = await foundUser.update(req.body)
+      res.json(updatedUser)
     } else {
       res.status(404).send('Sorry, User Not Found!')
     }
