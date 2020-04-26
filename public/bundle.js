@@ -166,8 +166,7 @@ function (_React$Component) {
       orderId: 1
     };
     _this.clickAddToCart = _this.clickAddToCart.bind(_assertThisInitialized(_this));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this)); // this.createOrderNumber=this.createOrderNumber.bind(this)
-
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 

@@ -13,7 +13,6 @@ export class AddCartButton extends React.Component {
     }
     this.clickAddToCart = this.clickAddToCart.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    // this.createOrderNumber=this.createOrderNumber.bind(this)
   }
 
   clickAddToCart(event) {
