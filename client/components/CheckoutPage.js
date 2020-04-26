@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
-import CheckoutButton from './CheckoutButton'
 import CartUser from './CartUser'
 import CartGuest from './CartGuest'
 import {fetchPuzzlesForCart} from '../store/cart'
@@ -18,10 +17,15 @@ export class CheckoutPage extends React.Component {
     this.state = {
       mounted: false
     }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.setState({mounted: true})
+  }
+
+  handleClick() {
+    console.log('clicked!!!')
   }
 
   render() {
@@ -31,7 +35,9 @@ export class CheckoutPage extends React.Component {
         <div>
           <UserInfoForm />
           <CartUser {...this.props} userId={this.props.userId} />
-          <CheckoutButton />
+          <button type="button" onClick={this.handleClick}>
+            CHECKOUT{' '}
+          </button>
         </div>
       )
     } else {
