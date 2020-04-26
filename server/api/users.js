@@ -29,3 +29,16 @@ router.get('/:userId', async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    if (user) {
+      res.send(user)
+    } else {
+      res.status(404).send('Sorry, User Not Found!')
+    }
+  } catch (error) {
+    next(error)
+  }
+})
