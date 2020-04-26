@@ -33,3 +33,17 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/:userId', async (req, res, next) => {
+  try {
+    const foundUser = await User.findByPk(req.params.userId)
+    if (foundUser) {
+      const updatedUser = await foundUser.update(req.body)
+      res.json(updatedUser)
+    } else {
+      res.status(404).send('Sorry, User Not Found!')
+    }
+  } catch (error) {
+    next(error)
+  }
+})
