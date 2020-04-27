@@ -715,7 +715,9 @@ function (_React$Component) {
     key: "handleClick",
     value: function handleClick() {
       console.log('clicked!!!');
-      this.props.checkOutUserCart();
+      console.log(this.props, 'this.props in handleClick');
+      var userId = this.props.userId;
+      this.props.checkoutUserCart(userId);
     }
   }, {
     key: "render",
@@ -752,19 +754,9 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    checkoutUserCart: function (_checkoutUserCart) {
-      function checkoutUserCart(_x) {
-        return _checkoutUserCart.apply(this, arguments);
-      }
-
-      checkoutUserCart.toString = function () {
-        return _checkoutUserCart.toString();
-      };
-
-      return checkoutUserCart;
-    }(function (cartData) {
-      return dispatch(checkoutUserCart(cartData));
-    })
+    checkoutUserCart: function checkoutUserCart(userId) {
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_5__["checkoutUserCart"])(userId));
+    }
   };
 };
 
@@ -1923,6 +1915,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var GET_LOCALSTORAGE_PUZZLES = 'GET_LOCALSTORAGE_PUZZLES';
 var GET_LOGGED_IN_CART = 'GET_LOGGED_IN_CART';
 var CHECKOUT_USER = 'CHECKOUT_USER';
+var CHECKOUT_GUEST = 'CHECKOUT_GUEST';
 
 var getPuzzlesForCart = function getPuzzlesForCart(guestPuzzles) {
   return {
@@ -1939,6 +1932,13 @@ var getUserOrdersForCart = function getUserOrdersForCart(userPuzzles) {
 };
 
 var checkoutUser = function checkoutUser(order) {
+  return {
+    type: CHECKOUT_USER,
+    order: order
+  };
+};
+
+var checkoutGuest = function checkoutGuest(order) {
   return {
     type: CHECKOUT_USER,
     order: order
@@ -2046,7 +2046,7 @@ var checkoutUserCart = function checkoutUserCart(userId) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/checkout/".concat(userId), {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(userId), {
                   stillInCart: false
                 });
 
@@ -2097,12 +2097,12 @@ function cartReducer() {
 
     case CHECKOUT_USER:
       return _objectSpread({}, state, {
-        userCart: {}
+        userCart: []
       });
 
     case CHECKOUT_GUEST:
       return _objectSpread({}, state, {
-        guestCart: {}
+        guestCart: []
       });
 
     default:

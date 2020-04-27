@@ -41,18 +41,16 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
   }
 })
 
-router.put('/checkout/:userId', userLoggedIn, async (req, res, next) => {
+router.put('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
   try {
     const currentUser = await User.findByPk(uid)
     const activeOrders = await currentUser.getOrders({
-      where: {stillInCart: true},
-      include: [{model: Puzzle}]
+      where: {stillInCart: true}
     })
-    const udpatedOrder = await activeOrders.update({
-      stillInCart: false
-    })
-    res.json(udpatedOrder)
+    const mostRecentOrder = activeOrders[0]
+    const checkedOutOrder = await mostRecentOrder.update(req.body)
+    res.json(checkedOutOrder)
   } catch (error) {
     next(error)
   }

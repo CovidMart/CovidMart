@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
 import CartUser from './CartUser'
 import CartGuest from './CartGuest'
-import {checkOutUserCart} from '../store/cart'
+import {checkoutUserCart} from '../store/cart'
 
 // on mount, this component copies data from window.localStorage
 // which thunk will dispatch in api request for the corresponding puzzle data
@@ -26,7 +26,9 @@ export class CheckoutPage extends React.Component {
 
   handleClick() {
     console.log('clicked!!!')
-    this.props.checkOutUserCart()
+    console.log(this.props, 'this.props in handleClick')
+    let userId = this.props.userId
+    this.props.checkoutUserCart(userId)
   }
 
   render() {
@@ -66,7 +68,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    checkoutUserCart: cartData => dispatch(checkoutUserCart(cartData))
+    checkoutUserCart: userId => dispatch(checkoutUserCart(userId))
   }
 }
 
