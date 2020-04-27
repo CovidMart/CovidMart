@@ -40,3 +40,20 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/checkout/:userId', userLoggedIn, async (req, res, next) => {
+  const uid = req.params.userId
+  try {
+    const currentUser = await User.findByPk(uid)
+    const activeOrders = await currentUser.getOrders({
+      where: {stillInCart: true},
+      include: [{model: Puzzle}]
+    })
+    const udpatedOrder = await activeOrders.update({
+      stillInCart: false
+    })
+    res.json(udpatedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
