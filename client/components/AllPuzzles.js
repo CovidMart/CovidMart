@@ -25,20 +25,27 @@ export class AllPuzzles extends React.Component {
         {allPuzzles &&
           allPuzzles.map(puzzle => (
             <div className="allPuzzles" key={puzzle.id}>
-              <div>
-                <input
-                  type="button"
-                  value="x"
-                  onClick={deletePuzzle.bind(this, puzzle.id)}
-                />
-              </div>
-
               <Link to={`/puzzles/${puzzle.id}`}>
                 <img className="images" src={puzzle.imageUrl} />
                 <h3>{puzzle.title}</h3>
               </Link>
               <h3>${puzzle.price / 100}</h3>
               <AddCartButton id={puzzle.id} price={puzzle.price} />
+
+              {this.props.isAdmin && (
+                <div>
+                  <br />
+                  <Link to={`/admin/puzzle/edit/${puzzle.id}`}>Edit</Link>
+                  <br />
+                  <br />
+                  <input
+                    type="button"
+                    value="delete"
+                    className="deleteButton"
+                    onClick={deletePuzzle.bind(this, puzzle.id)}
+                  />
+                </div>
+              )}
             </div>
           ))}
       </div>
@@ -52,7 +59,8 @@ export class AllPuzzles extends React.Component {
 
 const mapState = state => {
   return {
-    puzzles: state.puzzles.allPuzzles
+    puzzles: state.puzzles.allPuzzles,
+    isAdmin: state.user.singleUser.isAdmin
   }
 }
 

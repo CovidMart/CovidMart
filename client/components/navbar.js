@@ -11,11 +11,11 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
     <h1>PUZZLE PARTY</h1>
     <nav>
       <div>
-        <Link to="/puzzles">All Puzzles</Link>
+        <Link to="/puzzles"> Puzzles Home</Link>
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links AFTER you log in */}
-            <Link to="/home">Home</Link>
+            <Link to="/home"> User Home </Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
@@ -32,8 +32,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
         {isAdmin && (
           <div>
             {/* Shows these links only to Admin */}
-            <Link to="/admin/puzzle/create"> </Link>
-            <Link to="/admin/puzzle/edit"> </Link>
+            <Link to="/admin/puzzle/create"> Create Puzzles </Link>
           </div>
         )}
       </div>
