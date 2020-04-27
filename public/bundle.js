@@ -2165,48 +2165,105 @@ var addPuzzleOrder = function addPuzzleOrder(order) {
 };
 var addToCart = function addToCart(newOrder) {
   var state = _index__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
-  var userId = state.user.singleUser.id;
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref = _asyncToGenerator(
+  var userId = state.user.singleUser.id; //Guest User Add to Cart
+
+  if (userId === undefined) {
+    return (
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(dispatch) {
-        var _ref2, data;
+      function () {
+        var _ref = _asyncToGenerator(
+        /*#__PURE__*/
+        regeneratorRuntime.mark(function _callee(dispatch) {
+          var getState, orderInfo, quantity, puzzle, newState, pullOrder, _newState;
 
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
+          return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  try {
+                    getState = localStorage.getItem('guestCart');
+                    orderInfo = {};
+                    quantity = newOrder.quantity;
+                    puzzle = parseInt(newOrder.puzzleId, 10); //create new order for new guest
+                    //if state does not exist, create it and add the puzzleID:quantity as a key-value pair object to the array
 
-              case 3:
-                _ref2 = _context.sent;
-                data = _ref2.data;
-                dispatch(addPuzzleOrder(data));
-                _context.next = 11;
-                break;
+                    if (getState === null) {
+                      orderInfo[puzzle] = quantity.toString();
+                      newState = JSON.stringify(orderInfo);
+                      localStorage.setItem('guestCart', newState);
+                    } else if (getState) {
+                      //if state exists, add new puzzle to it
+                      pullOrder = JSON.parse(getState);
 
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](0);
-                dispatch(console.error(_context.t0));
+                      if (puzzle in pullOrder) {
+                        pullOrder[puzzle] = quantity;
+                      } else {
+                        pullOrder[puzzle] = quantity.toString();
+                      }
 
-              case 11:
-              case "end":
-                return _context.stop();
+                      _newState = JSON.stringify(pullOrder);
+                      localStorage.setItem('guestCart', _newState);
+                    }
+                  } catch (error) {
+                    dispatch(console.error(error));
+                  }
+
+                case 1:
+                case "end":
+                  return _context.stop();
+              }
             }
-          }
-        }, _callee, null, [[0, 8]]);
-      }));
+          }, _callee);
+        }));
 
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }()
-  );
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }()
+    ); //Logged In User Add to Cart
+  } else {
+    return (
+      /*#__PURE__*/
+      function () {
+        var _ref2 = _asyncToGenerator(
+        /*#__PURE__*/
+        regeneratorRuntime.mark(function _callee2(dispatch) {
+          var _ref3, data;
+
+          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  _context2.prev = 0;
+                  _context2.next = 3;
+                  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
+
+                case 3:
+                  _ref3 = _context2.sent;
+                  data = _ref3.data;
+                  dispatch(addPuzzleOrder(data));
+                  _context2.next = 11;
+                  break;
+
+                case 8:
+                  _context2.prev = 8;
+                  _context2.t0 = _context2["catch"](0);
+                  dispatch(console.error(_context2.t0));
+
+                case 11:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2, null, [[0, 8]]);
+        }));
+
+        return function (_x2) {
+          return _ref2.apply(this, arguments);
+        };
+      }()
+    );
+  }
 };
 var initialState = {
   purchasedPuzzle: []
