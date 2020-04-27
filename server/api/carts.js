@@ -13,7 +13,6 @@ router.post('/', async (req, res, next) => {
     for (let puzzleId in guestCart) {
       let foundPuzzle = await Puzzle.findByPk(puzzleId)
       if (foundPuzzle) {
-        //add qty to puzzle just for guest vv
         foundPuzzle.dataValues.qty = guestCart[puzzleId]
         cartPuzzles.push(foundPuzzle)
       }

@@ -4,7 +4,8 @@ body {
   align-content: center;
 }
 
-h1 {
+h1,
+h3 {
   text-align: center;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }

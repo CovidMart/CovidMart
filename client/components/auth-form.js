@@ -132,6 +132,7 @@ const mapDispatch = dispatch => {
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
+      //dispatch/batch dispatch thunk to convert localStorage to DB
     }
   }
 }

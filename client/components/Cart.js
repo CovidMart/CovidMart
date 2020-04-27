@@ -3,7 +3,6 @@ import AddCartButton from './AddCartButton'
 
 const Cart = props => {
   const {orderArray, lineItemSubtotal, fetchCart} = props
-  //handlers for add and delete will have to be passed in as well
   if (orderArray.length) {
     return (
       <div>
@@ -31,7 +30,7 @@ const Cart = props => {
   }
   return (
     <div>
-      <h1>Party Carty!</h1>
+      <h3>Party Carty!</h3>
       <p>Nothing in your cart?</p>
       <p>Let's find a corner piece!</p>
       {/* button/link to return to all puzzles */}

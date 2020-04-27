@@ -6,15 +6,10 @@ export class AddCartButton extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: this.props.quantity || 0,
-      puzzleId: this.props.id //need on state???
+      quantity: this.props.quantity || 0
     }
     this.clickAddToCart = this.clickAddToCart.bind(this)
     this.handleChange = this.handleChange.bind(this)
-  }
-
-  componentDidMount() {
-    //update local state quantity
   }
 
   clickAddToCart(event) {
@@ -22,13 +17,10 @@ export class AddCartButton extends React.Component {
     try {
       const newOrder = {
         quantity: parseInt(this.state.quantity, 10),
-        puzzleId: parseInt(this.state.puzzleId, 10)
+        puzzleId: parseInt(this.props.id, 10)
       }
       const fetchCart = this.props.fetchCart
       this.props.addToCart(newOrder, fetchCart)
-      // this.setState({
-      //   quantity: this.props.quantity
-      // })
     } catch (err) {
       console.error(err)
     }
@@ -57,9 +49,6 @@ export class AddCartButton extends React.Component {
     )
   }
 }
-// const mapState = state => ({
-//   quantity: state.order.quantity
-// })
 
 const mapDispatch = dispatch => ({
   addToCart: (event, fetchCart) => dispatch(addToCart(event, fetchCart))

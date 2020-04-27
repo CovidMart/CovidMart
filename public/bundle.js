@@ -164,9 +164,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      quantity: _this.props.quantity || 0,
-      puzzleId: _this.props.id //need on state???
-
+      quantity: _this.props.quantity || 0
     };
     _this.clickAddToCart = _this.clickAddToCart.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -174,10 +172,6 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(AddCartButton, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {//update local state quantity
-    }
-  }, {
     key: "clickAddToCart",
     value: function clickAddToCart(event) {
       event.preventDefault();
@@ -185,12 +179,10 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
       try {
         var newOrder = {
           quantity: parseInt(this.state.quantity, 10),
-          puzzleId: parseInt(this.state.puzzleId, 10)
+          puzzleId: parseInt(this.props.id, 10)
         };
         var fetchCart = this.props.fetchCart;
-        this.props.addToCart(newOrder, fetchCart); // this.setState({
-        //   quantity: this.props.quantity
-        // })
+        this.props.addToCart(newOrder, fetchCart);
       } catch (err) {
         console.error(err);
       }
@@ -218,9 +210,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return AddCartButton;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // const mapState = state => ({
-//   quantity: state.order.quantity
-// })
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
@@ -465,7 +455,7 @@ __webpack_require__.r(__webpack_exports__);
 var Cart = function Cart(props) {
   var orderArray = props.orderArray,
       lineItemSubtotal = props.lineItemSubtotal,
-      fetchCart = props.fetchCart; //handlers for add and delete will have to be passed in as well
+      fetchCart = props.fetchCart;
 
   if (orderArray.length) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, orderArray.map(function (item) {
@@ -481,7 +471,7 @@ var Cart = function Cart(props) {
     })));
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Nothing in your cart?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Let's find a corner piece!"));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Nothing in your cart?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Let's find a corner piece!"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Cart);
@@ -1315,7 +1305,7 @@ var mapDispatch = function mapDispatch(dispatch) {
       var formName = evt.target.name;
       var email = evt.target.email.value;
       var password = evt.target.password.value;
-      dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["auth"])(email, password, formName));
+      dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["auth"])(email, password, formName)); //dispatch/batch dispatch thunk to convert localStorage to DB
     }
   };
 };
@@ -2135,15 +2125,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- //import order from './order'
 
 var reducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   user: _user__WEBPACK_IMPORTED_MODULE_4__["default"],
   puzzles: _puzzles__WEBPACK_IMPORTED_MODULE_5__["default"],
   cart: _cart__WEBPACK_IMPORTED_MODULE_8__["default"],
   CreatePuzzle: _CreatePuzzle__WEBPACK_IMPORTED_MODULE_6__["default"],
-  EditPuzzle: _EditPuzzle__WEBPACK_IMPORTED_MODULE_7__["default"] //order
-
+  EditPuzzle: _EditPuzzle__WEBPACK_IMPORTED_MODULE_7__["default"]
 });
 var middleware = Object(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"], Object(redux_logger__WEBPACK_IMPORTED_MODULE_1__["createLogger"])({
   collapsed: true
@@ -2172,13 +2160,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
- // const ADD_TO_CART = 'ADD_TO_CART'
-// export const addPuzzleOrder = quantity => {
-//   return {
-//     type: ADD_TO_CART,
-//     quantity
-//   }
-// }
 
 var addToCart = function addToCart(newOrder) {
   var fetchCart = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
@@ -2194,7 +2175,6 @@ var addToCart = function addToCart(newOrder) {
             return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
 
           case 3:
-            //dispatch(addPuzzleOrder(qty))
             if (fetchCart) fetchCart(userId);
             _context.next = 9;
             break;
@@ -2211,16 +2191,7 @@ var addToCart = function addToCart(newOrder) {
       }
     }, _callee, null, [[0, 6]]);
   }));
-}; // const initialState = {
-// }
-// export default function orderReducer(state = initialState, action) {
-//   switch (action.type) {
-//     case ADD_TO_CART:
-//       return {...state, quantity: action.quantity}
-//     default:
-//       return state
-//   }
-// }
+};
 
 /***/ }),
 
