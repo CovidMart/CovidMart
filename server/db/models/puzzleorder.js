@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const Puzzle = require('./puzzle')
 
 const PuzzleOrders = db.define('PuzzleOrders', {
   quantity: {
@@ -27,6 +26,33 @@ const PuzzleOrders = db.define('PuzzleOrders', {
       min: 0
     }
   }
+})
+
+PuzzleOrders.prototype.pullQuantity = function() {
+  return this.quantity
+}
+
+PuzzleOrders.prototype.pullPrice = function() {
+  return this.price
+}
+
+PuzzleOrders.generateSubtotal = function(quantity, puzzlePrice) {
+  return quantity * puzzlePrice
+}
+
+/**
+ * hooks
+ */
+const generateOrderData = puzzleOrder => {
+  const quant = puzzleOrder.pullQuantity()
+  const price = puzzleOrder.pullPrice()
+  puzzleOrder.subtotal = PuzzleOrders.generateSubtotal(quant, price)
+}
+
+PuzzleOrders.beforeCreate(generateOrderData)
+PuzzleOrders.beforeUpdate(generateOrderData)
+PuzzleOrders.beforeBulkCreate(puzzleOrder => {
+  puzzleOrder.forEach(generateOrderData)
 })
 
 module.exports = PuzzleOrders

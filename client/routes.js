@@ -56,19 +56,14 @@ class Routes extends Component {
           </Switch>
         )}
 
-        {isLoggedIn &&
-          isAdmin && (
-            <Switch>
-              {/* Routes placed here are only available after admin logging in */}
-              <Route
-                exact
-                path="/admin/puzzle/create"
-                component={CreatePuzzle}
-              />
-              <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
-              <Route exact path="/users" component={AllUsers} />
-            </Switch>
-          )}
+        {isLoggedIn && isAdmin && (
+          <Switch>
+            {/* Routes placed here are only available after admin logging in */}
+            <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
+            <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
+            <Route exact path="/users" component={AllUsers} />
+          </Switch>
+        )}
 
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
