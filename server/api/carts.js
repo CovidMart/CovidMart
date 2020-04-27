@@ -82,7 +82,6 @@ router.post('/:userId', async (req, res, next) => {
         await newOrder.addPuzzle(orderedPuzzle, {
           through: {quantity, price: orderedPuzzle.price}
         })
-        await newOrder.calculateOrderTotal()
         await newOrder.setUser(uid)
       }
       res.sendStatus(201)
