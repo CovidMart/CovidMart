@@ -41,9 +41,12 @@ export class CheckoutPage extends React.Component {
       return (
         <div>
           <UserInfoForm />
-          <CartUser {...this.props} userId={this.props.userId} />
+          {this.props.isLoggedIn && (
+            <CartUser {...this.props} userId={this.props.userId} />
+          )}
+          {!this.props.isLoggedIn && <CartGuest />}
           <button type="button" onClick={this.handleClick}>
-            CHECKOUT{' '}
+            CHECKOUT
           </button>
         </div>
       )
@@ -72,7 +75,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    checkoutUserCart: userId => dispatch(checkoutUserCart(userId))
+    checkoutUserCart: userId => dispatch(checkoutUserCart(userId)),
+    checkoutGuestCart: () => dispatch(checkoutGuestCart())
   }
 }
 

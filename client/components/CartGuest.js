@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import Cart from './Cart'
 import {fetchPuzzlesForCart} from '../store/cart'
 
@@ -24,11 +25,18 @@ class CartGuest extends React.Component {
   }
 
   render() {
+    console.log(this.props, 'this.props from CartGuest')
     if (this.state.mounted) {
       const {cartArray} = this.props
       return (
         <div>
           <Cart orderArray={cartArray} lineItemSubtotal={this.lineItem} />
+          {this.props.match !== undefined &&
+            this.props.match.path == '/cart' && (
+              <Link to="/checkout">
+                <button type="button">CHECKOUT NOW</button>
+              </Link>
+            )}
         </div>
       )
     } else {
