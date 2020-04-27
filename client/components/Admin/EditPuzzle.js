@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchEditPuzzle, setValue} from '../../store/CreatePuzzle'
+import {fetchEditPuzzle, setValue} from '../../store/EditPuzzle'
 
 class EditPuzzle extends Component {
   handleChange(name, event) {
