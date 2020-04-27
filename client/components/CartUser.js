@@ -23,14 +23,14 @@ class CartUser extends React.Component {
 
   render() {
     if (this.state.mounted) {
-      const {cartArray} = this.props
-      const isUser = true
+      const {cartArray, fetchCart} = this.props
+      //const isUser = true
       return (
         <div>
           <Cart
             orderArray={cartArray}
             lineItemSubtotal={this.lineItem}
-            isUser={isUser}
+            fetchCart={fetchCart}
           />
         </div>
       )

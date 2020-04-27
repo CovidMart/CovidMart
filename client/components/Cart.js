@@ -2,7 +2,7 @@ import React from 'react'
 import AddCartButton from './AddCartButton'
 
 const Cart = props => {
-  const {orderArray, lineItemSubtotal, isUser} = props
+  const {orderArray, lineItemSubtotal, fetchCart} = props
   //handlers for add and delete will have to be passed in as well
   if (orderArray.length) {
     return (
@@ -16,13 +16,13 @@ const Cart = props => {
                 {`Qty: ${item.qty ? item.qty : item.PuzzleOrders.quantity}
             -- Subtotal: $${(lineItemSubtotal(item) / 100).toFixed(2)}`}
               </p>
-              {isUser && (
-                <AddCartButton
-                  id={item.id}
-                  price={item.price}
-                  text="Update Cart"
-                />
-              )}
+              <AddCartButton
+                id={item.id}
+                price={item.price}
+                text="Update Cart"
+                fetchCart={fetchCart}
+                quantity={item.qty ? item.qty : item.PuzzleOrders.quantity}
+              />
             </li>
           ))}
         </ul>

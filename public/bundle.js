@@ -164,8 +164,9 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      quantity: 0,
-      puzzleId: _this.props.id
+      quantity: _this.props.quantity || 0,
+      puzzleId: _this.props.id //need on state???
+
     };
     _this.clickAddToCart = _this.clickAddToCart.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -173,6 +174,10 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(AddCartButton, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {//update local state quantity
+    }
+  }, {
     key: "clickAddToCart",
     value: function clickAddToCart(event) {
       event.preventDefault();
@@ -182,12 +187,10 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
           quantity: parseInt(this.state.quantity, 10),
           puzzleId: parseInt(this.state.puzzleId, 10)
         };
-        this.props.addToCart(newOrder); //return the quantity
-
-        this.setState({
-          quantity: 0 //set this to however many user has?^^
-
-        }); //pass fetch cart method from cart to rerender onclick?
+        var fetchCart = this.props.fetchCart;
+        this.props.addToCart(newOrder, fetchCart); // this.setState({
+        //   quantity: this.props.quantity
+        // })
       } catch (err) {
         console.log(err);
       }
@@ -200,6 +203,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log('Does the button HAVE the RIGHT qty????', this.state.quantity);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "cart"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -215,23 +219,19 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return AddCartButton;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-var mapState = function mapState(state) {
-  return {
-    quantity: state.quantity
-  };
-};
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // const mapState = state => ({
+//   quantity: state.order.quantity
+// })
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    addToCart: function addToCart(event) {
-      return dispatch(Object(_store_order__WEBPACK_IMPORTED_MODULE_2__["addToCart"])(event));
+    addToCart: function addToCart(event, fetchCart) {
+      return dispatch(Object(_store_order__WEBPACK_IMPORTED_MODULE_2__["addToCart"])(event, fetchCart));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(AddCartButton));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatch)(AddCartButton));
 
 /***/ }),
 
@@ -467,16 +467,18 @@ __webpack_require__.r(__webpack_exports__);
 var Cart = function Cart(props) {
   var orderArray = props.orderArray,
       lineItemSubtotal = props.lineItemSubtotal,
-      isUser = props.isUser; //handlers for add and delete will have to be passed in as well
+      fetchCart = props.fetchCart; //handlers for add and delete will have to be passed in as well
 
   if (orderArray.length) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, orderArray.map(function (item) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: item.id
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, item.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Qty: ".concat(item.qty ? item.qty : item.PuzzleOrders.quantity, "\n            -- Subtotal: $").concat((lineItemSubtotal(item) / 100).toFixed(2))), isUser && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, item.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Qty: ".concat(item.qty ? item.qty : item.PuzzleOrders.quantity, "\n            -- Subtotal: $").concat((lineItemSubtotal(item) / 100).toFixed(2))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
         id: item.id,
         price: item.price,
-        text: "Update Cart"
+        text: "Update Cart",
+        fetchCart: fetchCart,
+        quantity: item.qty ? item.qty : item.PuzzleOrders.quantity
       }));
     })));
   }
@@ -551,7 +553,6 @@ var CartGuest = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var cartData = window.localStorage;
-      console.log('Component CartData to fetch with:', cartData);
       this.props.fetchCart(cartData);
       this.setState({
         mounted: true
@@ -679,12 +680,14 @@ var CartUser = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       if (this.state.mounted) {
-        var cartArray = this.props.cartArray;
-        var isUser = true;
+        var _this$props = this.props,
+            cartArray = _this$props.cartArray,
+            fetchCart = _this$props.fetchCart; //const isUser = true
+
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart__WEBPACK_IMPORTED_MODULE_2__["default"], {
           orderArray: cartArray,
           lineItemSubtotal: this.lineItem,
-          isUser: isUser
+          fetchCart: fetchCart
         }));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading cart..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -2119,7 +2122,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CreatePuzzle__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CreatePuzzle */ "./client/store/CreatePuzzle.js");
 /* harmony import */ var _EditPuzzle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./EditPuzzle */ "./client/store/EditPuzzle.js");
 /* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./cart */ "./client/store/cart.js");
-/* harmony import */ var _order__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./order */ "./client/store/order.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "me", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["me"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fetchAllUsers", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["fetchAllUsers"]; });
@@ -2138,15 +2140,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+ //import order from './order'
 
 var reducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   user: _user__WEBPACK_IMPORTED_MODULE_4__["default"],
   puzzles: _puzzles__WEBPACK_IMPORTED_MODULE_5__["default"],
   cart: _cart__WEBPACK_IMPORTED_MODULE_8__["default"],
   CreatePuzzle: _CreatePuzzle__WEBPACK_IMPORTED_MODULE_6__["default"],
-  EditPuzzle: _EditPuzzle__WEBPACK_IMPORTED_MODULE_7__["default"],
-  order: _order__WEBPACK_IMPORTED_MODULE_9__["default"]
+  EditPuzzle: _EditPuzzle__WEBPACK_IMPORTED_MODULE_7__["default"] //order
+
 });
 var middleware = Object(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"], Object(redux_logger__WEBPACK_IMPORTED_MODULE_1__["createLogger"])({
   collapsed: true
@@ -2161,93 +2163,69 @@ var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(reducer, m
 /*!*******************************!*\
   !*** ./client/store/order.js ***!
   \*******************************/
-/*! exports provided: addPuzzleOrder, addToCart, default */
+/*! exports provided: addToCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPuzzleOrder", function() { return addPuzzleOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return orderReducer; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./client/store/index.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+ // const ADD_TO_CART = 'ADD_TO_CART'
+// export const addPuzzleOrder = quantity => {
+//   return {
+//     type: ADD_TO_CART,
+//     quantity
+//   }
+// }
 
-var ADD_TO_CART = 'ADD_TO_CART';
-var addPuzzleOrder = function addPuzzleOrder(order) {
-  return {
-    type: ADD_TO_CART,
-    order: order
-  };
-};
 var addToCart = function addToCart(newOrder) {
+  var fetchCart = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   var state = _index__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
   var userId = state.user.singleUser.id;
-  return /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var _yield$axios$post, data;
+  return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
 
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
+          case 3:
+            //dispatch(addPuzzleOrder(qty))
+            if (fetchCart) fetchCart(userId);
+            _context.next = 9;
+            break;
 
-            case 3:
-              _yield$axios$post = _context.sent;
-              data = _yield$axios$post.data;
-              dispatch(addPuzzleOrder(data));
-              _context.next = 11;
-              break;
+          case 6:
+            _context.prev = 6;
+            _context.t0 = _context["catch"](0);
+            console.error(_context.t0);
 
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](0);
-              dispatch(console.error(_context.t0));
-
-            case 11:
-            case "end":
-              return _context.stop();
-          }
+          case 9:
+          case "end":
+            return _context.stop();
         }
-      }, _callee, null, [[0, 8]]);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
-var initialState = {
-  purchasedPuzzle: []
-};
-function orderReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case ADD_TO_CART:
-      return _objectSpread({}, state, {
-        purchasedPuzzle: action.order
-      });
-
-    default:
-      return state;
-  }
-}
+      }
+    }, _callee, null, [[0, 6]]);
+  }));
+}; // const initialState = {
+// }
+// export default function orderReducer(state = initialState, action) {
+//   switch (action.type) {
+//     case ADD_TO_CART:
+//       return {...state, quantity: action.quantity}
+//     default:
+//       return state
+//   }
+// }
 
 /***/ }),
 

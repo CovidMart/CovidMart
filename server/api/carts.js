@@ -29,6 +29,7 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
+  console.log('~~~~~API ping to user cart!!~~~~~')
   try {
     const currentUser = await User.findByPk(uid)
     const activeOrders = await currentUser.getOrders({
@@ -46,7 +47,6 @@ router.post('/:userId', async (req, res, next) => {
   if (req.session.passport) {
     const uid = req.session.passport.user
     const {quantity, puzzleId} = req.body
-    console.log('Api route got qty & pid?', quantity, puzzleId)
     try {
       //grab the puzzle the user wants to buy
       const orderedPuzzle = await Puzzle.findByPk(puzzleId)
