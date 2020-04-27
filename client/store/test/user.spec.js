@@ -1,21 +1,21 @@
 /* global describe beforeEach afterEach it */
 
 import {expect} from 'chai'
-import {me, logout} from './user'
+import {me, logout} from '../user'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
-import history from '../history'
+import history from '../../history'
 
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 
-xdescribe('thunk creators', () => {
+describe('thunk creators', () => {
   let store
   let mockAxios
 
-  const initialState = {user: {}}
+  const initialState = {singleUser: {}}
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
@@ -29,7 +29,7 @@ xdescribe('thunk creators', () => {
 
   describe('me', () => {
     it('eventually dispatches the GET USER action', async () => {
-      const fakeUser = {email: 'Cody'}
+      const fakeUser = {email: 'cody@codyscafe.com', password: '10V3coffee'}
       mockAxios.onGet('/auth/me').replyOnce(200, fakeUser)
       await store.dispatch(me())
       const actions = store.getActions()
