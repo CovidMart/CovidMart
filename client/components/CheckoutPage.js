@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
 import CartUser from './CartUser'
 import CartGuest from './CartGuest'
+import Checkout from '../../src/Checkout'
 import {checkoutUserCart, checkoutGuestCart} from '../store/cart'
 
 // on mount, this component copies data from window.localStorage
@@ -45,6 +46,7 @@ export class CheckoutPage extends React.Component {
             <CartUser {...this.props} userId={this.props.userId} />
           )}
           {!this.props.isLoggedIn && <CartGuest />}
+          <Checkout />
           <button type="button" onClick={this.handleClick}>
             CHECKOUT
           </button>
