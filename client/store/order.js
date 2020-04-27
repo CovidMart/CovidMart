@@ -13,12 +13,33 @@ export const addPuzzleOrder = order => {
 export const addToCart = newOrder => {
   const state = store.getState()
   const userId = state.user.singleUser.id
-  return async dispatch => {
-    try {
-      const {data} = await axios.post(`/api/cart/${userId}`, newOrder)
-      dispatch(addPuzzleOrder(data))
-    } catch (error) {
-      dispatch(console.error(error))
+  if (userId === undefined) {
+    return async dispatch => {
+      try {
+        const getState = localStorage.getItem('state')
+        if (getState === null) {
+          console.log('got here')
+          let orderInfo = {}
+          let key = newOrder.puzzleId
+          let testThis = [(orderInfo[key] = newOrder.quantity)]
+          const newState = JSON.parse(7)
+          console.log(newState)
+          // localStorage.setItem('state', newState)
+        }
+
+        // return JSON.parse(getState);
+      } catch (err) {
+        return undefined
+      }
+    }
+  } else {
+    return async dispatch => {
+      try {
+        const {data} = await axios.post(`/api/cart/${userId}`, newOrder)
+        dispatch(addPuzzleOrder(data))
+      } catch (error) {
+        dispatch(console.error(error))
+      }
     }
   }
 }
