@@ -528,7 +528,7 @@ function (_React$Component) {
   _createClass(CartGuest, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var cartData = window.localStorage;
+      var cartData = window.localStorage.state;
       console.log('Component CartData to fetch with:', cartData);
       this.props.fetchCart(cartData);
       this.setState({
@@ -2165,7 +2165,7 @@ var addPuzzleOrder = function addPuzzleOrder(order) {
 };
 var addToCart = function addToCart(newOrder) {
   var state = _index__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
-  var userId = state.user.singleUser.id;
+  var userId = state.user.singleUser.id; //Guest User Add to Cart
 
   if (userId === undefined) {
     return (
@@ -2174,45 +2174,55 @@ var addToCart = function addToCart(newOrder) {
         var _ref = _asyncToGenerator(
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee(dispatch) {
-          var getState, orderInfo, key, testThis, newState;
+          var getState, orderInfo, items, quantity, puzzle, newState, pullOrder, _newState;
+
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  _context.prev = 0;
-                  getState = localStorage.getItem('state');
-
-                  if (getState === null) {
-                    console.log('got here');
+                  try {
+                    getState = localStorage.getItem('state');
                     orderInfo = {};
-                    key = newOrder.puzzleId;
-                    testThis = [orderInfo[key] = newOrder.quantity];
-                    newState = JSON.parse(7);
-                    console.log(newState); // localStorage.setItem('state', newState)
-                  } // return JSON.parse(getState);
+                    items = [];
+                    quantity = newOrder.quantity;
+                    puzzle = parseInt(newOrder.puzzleId, 10); //create new order for new guest
+                    //if state does not exist, create it and add the puzzleID:quantity as a key-value pair object to the array
 
+                    if (getState === null) {
+                      console.log('we are in a new cart');
+                      orderInfo[puzzle] = quantity;
+                      items.push(orderInfo);
+                      newState = JSON.stringify(items);
+                      localStorage.setItem('state', newState);
+                      console.log(getState);
+                    } else if (getState) {
+                      console.log('we are in the existing cart'); //pull current order and add new puzzle to it
 
-                  _context.next = 8;
-                  break;
+                      pullOrder = JSON.parse(getState);
+                      console.log(newOrder);
+                      orderInfo[puzzle] = quantity;
+                      pullOrder.push(orderInfo);
+                      _newState = JSON.stringify(pullOrder);
+                      localStorage.setItem('state', _newState);
+                      console.log(getState);
+                    }
+                  } catch (error) {
+                    dispatch(console.error(error));
+                  }
 
-                case 5:
-                  _context.prev = 5;
-                  _context.t0 = _context["catch"](0);
-                  return _context.abrupt("return", undefined);
-
-                case 8:
+                case 1:
                 case "end":
                   return _context.stop();
               }
             }
-          }, _callee, null, [[0, 5]]);
+          }, _callee);
         }));
 
         return function (_x) {
           return _ref.apply(this, arguments);
         };
       }()
-    );
+    ); //Logged In User Add to Cart
   } else {
     return (
       /*#__PURE__*/
