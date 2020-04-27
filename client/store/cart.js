@@ -20,9 +20,8 @@ const checkoutUser = order => ({
   order
 })
 
-const checkoutGuest = order => ({
-  type: CHECKOUT_USER,
-  order
+const checkoutGuest = () => ({
+  type: CHECKOUT_GUEST
 })
 
 export const fetchPuzzlesForCart = localStor => {
@@ -53,11 +52,16 @@ export const checkoutUserCart = userId => {
       const {data} = await axios.put(`/api/cart/${userId}`, {
         stillInCart: false
       })
-
       dispatch(checkoutUser(data))
     } catch (error) {
       console.error(error)
     }
+  }
+}
+
+export const checkoutGuestCart = () => {
+  return dispatch => {
+    dispatch(checkoutGuest())
   }
 }
 

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
 import CartUser from './CartUser'
 import CartGuest from './CartGuest'
-import {checkoutUserCart} from '../store/cart'
+import {checkoutUserCart, checkoutGuestCart} from '../store/cart'
 
 // on mount, this component copies data from window.localStorage
 // which thunk will dispatch in api request for the corresponding puzzle data
@@ -26,8 +26,13 @@ export class CheckoutPage extends React.Component {
 
   handleClick() {
     console.log('clicked!!!')
-    let userId = this.props.userId
-    this.props.checkoutUserCart(userId)
+    if (this.props.isLoggedIn) {
+      let userId = this.props.userId
+      this.props.checkoutUserCart(userId)
+    } else {
+      window.localStorage.clear()
+      this.props.checkoutGuestCart()
+    }
   }
 
   render() {

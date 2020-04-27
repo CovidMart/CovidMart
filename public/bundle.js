@@ -775,8 +775,14 @@ function (_React$Component) {
     key: "handleClick",
     value: function handleClick() {
       console.log('clicked!!!');
-      var userId = this.props.userId;
-      this.props.checkoutUserCart(userId);
+
+      if (this.props.isLoggedIn) {
+        var userId = this.props.userId;
+        this.props.checkoutUserCart(userId);
+      } else {
+        window.localStorage.clear();
+        this.props.checkoutGuestCart();
+      }
     }
   }, {
     key: "render",
@@ -1956,7 +1962,7 @@ function EditPuzzleReducer() {
 /*!******************************!*\
   !*** ./client/store/cart.js ***!
   \******************************/
-/*! exports provided: fetchPuzzlesForCart, fetchUserOrdersForCart, checkoutUserCart, default */
+/*! exports provided: fetchPuzzlesForCart, fetchUserOrdersForCart, checkoutUserCart, checkoutGuestCart, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1964,6 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchPuzzlesForCart", function() { return fetchPuzzlesForCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserOrdersForCart", function() { return fetchUserOrdersForCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkoutUserCart", function() { return checkoutUserCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkoutGuestCart", function() { return checkoutGuestCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return cartReducer; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -2004,10 +2011,9 @@ var checkoutUser = function checkoutUser(order) {
   };
 };
 
-var checkoutGuest = function checkoutGuest(order) {
+var checkoutGuest = function checkoutGuest() {
   return {
-    type: CHECKOUT_USER,
-    order: order
+    type: CHECKOUT_GUEST
   };
 };
 
@@ -2141,6 +2147,11 @@ var checkoutUserCart = function checkoutUserCart(userId) {
       };
     }()
   );
+};
+var checkoutGuestCart = function checkoutGuestCart() {
+  return function (dispatch) {
+    dispatch(checkoutGuest());
+  };
 };
 var initialState = {
   guestCart: [],
