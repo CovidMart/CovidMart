@@ -206,6 +206,7 @@ function (_React$Component) {
       }, "ADD TO CART")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         name: "quantity",
         type: "number",
+        min: "0",
         onChange: this.handleChange,
         value: this.state.quantity
       }));
@@ -2164,6 +2165,7 @@ var addPuzzleOrder = function addPuzzleOrder(order) {
   };
 };
 var addToCart = function addToCart(newOrder) {
+  //Pulls userID off store if loggedin
   var state = _index__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
   var userId = state.user.singleUser.id; //Guest User Add to Cart
 
@@ -2193,7 +2195,7 @@ var addToCart = function addToCart(newOrder) {
                       localStorage.setItem('guestCart', newState);
                     } else if (getState) {
                       //if state exists, add new puzzle to it
-                      pullOrder = JSON.parse(getState);
+                      pullOrder = JSON.parse(getState); //if puzzle ID exists, then update the quantity
 
                       if (puzzle in pullOrder) {
                         pullOrder[puzzle] = quantity;

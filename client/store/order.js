@@ -11,6 +11,7 @@ export const addPuzzleOrder = order => {
 }
 
 export const addToCart = newOrder => {
+  //Pulls userID off store if loggedin
   const state = store.getState()
   const userId = state.user.singleUser.id
 
@@ -32,11 +33,13 @@ export const addToCart = newOrder => {
         } else if (getState) {
           //if state exists, add new puzzle to it
           const pullOrder = JSON.parse(getState)
+          //if puzzle ID exists, then update the quantity
           if (puzzle in pullOrder) {
             pullOrder[puzzle] = quantity
           } else {
             pullOrder[puzzle] = quantity.toString()
           }
+
           const newState = JSON.stringify(pullOrder)
           localStorage.setItem('guestCart', newState)
         }
