@@ -26,7 +26,6 @@ export class CheckoutPage extends React.Component {
 
   handleClick() {
     console.log('clicked!!!')
-    console.log(this.props, 'this.props in handleClick')
     let userId = this.props.userId
     this.props.checkoutUserCart(userId)
   }

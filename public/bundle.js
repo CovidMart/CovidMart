@@ -715,7 +715,6 @@ function (_React$Component) {
     key: "handleClick",
     value: function handleClick() {
       console.log('clicked!!!');
-      console.log(this.props, 'this.props in handleClick');
       var userId = this.props.userId;
       this.props.checkoutUserCart(userId);
     }

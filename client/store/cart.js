@@ -53,6 +53,7 @@ export const checkoutUserCart = userId => {
       const {data} = await axios.put(`/api/cart/${userId}`, {
         stillInCart: false
       })
+
       dispatch(checkoutUser(data))
     } catch (error) {
       console.error(error)
