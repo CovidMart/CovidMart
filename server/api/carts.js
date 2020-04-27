@@ -6,8 +6,9 @@ module.exports = router
 // ----Guest Cart----//
 
 router.post('/', async (req, res, next) => {
-  const guestCart = req.body.guestCart ? JSON.parse(req.body.guestCart) : {}
-  console.log('Routes guest car', guestCart)
+  console.log('Routes guest cart????? 1', req.body)
+  const guestCart = req.body.cartData
+  console.log('Routes guest cart?????', guestCart)
   const cartPuzzles = []
   try {
     // eslint-disable-next-line guard-for-in
@@ -35,7 +36,7 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
       where: {stillInCart: true},
       include: [{model: Puzzle}]
     })
-    res.json(activeOrders)
+    res.json(activeOrders[0])
   } catch (error) {
     next(error)
   }

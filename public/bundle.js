@@ -1751,100 +1751,110 @@ var setCart = function setCart(cart) {
   };
 };
 
-var fetchCart = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(userId) {
-    var guestCart, _yield$axios$post, data;
+var calculateTotal = function calculateTotal(puzzleArr) {
+  return puzzleArr.reduce(function (a, c) {
+    a += c.PuzzleOrders.subtotal;
+    return a;
+  }, 0);
+};
 
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            if (!userId) {
-              _context2.next = 4;
-              break;
+var fetchCart = function fetchCart(userData) {
+  if (userData) {
+    return /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
+        var _yield$axios$get, data, id, pricePaid, puzzles, userId;
+
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/cart/".concat(userData.id));
+
+              case 3:
+                _yield$axios$get = _context.sent;
+                data = _yield$axios$get.data;
+                id = data.id, pricePaid = data.pricePaid, puzzles = data.puzzles, userId = data.userId;
+
+                if (pricePaid <= 0) {
+                  pricePaid = calculateTotal(puzzles);
+                }
+
+                dispatch(setCart({
+                  id: id,
+                  pricePaid: pricePaid,
+                  puzzles: puzzles,
+                  userId: userId
+                }));
+                _context.next = 13;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](0);
+                console.error(_context.t0);
+
+              case 13:
+              case "end":
+                return _context.stop();
             }
+          }
+        }, _callee, null, [[0, 10]]);
+      }));
 
-            return _context2.abrupt("return", /*#__PURE__*/function () {
-              var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-                var _yield$axios$get, data;
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+  } else if (window.localStorage.guestCart) {
+    var guestCart = {};
+    guestCart.cartData = JSON.parse(window.localStorage.guestCart);
 
-                return regeneratorRuntime.wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        _context.prev = 0;
-                        _context.next = 3;
-                        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/cart/".concat(userId));
+    if (_typeof(guestCart.cartData) === 'object') {
+      return /*#__PURE__*/function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
+          var _yield$axios$post, data;
 
-                      case 3:
-                        _yield$axios$get = _context.sent;
-                        data = _yield$axios$get.data;
-                        console.log('Data from fetchCart api req--->', data);
-                        dispatch(setCart(data));
-                        _context.next = 12;
-                        break;
+          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  _context2.prev = 0;
+                  _context2.next = 3;
+                  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/cart', guestCart);
 
-                      case 9:
-                        _context.prev = 9;
-                        _context.t0 = _context["catch"](0);
-                        console.error(_context.t0);
+                case 3:
+                  _yield$axios$post = _context2.sent;
+                  data = _yield$axios$post.data;
+                  console.log('Guest cart API req returns as DATA:', data); //modify data with any missing vals
 
-                      case 12:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }
-                }, _callee, null, [[0, 9]]);
-              }));
+                  dispatch(setCart(data));
+                  _context2.next = 12;
+                  break;
 
-              return function (_x2) {
-                return _ref2.apply(this, arguments);
-              };
-            }());
+                case 9:
+                  _context2.prev = 9;
+                  _context2.t0 = _context2["catch"](0);
+                  console.error(_context2.t0);
 
-          case 4:
-            if (!window.localStorage.guestCart) {
-              _context2.next = 16;
-              break;
+                case 12:
+                case "end":
+                  return _context2.stop();
+              }
             }
+          }, _callee2, null, [[0, 9]]);
+        }));
 
-            guestCart = {};
-            guestCart[cartData] = JSON.parse(window.localStorage.guestCart);
-
-            if (!(_typeof(guestCart[cartData]) === 'object' && guestCart[cartData].length > 0)) {
-              _context2.next = 14;
-              break;
-            }
-
-            _context2.next = 10;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/cart", guestCart);
-
-          case 10:
-            _yield$axios$post = _context2.sent;
-            data = _yield$axios$post.data;
-            console.log('Guest cart API req returns as DATA:', data); //modify data with any missing vals
-
-            dispatch(setCart(data));
-
-          case 14:
-            _context2.next = 17;
-            break;
-
-          case 16:
-            window.localStorage.setItem('guestCart', '{}');
-
-          case 17:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function fetchCart(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
+        return function (_x2) {
+          return _ref2.apply(this, arguments);
+        };
+      }();
+    } else window.localStorage.setItem('guestCart', '{}');
+  } else {
+    window.localStorage.setItem('guestCart', '{}');
+  }
+};
 var initialState = {
   activeCart: {}
 };
@@ -1861,7 +1871,13 @@ function cartReducer() {
     default:
       return state;
   }
-}
+} // const initialState = {
+//   activeCart: {
+//     userId: 0,
+//     puzzleOrders: [],
+//     totalOrderPrice: 0
+//   }
+// }
 
 /***/ }),
 
@@ -2299,23 +2315,22 @@ var me = function me(fetchCart) {
             case 3:
               _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
-              console.log('What this DATA???', data);
               dispatch(getUser(data || defaultUser));
-              if (data) dispatch(fetchCart(data.id || null));
-              _context.next = 13;
+              if (data) dispatch(fetchCart(data));else dispatch(fetchCart(null));
+              _context.next = 12;
               break;
 
-            case 10:
-              _context.prev = 10;
+            case 9:
+              _context.prev = 9;
               _context.t0 = _context["catch"](0);
               console.error(_context.t0);
 
-            case 13:
+            case 12:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 10]]);
+      }, _callee, null, [[0, 9]]);
     }));
 
     return function (_x) {
