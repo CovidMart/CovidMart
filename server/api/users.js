@@ -35,6 +35,7 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
 })
 
 router.put('/:userId', async (req, res, next) => {
+  //add middleware
   try {
     const foundUser = await User.findByPk(req.params.userId)
     if (foundUser) {

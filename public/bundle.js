@@ -456,11 +456,16 @@ var Cart = function Cart(props) {
       lineItemSubtotal = props.lineItemSubtotal; //handlers for add and delete will have to be passed in as well
 
   if (orderArray.length) {
+    console.log(orderArray, 'orderArray');
+    var totalOrderCost = orderArray.reduce(function (sum, currOrder) {
+      return sum + currOrder.price;
+    });
+    console.log(totalOrderCost, 'totalOrderCost');
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Party Carty!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", null, orderArray.map(function (item) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: item.id
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, item.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Qty: ".concat(item.qty ? item.qty : item.PuzzleOrders.quantity, "\n            -- Subtotal: $").concat((lineItemSubtotal(item) / 100).toFixed(2))));
-    })));
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "TOTAL ORDER COST: $38.97")));
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Party Carty!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Nothing in your cart?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Let's find a corner piece!"));
@@ -553,7 +558,7 @@ function (_React$Component) {
           orderArray: cartArray,
           lineItemSubtotal: this.lineItem
         }), this.props.match !== undefined && this.props.match.path == '/cart' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-          to: '/checkout'
+          to: "/checkout"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button"
         }, "CHECKOUT NOW")));
