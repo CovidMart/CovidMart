@@ -6,6 +6,7 @@ module.exports = router
 // ----Guest Cart----//
 
 router.post('/', async (req, res, next) => {
+  //json parse inthunk
   const guestCart = req.body.guestCart ? JSON.parse(req.body.guestCart) : {}
   const cartPuzzles = []
   try {
