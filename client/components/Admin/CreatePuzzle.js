@@ -7,12 +7,16 @@ class CreatePuzzle extends Component {
     this.props.changeValue(name, event.target.value)
   }
 
+  onSubmit(evt) {
+    evt.preventDefault() //preventDefault stop browser submit
+    this.props.submitPuzzle() // use action creator to submit instead
+  }
+
   render() {
     let puzzle = this.props.puzzle
-    let submit = this.props.submitPuzzle
-
+    // need to bind(this) for function
     return (
-      <form onSubmit={submit}>
+      <form onSubmit={this.onSubmit.bind(this)}>
         <div className="center"> Add New Product: </div>
 
         <br />
@@ -91,7 +95,11 @@ class CreatePuzzle extends Component {
         <br />
         <br />
         <div className="center">
-          <button type="submit">Submit</button>
+          <input
+            type="submit"
+            value="Submit"
+            onClick={this.onSubmit.bind(this)}
+          />
         </div>
 
         <br />

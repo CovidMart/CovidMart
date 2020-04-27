@@ -31,7 +31,7 @@ router.post('/', isAdmin, async (req, res, next) => {
       title: req.body.title,
       price: req.body.price,
       pieceCount: req.body.pieceCount,
-      dimentions: req.body.dimentions,
+      dimensions: req.body.dimensions,
       imageUrl: req.body.imageUrl,
       category: req.body.category,
       description: req.body.description
@@ -50,7 +50,7 @@ router.put('/:puzzleId', isAdmin, async (req, res, next) => {
       title: req.body.title,
       price: req.body.price,
       pieceCount: req.body.pieceCount,
-      dimentions: req.body.dimentions,
+      dimensions: req.body.dimensions,
       imageUrl: req.body.imageUrl,
       category: req.body.category,
       description: req.body.description

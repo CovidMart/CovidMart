@@ -15,25 +15,26 @@ const SET_VALUE = 'SET_VALUE'
 const setValue = (name, value) => {
   return {
     type: SET_VALUE,
-    name: name,
-    value: value
+    name: name, // name denoted different property under same attribute as "name" in CreatePuzzle componnet
+    value: value // set property value accordingly
   }
 }
 
 // thunk creator
 const AddPuzzle = () => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const state = getState().CreatePuzzle //global store, getState instead of passing in value
     try {
-      const {data} = await axios.post('/api/puzzles', {
-        title: this.state.title,
-        imageUrl: this.state.imageUrl,
-        dimensions: this.state.dimensions,
-        price: this.state.price,
-        pieceCount: this.state.pieceCount,
-        category: this.state.category,
-        description: this.state.description
+      await axios.post('/api/puzzles', {
+        title: state.title,
+        imageUrl: state.imageUrl,
+        dimensions: state.dimensions,
+        price: state.price,
+        pieceCount: state.pieceCount,
+        category: state.category,
+        description: state.description
       })
-      dispatch(setValue(data))
+      // dispatch(setValue(data))
     } catch (error) {
       dispatch(console.error(error))
     }
