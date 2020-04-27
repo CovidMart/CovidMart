@@ -3,7 +3,6 @@ const db = require('../db')
 const PuzzleOrders = require('./puzzleorder')
 
 const Order = db.define('orders', {
-  //order date: automatically included as createdAt field
   stillInCart: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
@@ -17,7 +16,8 @@ const Order = db.define('orders', {
     }
   },
   pricePaid: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
 
@@ -32,7 +32,9 @@ Order.prototype.getLineItems = async function() {
   return lineItems
 }
 
-const calculateOrderTotalPrice = async order => {
+// Hook is working but not saving to the DB???
+
+const calculateOrderTotal = async order => {
   let totalPrice = 0
   const subtotals = await order.getLineItems()
   subtotals.forEach(item => {
@@ -41,6 +43,6 @@ const calculateOrderTotalPrice = async order => {
   order.pricePaid = totalPrice
 }
 
-Order.beforeSave(calculateOrderTotalPrice)
+Order.beforeUpdate(calculateOrderTotal)
 
 module.exports = Order
