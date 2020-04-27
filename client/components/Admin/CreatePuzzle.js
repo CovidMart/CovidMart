@@ -49,7 +49,7 @@ class CreatePuzzle extends Component {
 
         <div className="formInput">
           <label htmlFor="price"> Product Prices: </label>
-          <textarea
+          <input
             type="text"
             name="price"
             onChange={this.handleChange.bind(this, 'price')}
@@ -59,7 +59,7 @@ class CreatePuzzle extends Component {
 
         <div className="formInput">
           <label htmlFor="pieceCount"> Product Inventory: </label>
-          <textarea
+          <input
             type="text"
             name="pieceCount"
             onChange={this.handleChange.bind(this, 'pieceCount')}
@@ -69,7 +69,7 @@ class CreatePuzzle extends Component {
 
         <div className="formInput">
           <label htmlFor="category"> Category Product Belongs To: </label>
-          <textarea
+          <input
             type="text"
             name="category"
             onChange={this.handleChange.bind(this, 'category')}
