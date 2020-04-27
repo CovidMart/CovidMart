@@ -7,9 +7,7 @@ export class AddCartButton extends React.Component {
     super(props)
     this.state = {
       quantity: 0,
-      puzzleId: this.props.id,
-      price: this.props.price,
-      orderId: 1
+      puzzleId: this.props.id
     }
     this.clickAddToCart = this.clickAddToCart.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -20,14 +18,13 @@ export class AddCartButton extends React.Component {
     try {
       const newOrder = {
         quantity: parseInt(this.state.quantity, 10),
-        puzzleId: parseInt(this.state.puzzleId, 10),
-        price: this.state.price,
-        orderId: this.state.orderId
+        puzzleId: parseInt(this.state.puzzleId, 10)
       }
-      this.props.addToCart(newOrder)
+      this.props.addToCart(newOrder) //return the quantity
       this.setState({
-        quantity: 0
+        quantity: 0 //set this to however many user has?^^
       })
+      //pass fetch cart method from cart to rerender onclick?
     } catch (err) {
       console.log(err)
     }
@@ -42,7 +39,7 @@ export class AddCartButton extends React.Component {
       <div className="cart">
         <div>
           <button type="button" onClick={this.clickAddToCart}>
-            ADD TO CART
+            {this.props.text}
           </button>
         </div>
         <div />

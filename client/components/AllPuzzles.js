@@ -38,7 +38,11 @@ export class AllPuzzles extends React.Component {
                 <h3>{puzzle.title}</h3>
               </Link>
               <h3>${puzzle.price / 100}</h3>
-              <AddCartButton id={puzzle.id} price={puzzle.price} />
+              <AddCartButton
+                id={puzzle.id}
+                price={puzzle.price}
+                text="Add to Cart"
+              />
             </div>
           ))}
       </div>

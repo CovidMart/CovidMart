@@ -165,9 +165,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       quantity: 0,
-      puzzleId: _this.props.id,
-      price: _this.props.price,
-      orderId: 1
+      puzzleId: _this.props.id
     };
     _this.clickAddToCart = _this.clickAddToCart.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -182,14 +180,14 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
       try {
         var newOrder = {
           quantity: parseInt(this.state.quantity, 10),
-          puzzleId: parseInt(this.state.puzzleId, 10),
-          price: this.state.price,
-          orderId: this.state.orderId
+          puzzleId: parseInt(this.state.puzzleId, 10)
         };
-        this.props.addToCart(newOrder);
+        this.props.addToCart(newOrder); //return the quantity
+
         this.setState({
-          quantity: 0
-        });
+          quantity: 0 //set this to however many user has?^^
+
+        }); //pass fetch cart method from cart to rerender onclick?
       } catch (err) {
         console.log(err);
       }
@@ -207,7 +205,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: this.clickAddToCart
-      }, "ADD TO CART")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, this.props.text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         name: "quantity",
         type: "number",
         onChange: this.handleChange,
@@ -324,7 +322,8 @@ var AllPuzzles = /*#__PURE__*/function (_React$Component) {
           src: puzzle.imageUrl
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, puzzle.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "$", puzzle.price / 100), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: puzzle.id,
-          price: puzzle.price
+          price: puzzle.price,
+          text: "Add to Cart"
         }));
       }));
     }
@@ -461,17 +460,24 @@ var mapDispatch = function mapDispatch(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _AddCartButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddCartButton */ "./client/components/AddCartButton.js");
+
 
 
 var Cart = function Cart(props) {
   var orderArray = props.orderArray,
-      lineItemSubtotal = props.lineItemSubtotal; //handlers for add and delete will have to be passed in as well
+      lineItemSubtotal = props.lineItemSubtotal,
+      isUser = props.isUser; //handlers for add and delete will have to be passed in as well
 
   if (orderArray.length) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", null, orderArray.map(function (item) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, orderArray.map(function (item) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: item.id
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, item.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Qty: ".concat(item.qty ? item.qty : item.PuzzleOrders.quantity, "\n            -- Subtotal: $").concat((lineItemSubtotal(item) / 100).toFixed(2))));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, item.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Qty: ".concat(item.qty ? item.qty : item.PuzzleOrders.quantity, "\n            -- Subtotal: $").concat((lineItemSubtotal(item) / 100).toFixed(2))), isUser && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        id: item.id,
+        price: item.price,
+        text: "Update Cart"
+      }));
     })));
   }
 
@@ -674,9 +680,11 @@ var CartUser = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       if (this.state.mounted) {
         var cartArray = this.props.cartArray;
+        var isUser = true;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart__WEBPACK_IMPORTED_MODULE_2__["default"], {
           orderArray: cartArray,
-          lineItemSubtotal: this.lineItem
+          lineItemSubtotal: this.lineItem,
+          isUser: isUser
         }));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading cart..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
