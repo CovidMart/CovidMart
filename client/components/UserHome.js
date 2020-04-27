@@ -11,7 +11,6 @@ export class UserHome extends React.Component {
     super(props)
   }
   render() {
-    console.log(this.props, 'this.props')
     const {
       email,
       firstName,

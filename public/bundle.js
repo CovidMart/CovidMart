@@ -192,7 +192,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
         //   quantity: this.props.quantity
         // })
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
   }, {
@@ -203,7 +203,6 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log('Does the button HAVE the RIGHT qty????', this.state.quantity);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "cart"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -416,7 +415,6 @@ var AllUsers = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props, 'THIS IS PROPS');
       var allUsers = this.props.users;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, allUsers && allUsers.map(function (user) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1003,7 +1001,6 @@ var UserHome = /*#__PURE__*/function (_React$Component) {
   _createClass(UserHome, [{
     key: "render",
     value: function render() {
-      console.log(this.props, 'this.props');
       var _this$props$singleUse = this.props.singleUser,
           email = _this$props$singleUse.email,
           firstName = _this$props$singleUse.firstName,
@@ -1123,8 +1120,6 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
   _createClass(UserInfoForm, [{
     key: "handleChange",
     value: function handleChange(event) {
-      console.log(this); // console.log(this.state, '----state----')
-
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {

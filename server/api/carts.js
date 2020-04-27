@@ -7,7 +7,6 @@ module.exports = router
 
 router.post('/', async (req, res, next) => {
   const guestCart = req.body.guestCart ? JSON.parse(req.body.guestCart) : {}
-  console.log('Routes guest car', guestCart)
   const cartPuzzles = []
   try {
     // eslint-disable-next-line guard-for-in
@@ -29,7 +28,6 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
-  console.log('~~~~~API ping to user cart!!~~~~~')
   try {
     const currentUser = await User.findByPk(uid)
     const activeOrders = await currentUser.getOrders({

@@ -30,7 +30,7 @@ export class AddCartButton extends React.Component {
       //   quantity: this.props.quantity
       // })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -39,7 +39,6 @@ export class AddCartButton extends React.Component {
   }
 
   render() {
-    console.log('Does the button HAVE the RIGHT qty????', this.state.quantity)
     return (
       <div className="cart">
         <div>
