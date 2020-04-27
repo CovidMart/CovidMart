@@ -715,6 +715,7 @@ function (_React$Component) {
     key: "handleClick",
     value: function handleClick() {
       console.log('clicked!!!');
+      this.props.checkOutUserCart();
     }
   }, {
     key: "render",
@@ -747,14 +748,27 @@ var mapState = function mapState(state) {
     isLoggedIn: !!state.user.singleUser.id,
     userId: state.user.singleUser.id
   };
-}; // const mapDispatch = dispatch => {
-//   return {
-//     fetchCart: cartData => dispatch(fetchPuzzlesForCart(cartData))
-//   }
-// }
+};
 
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    checkoutUserCart: function (_checkoutUserCart) {
+      function checkoutUserCart(_x) {
+        return _checkoutUserCart.apply(this, arguments);
+      }
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState)(CheckoutPage));
+      checkoutUserCart.toString = function () {
+        return _checkoutUserCart.toString();
+      };
+
+      return checkoutUserCart;
+    }(function (cartData) {
+      return dispatch(checkoutUserCart(cartData));
+    })
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(CheckoutPage));
 
 /***/ }),
 
@@ -1884,13 +1898,14 @@ function EditPuzzleReducer() {
 /*!******************************!*\
   !*** ./client/store/cart.js ***!
   \******************************/
-/*! exports provided: fetchPuzzlesForCart, fetchUserOrdersForCart, default */
+/*! exports provided: fetchPuzzlesForCart, fetchUserOrdersForCart, checkoutUserCart, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchPuzzlesForCart", function() { return fetchPuzzlesForCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserOrdersForCart", function() { return fetchUserOrdersForCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkoutUserCart", function() { return checkoutUserCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return cartReducer; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -1907,6 +1922,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var GET_LOCALSTORAGE_PUZZLES = 'GET_LOCALSTORAGE_PUZZLES';
 var GET_LOGGED_IN_CART = 'GET_LOGGED_IN_CART';
+var CHECKOUT_USER = 'CHECKOUT_USER';
 
 var getPuzzlesForCart = function getPuzzlesForCart(guestPuzzles) {
   return {
@@ -1919,6 +1935,13 @@ var getUserOrdersForCart = function getUserOrdersForCart(userPuzzles) {
   return {
     type: GET_LOGGED_IN_CART,
     userPuzzles: userPuzzles
+  };
+};
+
+var checkoutUser = function checkoutUser(order) {
+  return {
+    type: CHECKOUT_USER,
+    order: order
   };
 };
 
@@ -2008,6 +2031,51 @@ var fetchUserOrdersForCart = function fetchUserOrdersForCart(userId) {
     }()
   );
 };
+var checkoutUserCart = function checkoutUserCart(userId) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref5 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee3(dispatch) {
+        var _ref6, data;
+
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/checkout/".concat(userId), {
+                  stillInCart: false
+                });
+
+              case 3:
+                _ref6 = _context3.sent;
+                data = _ref6.data;
+                dispatch(checkoutUser(data));
+                _context3.next = 11;
+                break;
+
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](0);
+                console.error(_context3.t0);
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 8]]);
+      }));
+
+      return function (_x3) {
+        return _ref5.apply(this, arguments);
+      };
+    }()
+  );
+};
 var initialState = {
   guestCart: [],
   userCart: []
@@ -2025,6 +2093,16 @@ function cartReducer() {
     case GET_LOGGED_IN_CART:
       return _objectSpread({}, state, {
         userCart: action.userPuzzles
+      });
+
+    case CHECKOUT_USER:
+      return _objectSpread({}, state, {
+        userCart: {}
+      });
+
+    case CHECKOUT_GUEST:
+      return _objectSpread({}, state, {
+        guestCart: {}
       });
 
     default:
