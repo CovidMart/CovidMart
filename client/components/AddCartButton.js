@@ -49,6 +49,7 @@ export class AddCartButton extends React.Component {
         <input
           name="quantity"
           type="number"
+          min="0"
           onChange={this.handleChange}
           value={this.state.quantity}
         />

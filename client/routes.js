@@ -44,35 +44,29 @@ class Routes extends Component {
             <Route exact path="/cart" component={CartGuest} />
           </Switch>
         )}
-        {isLoggedIn &&
-          !isAdmin && (
-            <Switch>
-              {/* Routes placed here are only available after logging in */}
-              <Route path="/home" component={UserHome} />
-              <Route
-                exact
-                path={`/cart/${userId}`}
-                render={props => <CartUser {...props} userId={userId} />}
-              />
-            </Switch>
-          )}
-        {isAdmin &&
-          isLoggedIn && (
-            <Switch>
-              {/* Routes placed here are only available after admin logging in */}
-              <Route
-                exact
-                path="/admin/puzzle/create"
-                component={CreatePuzzle}
-              />
-              <Route
-                exact
-                path="/admin/puzzle/edit/:puzzleId"
-                component={EditPuzzle}
-              />
-              <Route exact path="/users" component={AllUsers} />
-            </Switch>
-          )}
+        {isLoggedIn && !isAdmin && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+            <Route
+              exact
+              path={`/cart/${userId}`}
+              render={props => <CartUser {...props} userId={userId} />}
+            />
+          </Switch>
+        )}
+        {isAdmin && isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after admin logging in */}
+            <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
+            <Route
+              exact
+              path="/admin/puzzle/edit/:puzzleId"
+              component={EditPuzzle}
+            />
+            <Route exact path="/users" component={AllUsers} />
+          </Switch>
+        )}
 
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
