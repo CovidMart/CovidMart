@@ -19,25 +19,31 @@ export const addToCart = newOrder => {
     return async dispatch => {
       try {
         const getState = localStorage.getItem('guestCart')
-
         let orderInfo = {}
         let quantity = newOrder.quantity
         let puzzle = parseInt(newOrder.puzzleId, 10)
-
+        //create new order for new guest
+        //if state does not exist, create it and add the puzzleID:quantity as a key-value pair object to the array
         if (getState === null) {
+          console.log('we are in a new cart')
           orderInfo[puzzle] = quantity.toString()
           const newState = JSON.stringify(orderInfo)
           localStorage.setItem('guestCart', newState)
+          console.log(getState)
         } else if (getState) {
-          orderInfo[puzzle] = quantity.toString()
-          pullOrder.map(item => (item[puzzle] = quantity))
+          console.log('we are in the existing cart')
+          //pull current order and add new puzzle to it
+          const pullOrder = JSON.parse(getState)
+          pullOrder[puzzle] = quantity.toString()
           const newState = JSON.stringify(pullOrder)
           localStorage.setItem('guestCart', newState)
+          console.log(getState)
         }
       } catch (error) {
         dispatch(console.error(error))
       }
     }
+
     //Logged In User Add to Cart
   } else {
     return async dispatch => {

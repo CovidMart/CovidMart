@@ -2176,7 +2176,7 @@ var addToCart = function addToCart(newOrder) {
         var _ref = _asyncToGenerator(
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee(dispatch) {
-          var getState, orderInfo, quantity, puzzle, newState, _newState;
+          var getState, orderInfo, quantity, puzzle, newState, pullOrder, _newState;
 
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
@@ -2186,19 +2186,23 @@ var addToCart = function addToCart(newOrder) {
                     getState = localStorage.getItem('guestCart');
                     orderInfo = {};
                     quantity = newOrder.quantity;
-                    puzzle = parseInt(newOrder.puzzleId, 10);
+                    puzzle = parseInt(newOrder.puzzleId, 10); //create new order for new guest
+                    //if state does not exist, create it and add the puzzleID:quantity as a key-value pair object to the array
 
                     if (getState === null) {
+                      console.log('we are in a new cart');
                       orderInfo[puzzle] = quantity.toString();
                       newState = JSON.stringify(orderInfo);
                       localStorage.setItem('guestCart', newState);
+                      console.log(getState);
                     } else if (getState) {
-                      orderInfo[puzzle] = quantity.toString();
-                      pullOrder.map(function (item) {
-                        return item[puzzle] = quantity;
-                      });
+                      console.log('we are in the existing cart'); //pull current order and add new puzzle to it
+
+                      pullOrder = JSON.parse(getState);
+                      pullOrder[puzzle] = quantity.toString();
                       _newState = JSON.stringify(pullOrder);
                       localStorage.setItem('guestCart', _newState);
+                      console.log(getState);
                     }
                   } catch (error) {
                     dispatch(console.error(error));
