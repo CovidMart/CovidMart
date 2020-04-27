@@ -13,7 +13,7 @@ class CartGuest extends React.Component {
   }
 
   componentDidMount() {
-    const cartData = window.localStorage.state
+    const cartData = window.localStorage
     console.log('Component CartData to fetch with:', cartData)
     this.props.fetchCart(cartData)
     this.setState({mounted: true})
@@ -24,6 +24,7 @@ class CartGuest extends React.Component {
   }
 
   render() {
+    console.log()
     if (this.state.mounted) {
       const {cartArray} = this.props
       return (
