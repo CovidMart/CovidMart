@@ -1,35 +1,45 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchEditPuzzle, setValue} from '../../store/CreatePuzzle'
+import {
+  fetchEditPuzzle,
+  setValue,
+  fetchPuzzleData
+} from '../../store/EditPuzzle'
 
 class EditPuzzle extends Component {
   handleChange(name, event) {
     this.props.changeValue(name, event.target.value)
   }
 
+  onSubmit(evt) {
+    evt.preventDefault()
+    const id = this.props.match.params.puzzleId
+    this.props.submitPuzzle(id)
+  }
+
+  componentDidMount() {
+    const id = this.props.match.params.puzzleId
+    this.props.getPuzzle(id)
+  }
+
+  // render1() {
+  //   return <h1>Hello</h1>
+  // }
+
   render() {
     let puzzle = this.props.puzzle
-    let submit = this.props.submitPuzzle
+    let submit = this.onSubmit.bind(this)
 
     return (
-      <form onSubmit={submit}>
+      <form className="edit-container" onSubmit={submit}>
         <div className="center"> Edit Product: </div>
 
         <br />
-
         <div className="formInput">
-          <label htmlFor="title"> Puzzle Title </label>
-          <input
-            type="text"
-            name="title"
-            onChange={this.handleChange.bind(this, 'title')}
-            value={puzzle.name}
-          />
-        </div>
-
-        <div className="formInput">
+          <img className="image" src={puzzle.imageUrl} />
           <label htmlFor="imageUrl"> Product ImageUrl: </label>
           <input
+            className="input"
             type="text"
             name="imageUrl"
             onChange={this.handleChange.bind(this, 'imageUrl')}
@@ -38,8 +48,20 @@ class EditPuzzle extends Component {
         </div>
 
         <div className="formInput">
+          <label htmlFor="title"> Puzzle Title </label>
+          <input
+            className="input"
+            type="text"
+            name="title"
+            onChange={this.handleChange.bind(this, 'title')}
+            value={puzzle.title}
+          />
+        </div>
+
+        <div className="formInput">
           <label htmlFor="dimensions"> Product Dimensions: </label>
           <input
+            className="input"
             type="text"
             name="dimensions"
             onChange={this.handleChange.bind(this, 'dimensions')}
@@ -50,6 +72,7 @@ class EditPuzzle extends Component {
         <div className="formInput">
           <label htmlFor="price"> Product Prices: </label>
           <input
+            className="input"
             type="text"
             name="price"
             onChange={this.handleChange.bind(this, 'price')}
@@ -60,6 +83,7 @@ class EditPuzzle extends Component {
         <div className="formInput">
           <label htmlFor="pieceCount"> Product Inventory: </label>
           <input
+            className="input"
             type="text"
             name="pieceCount"
             onChange={this.handleChange.bind(this, 'pieceCount')}
@@ -70,6 +94,7 @@ class EditPuzzle extends Component {
         <div className="formInput">
           <label htmlFor="category"> Category Product Belongs To: </label>
           <input
+            className="input"
             type="text"
             name="category"
             onChange={this.handleChange.bind(this, 'category')}
@@ -80,6 +105,7 @@ class EditPuzzle extends Component {
         <div className="formInput">
           <label htmlFor="description">Product Descriptions: </label>
           <textarea
+            className="textarea"
             type="text"
             name="description"
             onChange={this.handleChange.bind(this, 'description')}
@@ -93,23 +119,6 @@ class EditPuzzle extends Component {
         <div className="center">
           <button type="submit">Submit</button>
         </div>
-
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
       </form>
     )
   }
@@ -117,14 +126,15 @@ class EditPuzzle extends Component {
 
 const mapState = state => {
   return {
-    puzzle: state.CreatePuzzle
+    puzzle: state.EditPuzzle
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    submitPuzzle: () => dispatch(fetchEditPuzzle()),
-    changeValue: (name, value) => dispatch(setValue(name, value))
+    submitPuzzle: id => dispatch(fetchEditPuzzle(id)),
+    changeValue: (name, value) => dispatch(setValue(name, value)),
+    getPuzzle: id => dispatch(fetchPuzzleData(id))
   }
 }
 

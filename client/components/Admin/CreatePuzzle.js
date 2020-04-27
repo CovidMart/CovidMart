@@ -14,26 +14,22 @@ class CreatePuzzle extends Component {
 
   render() {
     let puzzle = this.props.puzzle
-    // need to bind(this) for function
+    let submit = this.onSubmit.bind(this) // need to bind(this) for function
+
     return (
-      <form onSubmit={this.onSubmit.bind(this)}>
-        <div className="center"> Add New Product: </div>
+      <form className="edit-container" onSubmit={submit}>
+        <h2 className="center"> Add New Product: </h2>
 
         <br />
 
         <div className="formInput">
-          <label htmlFor="title"> Puzzle Title </label>
-          <input
-            type="text"
-            name="title"
-            onChange={this.handleChange.bind(this, 'title')}
-            value={puzzle.name}
-          />
+          <img className="image" src={puzzle.imageUrl} />
         </div>
 
         <div className="formInput">
           <label htmlFor="imageUrl"> Product ImageUrl: </label>
           <input
+            className="input"
             type="text"
             name="imageUrl"
             onChange={this.handleChange.bind(this, 'imageUrl')}
@@ -42,8 +38,20 @@ class CreatePuzzle extends Component {
         </div>
 
         <div className="formInput">
+          <label htmlFor="title"> Puzzle Title </label>
+          <input
+            className="input"
+            type="text"
+            name="title"
+            onChange={this.handleChange.bind(this, 'title')}
+            value={puzzle.name}
+          />
+        </div>
+
+        <div className="formInput">
           <label htmlFor="dimensions"> Product Dimensions: </label>
           <input
+            className="input"
             type="text"
             name="dimensions"
             onChange={this.handleChange.bind(this, 'dimensions')}
@@ -54,6 +62,7 @@ class CreatePuzzle extends Component {
         <div className="formInput">
           <label htmlFor="price"> Product Prices: </label>
           <input
+            className="input"
             type="text"
             name="price"
             onChange={this.handleChange.bind(this, 'price')}
@@ -64,6 +73,7 @@ class CreatePuzzle extends Component {
         <div className="formInput">
           <label htmlFor="pieceCount"> Product Inventory: </label>
           <input
+            className="input"
             type="text"
             name="pieceCount"
             onChange={this.handleChange.bind(this, 'pieceCount')}
@@ -72,8 +82,9 @@ class CreatePuzzle extends Component {
         </div>
 
         <div className="formInput">
-          <label htmlFor="category"> Category Product Belongs To: </label>
+          <label htmlFor="category"> Category: </label>
           <input
+            className="input"
             type="text"
             name="category"
             onChange={this.handleChange.bind(this, 'category')}
@@ -84,6 +95,7 @@ class CreatePuzzle extends Component {
         <div className="formInput">
           <label htmlFor="description">Product Descriptions: </label>
           <textarea
+            className="textarea"
             type="text"
             name="description"
             onChange={this.handleChange.bind(this, 'description')}
@@ -95,28 +107,9 @@ class CreatePuzzle extends Component {
         <br />
         <br />
         <div className="center">
-          <input
-            type="submit"
-            value="Submit"
-            onClick={this.onSubmit.bind(this)}
-          />
+          <input type="submit" value="Submit" onClick={submit} />
         </div>
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <br />
         <br />
         <br />
