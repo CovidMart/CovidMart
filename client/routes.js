@@ -8,15 +8,13 @@ import {
   UserHome,
   AllPuzzles,
   SinglePuzzle,
-  CartGuest,
-  CartUser,
   AllUsers,
   CheckoutPage,
   CreatePuzzle,
   EditPuzzle
 } from './components'
 
-import {me} from './store'
+import {me, fetchCart} from './store'
 
 /**
  * COMPONENT
@@ -27,7 +25,8 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn, isAdmin, userId} = this.props
+    const {isLoggedIn, isAdmin, userId, cart} = this.props
+    console.log('GOT CART?!?!?!?(please say yes', cart)
 
     return (
       <Switch>
@@ -81,14 +80,15 @@ const mapState = state => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.singleUser.id,
     userId: state.user.singleUser.id,
-    isAdmin: state.user.singleUser.isAdmin
+    isAdmin: state.user.singleUser.isAdmin,
+    cart: state.cart.activeCart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     loadInitialData() {
-      dispatch(me())
+      dispatch(me(fetchCart))
     }
   }
 }

@@ -1,51 +1,36 @@
 import axios from 'axios'
 
-const GET_LOCALSTORAGE_PUZZLES = 'GET_LOCALSTORAGE_PUZZLES'
-const GET_LOGGED_IN_CART = 'GET_LOGGED_IN_CART'
+const GET_CART = 'GET_CART'
 
-const getPuzzlesForCart = guestPuzzles => ({
-  type: GET_LOCALSTORAGE_PUZZLES,
-  guestPuzzles
+const getCart = cart => ({
+  type: GET_CART,
+  cart
 })
 
-const getUserOrdersForCart = userPuzzles => ({
-  type: GET_LOGGED_IN_CART,
-  userPuzzles
-})
-
-export const fetchPuzzlesForCart = localStor => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.post('/api/cart', localStor)
-      dispatch(getPuzzlesForCart(data))
-    } catch (error) {
-      console.error(error)
+export const fetchCart = userId => {
+  //If there's a user Id, get their cart
+  if (userId) {
+    return async dispatch => {
+      try {
+        const {data} = await axios.get(`/api/cart/${userId}`)
+        dispatch(getCart(data))
+      } catch (error) {
+        console.error(error)
+      }
     }
-  }
-}
-
-export const fetchUserOrdersForCart = userId => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.get(`/api/cart/${userId}`)
-      dispatch(getUserOrdersForCart(data[0].puzzles))
-    } catch (error) {
-      console.error(error)
-    }
+  } else {
+    //get localStorage, or else create it
   }
 }
 
 const initialState = {
-  guestCart: [],
-  userCart: []
+  activeCart: []
 }
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_LOCALSTORAGE_PUZZLES:
-      return {...state, guestCart: action.guestPuzzles}
-    case GET_LOGGED_IN_CART:
-      return {...state, userCart: action.userPuzzles}
+    case GET_CART:
+      return {...state, cart: action.cart}
     default:
       return state
   }

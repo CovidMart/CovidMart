@@ -31,10 +31,11 @@ const removeUser = () => ({type: REMOVE_USER})
 /**
  * THUNK CREATORS
  */
-export const me = () => async dispatch => {
+export const me = fetchCart => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
     dispatch(getUser(res.data || defaultUser))
+    dispatch(fetchCart(res.data.id || null))
   } catch (err) {
     console.error(err)
   }
