@@ -13,7 +13,6 @@ export class AllUsers extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'THIS IS PROPS')
     let allUsers = this.props.users
     return (
       <div>

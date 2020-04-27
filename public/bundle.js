@@ -417,7 +417,6 @@ var AllUsers = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props, 'THIS IS PROPS');
       var allUsers = this.props.users;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, allUsers && allUsers.map(function (user) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -764,7 +763,6 @@ var UserHome = /*#__PURE__*/function (_React$Component) {
   _createClass(UserHome, [{
     key: "render",
     value: function render() {
-      console.log(this.props, 'this.props');
       var _this$props$singleUse = this.props.singleUser,
           email = _this$props$singleUse.email,
           firstName = _this$props$singleUse.firstName,
@@ -884,8 +882,6 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
   _createClass(UserInfoForm, [{
     key: "handleChange",
     value: function handleChange(event) {
-      console.log(this); // console.log(this.state, '----state----')
-
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
@@ -1105,7 +1101,7 @@ AuthForm.propTypes = {
 /*!************************************!*\
   !*** ./client/components/index.js ***!
   \************************************/
-/*! exports provided: Navbar, UserHome, Login, Signup, AllPuzzles, AllUsers, SinglePuzzle, CreatePuzzle, EditPuzzle, CheckoutPage, UserInfoForm, AddCartButton */
+/*! exports provided: Navbar, UserHome, Login, Signup, AllPuzzles, AllUsers, SinglePuzzle, CreatePuzzle, EditPuzzle, CheckoutPage, UserInfoForm, AddCartButton, Cart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1143,11 +1139,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddCartButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./AddCartButton */ "./client/components/AddCartButton.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddCartButton", function() { return _AddCartButton__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
+/* harmony import */ var _Cart__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Cart */ "./client/components/Cart.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Cart", function() { return _Cart__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+
 /**
  * `components/index.js` exists simply as a 'central export' for our components.
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
+
 
 
 
@@ -1396,7 +1396,7 @@ var Routes = /*#__PURE__*/function (_Component) {
       }), !isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/cart",
-        component: CartGuest
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["Cart"]
       })), isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/home",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["UserHome"]
@@ -1404,7 +1404,7 @@ var Routes = /*#__PURE__*/function (_Component) {
         exact: true,
         path: "/cart/".concat(userId),
         render: function render(props) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CartUser, _extends({}, props, {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_4__["Cart"], _extends({}, props, {
             userId: userId
           }));
         }
@@ -1733,73 +1733,127 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-var GET_CART = 'GET_CART';
+var SET_CART = 'SET_CART';
 
-var getCart = function getCart(cart) {
+var setCart = function setCart(cart) {
   return {
-    type: GET_CART,
+    type: SET_CART,
     cart: cart
   };
 };
 
-var fetchCart = function fetchCart(userId) {
-  //If there's a user Id, get their cart
-  if (userId) {
-    return /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-        var _yield$axios$get, data;
+var fetchCart = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(userId) {
+    var guestCart, _yield$axios$post, data;
 
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/cart/".concat(userId));
-
-              case 3:
-                _yield$axios$get = _context.sent;
-                data = _yield$axios$get.data;
-                dispatch(getCart(data));
-                _context.next = 11;
-                break;
-
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](0);
-                console.error(_context.t0);
-
-              case 11:
-              case "end":
-                return _context.stop();
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (!userId) {
+              _context2.next = 4;
+              break;
             }
-          }
-        }, _callee, null, [[0, 8]]);
-      }));
 
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }();
-  } else {//get localStorage, or else create it
-  }
-};
+            return _context2.abrupt("return", /*#__PURE__*/function () {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
+                var _yield$axios$get, data;
+
+                return regeneratorRuntime.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.prev = 0;
+                        _context.next = 3;
+                        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/cart/".concat(userId));
+
+                      case 3:
+                        _yield$axios$get = _context.sent;
+                        data = _yield$axios$get.data;
+                        console.log('Data from fetchCart api req--->', data);
+                        dispatch(setCart(data));
+                        _context.next = 12;
+                        break;
+
+                      case 9:
+                        _context.prev = 9;
+                        _context.t0 = _context["catch"](0);
+                        console.error(_context.t0);
+
+                      case 12:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, null, [[0, 9]]);
+              }));
+
+              return function (_x2) {
+                return _ref2.apply(this, arguments);
+              };
+            }());
+
+          case 4:
+            if (!window.localStorage.guestCart) {
+              _context2.next = 16;
+              break;
+            }
+
+            guestCart = {};
+            guestCart[cartData] = JSON.parse(window.localStorage.guestCart);
+
+            if (!(_typeof(guestCart[cartData]) === 'object' && guestCart[cartData].length > 0)) {
+              _context2.next = 14;
+              break;
+            }
+
+            _context2.next = 10;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/cart", guestCart);
+
+          case 10:
+            _yield$axios$post = _context2.sent;
+            data = _yield$axios$post.data;
+            console.log('Guest cart API req returns as DATA:', data); //modify data with any missing vals
+
+            dispatch(setCart(data));
+
+          case 14:
+            _context2.next = 17;
+            break;
+
+          case 16:
+            window.localStorage.setItem('guestCart', '{}');
+
+          case 17:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function fetchCart(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
 var initialState = {
-  activeCart: []
+  activeCart: {}
 };
 function cartReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case GET_CART:
+    case SET_CART:
       return _objectSpread({}, state, {
-        cart: action.cart
+        activeCart: action.cart
       });
 
     default:
@@ -2230,7 +2284,8 @@ var removeUser = function removeUser() {
 var me = function me(fetchCart) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var res;
+      var _yield$axios$get, data;
+
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -2240,23 +2295,25 @@ var me = function me(fetchCart) {
               return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/auth/me');
 
             case 3:
-              res = _context.sent;
-              dispatch(getUser(res.data || defaultUser));
-              dispatch(fetchCart(res.data.id || null));
-              _context.next = 11;
+              _yield$axios$get = _context.sent;
+              data = _yield$axios$get.data;
+              console.log('What this DATA???', data);
+              dispatch(getUser(data || defaultUser));
+              if (data) dispatch(fetchCart(data.id || null));
+              _context.next = 13;
               break;
 
-            case 8:
-              _context.prev = 8;
+            case 10:
+              _context.prev = 10;
               _context.t0 = _context["catch"](0);
               console.error(_context.t0);
 
-            case 11:
+            case 13:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 8]]);
+      }, _callee, null, [[0, 10]]);
     }));
 
     return function (_x) {
