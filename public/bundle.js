@@ -813,7 +813,6 @@ var OrderHistory = /*#__PURE__*/function (_React$Component) {
   _createClass(OrderHistory, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(this.props);
       this.props.fetchOrderHistory();
     }
   }, {
@@ -2454,12 +2453,7 @@ var fetchOrderHistory = function fetchOrderHistory() {
           switch (_context.prev = _context.next) {
             case 0:
               try {
-                // store.subscribe(()=>{
-                //   this.setState({
-                //     userId: store.getState().user.singleUser.id
-                //   })
-                // })
-                _axios$get = axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/orders/27'), data = _axios$get.data;
+                _axios$get = axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/orders/".concat(userId)), data = _axios$get.data;
                 dispatch(setOrders(data));
               } catch (error) {
                 dispatch(console.error(error));
