@@ -36,7 +36,6 @@ export const fetchCart = userData => {
       return async dispatch => {
         try {
           const {data} = await axios.post('/api/cart', guestCart)
-          console.log('Guest cart API req returns as DATA:', data)
           const configuredCart = {
             id: 0, //guest order 0
             pricePaid: calculateTotal(data),
@@ -66,11 +65,3 @@ export default function cartReducer(state = initialState, action) {
       return state
   }
 }
-
-// const initialState = {
-//   activeCart: {
-//     userId: 0,
-//     puzzleOrders: [],
-//     totalOrderPrice: 0
-//   }
-// }

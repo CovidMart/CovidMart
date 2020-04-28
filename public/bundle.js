@@ -1828,7 +1828,6 @@ var fetchCart = function fetchCart(userData) {
                 case 3:
                   _yield$axios$post = _context2.sent;
                   data = _yield$axios$post.data;
-                  console.log('Guest cart API req returns as DATA:', data);
                   configuredCart = {
                     id: 0,
                     //guest order 0
@@ -1839,20 +1838,20 @@ var fetchCart = function fetchCart(userData) {
 
                   };
                   dispatch(setCart(configuredCart));
-                  _context2.next = 13;
+                  _context2.next = 12;
                   break;
 
-                case 10:
-                  _context2.prev = 10;
+                case 9:
+                  _context2.prev = 9;
                   _context2.t0 = _context2["catch"](0);
                   console.error(_context2.t0);
 
-                case 13:
+                case 12:
                 case "end":
                   return _context2.stop();
               }
             }
-          }, _callee2, null, [[0, 10]]);
+          }, _callee2, null, [[0, 9]]);
         }));
 
         return function (_x2) {
@@ -1880,13 +1879,7 @@ function cartReducer() {
     default:
       return state;
   }
-} // const initialState = {
-//   activeCart: {
-//     userId: 0,
-//     puzzleOrders: [],
-//     totalOrderPrice: 0
-//   }
-// }
+}
 
 /***/ }),
 

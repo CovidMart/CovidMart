@@ -3,19 +3,16 @@ const {User, Puzzle, Order, PuzzleOrders} = require('../db/models')
 const {userLoggedIn} = require('./gatekeepers')
 module.exports = router
 
-// ----Guest Cart----//
+// ----'GET' Guest Cart----//
 
 router.post('/', async (req, res, next) => {
-  console.log('Routes guest cart????? 1', req.body)
   const guestCart = req.body.cartData
-  console.log('Routes guest cart?????', guestCart)
   const cartPuzzles = []
   try {
     // eslint-disable-next-line guard-for-in
     for (let puzzleId in guestCart) {
       let foundPuzzle = await Puzzle.findByPk(puzzleId)
       if (foundPuzzle) {
-        //add qty to puzzle just for guest vv
         foundPuzzle.dataValues.qty = guestCart[puzzleId]
         cartPuzzles.push(foundPuzzle)
       }
@@ -26,7 +23,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-//----User Cart----//
+//----GET User Cart----//
 
 router.get('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
@@ -42,4 +39,34 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
   }
 })
 
-//
+//---POST User Cart Qty---//
+
+router.post('/:userId', userLoggedIn, async (req, res, next) => {
+  const uid = req.params.userId
+  const {quantity, puzzleId} = req.body
+  try {
+    //create new puzzleorder and add to user
+    //create order, add puzzle, add userId
+  } catch (error) {
+    next(error)
+  }
+})
+
+//---PUT User Cart Qty---//
+
+router.put('/:userId', userLoggedIn, async (req, res, next) => {
+  const uid = req.params.userId
+  //Some req.body property tells us whether to increment or straight-change
+  try {
+    //if addNew
+    //if Increment
+  } catch (error) {
+    next(error)
+  }
+})
+
+//---DELETE Puzzle from Order---//
+
+router.delete('/:userId', userLoggedIn, async (req, res, next) => {
+  //delete user's order for this puzzle from the puzzleOrders
+})
