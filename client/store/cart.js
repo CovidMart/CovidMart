@@ -1,51 +1,87 @@
 import axios from 'axios'
 
-const GET_LOCALSTORAGE_PUZZLES = 'GET_LOCALSTORAGE_PUZZLES'
-const GET_LOGGED_IN_CART = 'GET_LOGGED_IN_CART'
+const SET_CART = 'SET_CART'
 
-const getPuzzlesForCart = guestPuzzles => ({
-  type: GET_LOCALSTORAGE_PUZZLES,
-  guestPuzzles
+const setCart = cart => ({
+  type: SET_CART,
+  cart
 })
 
-const getUserOrdersForCart = userPuzzles => ({
-  type: GET_LOGGED_IN_CART,
-  userPuzzles
-})
+const calculateTotal = puzzleArr => {
+  return puzzleArr.reduce((a, c) => {
+    if (c.PuzzleOrders) a += c.PuzzleOrders.subtotal
+    else a += c.price * c.qty
+    return a
+  }, 0)
+}
 
-export const fetchPuzzlesForCart = localStor => {
+export const fetchCart = userData => {
+  console.log('Cart FETCH dispatched, thunkaroo!')
+  if (userData && userData.id) {
+    return async dispatch => {
+      try {
+        const {data} = await axios.get(`/api/cart/${userData.id}`)
+        let {id, pricePaid, puzzles, userId} = data
+        if (pricePaid <= 0) {
+          pricePaid = calculateTotal(puzzles)
+        }
+        dispatch(setCart({id, pricePaid, puzzles, userId}))
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  } else if (window.localStorage.guestCart) {
+    const guestCart = {}
+    guestCart.cartData = JSON.parse(window.localStorage.guestCart)
+    if (typeof guestCart.cartData === 'object') {
+      return async dispatch => {
+        try {
+          const {data} = await axios.post('/api/cart/guest', guestCart)
+          const configuredCart = {
+            id: 0, //guest order 0
+            pricePaid: calculateTotal(data),
+            puzzles: data, //arr w/ qty stored directly on each el
+            userId: 0 //guest ID 0
+          }
+          dispatch(setCart(configuredCart))
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    } else window.localStorage.setItem('guestCart', '{}')
+  } else {
+    window.localStorage.setItem('guestCart', '{}')
+  }
+}
+
+export const checkoutUserCart = userId => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/cart', localStor)
-      dispatch(getPuzzlesForCart(data))
+      await axios.put(`/api/cart/${userId}/checkout`, {
+        stillInCart: false
+      })
+      dispatch(setCart({}))
     } catch (error) {
       console.error(error)
     }
   }
 }
 
-export const fetchUserOrdersForCart = userId => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.get(`/api/cart/${userId}`)
-      dispatch(getUserOrdersForCart(data[0].puzzles))
-    } catch (error) {
-      console.error(error)
-    }
+export const checkoutGuestCart = () => {
+  window.localStorage.setItem('guestCart', '{}')
+  return dispatch => {
+    dispatch(setCart({}))
   }
 }
 
 const initialState = {
-  guestCart: [],
-  userCart: []
+  activeCart: {}
 }
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_LOCALSTORAGE_PUZZLES:
-      return {...state, guestCart: action.guestPuzzles}
-    case GET_LOGGED_IN_CART:
-      return {...state, userCart: action.userPuzzles}
+    case SET_CART:
+      return {...state, activeCart: action.cart}
     default:
       return state
   }

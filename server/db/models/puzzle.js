@@ -36,4 +36,11 @@ const Puzzle = db.define('puzzle', {
   }
 })
 
+Puzzle.beforeSave(Puzzle => {
+  if (Puzzle.pieceCount === 0) {
+    Puzzle.imageUrl =
+      'https://media.istockphoto.com/vectors/sold-out-stamp-sold-out-square-grunge-sign-sold-out-vector-id1172420644'
+  }
+})
+
 module.exports = Puzzle

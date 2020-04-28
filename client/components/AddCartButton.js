@@ -1,36 +1,36 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addToCart} from '../store/order'
+import {addToLocalStorage, addToCart} from '../store/order'
 
 export class AddCartButton extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      quantity: 0,
-      puzzleId: this.props.id,
-      price: this.props.price,
-      orderId: 1
+      quantity: this.props.quantity || 0
     }
     this.clickAddToCart = this.clickAddToCart.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   clickAddToCart(event) {
+    const cart = this.props.activeCart
+    const {addFromShop, fetchCart} = this.props
     event.preventDefault()
-    try {
-      const newOrder = {
-        quantity: parseInt(this.state.quantity, 10),
-        puzzleId: parseInt(this.state.puzzleId, 10),
-        price: this.state.price,
-        orderId: this.state.orderId
-      }
-      this.props.addToCart(newOrder)
-      this.setState({
-        quantity: 0
-      })
-    } catch (err) {
-      console.log(err)
+    //check if this puzzleOrder already exists on state
+    const puzzleId = parseInt(this.props.id, 10)
+    const prePuzzles = cart.puzzles.map(pzl => pzl.id)
+    const newRow = prePuzzles.indexOf(puzzleId) < 0
+    const userId = parseInt(cart.userId, 10)
+    const orderId = parseInt(cart.id, 10)
+    const newOrder = {
+      orderId,
+      userId,
+      puzzleId,
+      newRow,
+      quantity: parseInt(this.state.quantity, 10)
     }
+    if (userId) this.props.addToCart(newOrder, addFromShop, fetchCart)
+    else this.props.addToLocalStorage(newOrder, addFromShop, fetchCart)
   }
 
   handleChange(event) {
@@ -42,7 +42,7 @@ export class AddCartButton extends React.Component {
       <div className="cart">
         <div>
           <button type="button" onClick={this.clickAddToCart}>
-            ADD TO CART
+            {this.props.addFromShop ? 'Add to Cart' : 'Update Cart'}
           </button>
         </div>
         <div />
@@ -57,12 +57,16 @@ export class AddCartButton extends React.Component {
     )
   }
 }
+
 const mapState = state => ({
-  quantity: state.quantity
+  activeCart: state.cart.activeCart
 })
 
 const mapDispatch = dispatch => ({
-  addToCart: event => dispatch(addToCart(event))
+  addToLocalStorage: (newOrder, addFromShop, fetchCart) =>
+    dispatch(addToLocalStorage(newOrder, addFromShop, fetchCart)),
+  addToCart: (newOrder, addFromShop, fetchCart) =>
+    dispatch(addToCart(newOrder, addFromShop, fetchCart))
 })
 
 export default connect(mapState, mapDispatch)(AddCartButton)

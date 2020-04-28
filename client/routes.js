@@ -8,15 +8,14 @@ import {
   UserHome,
   AllPuzzles,
   SinglePuzzle,
-  CartGuest,
-  CartUser,
   AllUsers,
   CheckoutPage,
   CreatePuzzle,
-  EditPuzzle
+  EditPuzzle,
+  Cart
 } from './components'
 
-import {me} from './store'
+import {me, fetchCart} from './store'
 
 /**
  * COMPONENT
@@ -27,43 +26,40 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn, isAdmin, userId} = this.props
+    const {isLoggedIn, isAdmin, cart} = this.props
+    console.log('GOT CART?!?!?!?', cart)
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
         <Route exact path="/" component={AllPuzzles} />
         <Route exact path="/puzzles" component={AllPuzzles} />
-        <Route exact path="/checkout" component={CheckoutPage} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
+        <Route path={`/cart/${cart.userId || 'guest'}`} component={Cart} />
+        <Route
+          exact
+          path={`/cart/${cart.userId || 'guest'}/checkout`}
+          component={CheckoutPage}
+        />
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available if NOT logged in */}
-            <Route exact path="/cart" component={CartGuest} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
           </Switch>
         )}
         {isLoggedIn && !isAdmin && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            <Route
-              exact
-              path={`/cart/${userId}`}
-              render={props => <CartUser {...props} userId={userId} />}
-            />
           </Switch>
         )}
-        {isAdmin && isLoggedIn && (
+
+        {isLoggedIn && isAdmin && (
           <Switch>
             {/* Routes placed here are only available after admin logging in */}
             <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
-            <Route
-              exact
-              path="/admin/puzzle/edit/:puzzleId"
-              component={EditPuzzle}
-            />
+            <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
             <Route exact path="/users" component={AllUsers} />
           </Switch>
         )}
@@ -84,14 +80,15 @@ const mapState = state => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.singleUser.id,
     userId: state.user.singleUser.id,
-    isAdmin: state.user.singleUser.isAdmin
+    isAdmin: state.user.singleUser.isAdmin,
+    cart: state.cart.activeCart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     loadInitialData() {
-      dispatch(me())
+      dispatch(me(fetchCart))
     }
   }
 }
