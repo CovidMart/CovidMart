@@ -2135,12 +2135,13 @@ var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(reducer, m
 /*!*******************************!*\
   !*** ./client/store/order.js ***!
   \*******************************/
-/*! exports provided: addPuzzleOrder, addToCart, default */
+/*! exports provided: addPuzzleOrder, fetchOrderHistory, addToCart, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPuzzleOrder", function() { return addPuzzleOrder; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchOrderHistory", function() { return fetchOrderHistory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return orderReducer; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -2159,10 +2160,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var ADD_TO_CART = 'ADD_TO_CART';
+var ORDER_HISTORY = 'ORDER_HISTORY';
 var addPuzzleOrder = function addPuzzleOrder(order) {
   return {
     type: ADD_TO_CART,
     order: order
+  };
+};
+var fetchOrderHistory = function fetchOrderHistory(history) {
+  return {
+    type: ORDER_HISTORY,
+    history: history
   };
 };
 var addToCart = function addToCart(newOrder) {
@@ -2266,7 +2274,8 @@ var addToCart = function addToCart(newOrder) {
   }
 };
 var initialState = {
-  purchasedPuzzle: []
+  purchasedPuzzle: [],
+  orderHistory: []
 };
 function orderReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;

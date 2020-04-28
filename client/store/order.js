@@ -2,11 +2,19 @@ import axios from 'axios'
 import store from './index'
 
 const ADD_TO_CART = 'ADD_TO_CART'
+const ORDER_HISTORY = 'ORDER_HISTORY'
 
 export const addPuzzleOrder = order => {
   return {
     type: ADD_TO_CART,
     order
+  }
+}
+
+export const fetchOrderHistory = history => {
+  return {
+    type: ORDER_HISTORY,
+    history
   }
 }
 
@@ -58,7 +66,8 @@ export const addToCart = newOrder => {
 }
 
 const initialState = {
-  purchasedPuzzle: []
+  purchasedPuzzle: [],
+  orderHistory: []
 }
 
 export default function orderReducer(state = initialState, action) {
