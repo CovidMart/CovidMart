@@ -601,7 +601,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Cart = function Cart(props) {
+var CartList = function CartList(props) {
   var _props$activeCart = props.activeCart,
       puzzles = _props$activeCart.puzzles,
       pricePaid = _props$activeCart.pricePaid;
@@ -624,7 +624,7 @@ var Cart = function Cart(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Nothing in your cart?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Let's find a corner piece!"));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Cart);
+/* harmony default export */ __webpack_exports__["default"] = (CartList);
 
 /***/ }),
 
