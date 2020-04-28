@@ -5,7 +5,7 @@ export const addToLocalStorage = (
   addFromShop = false,
   fetchCart = null
 ) => {
-  return dispatch => {
+  return () => {
     const cartState = JSON.parse(localStorage.getItem('guestCart')) || {}
     const {puzzleId, newRow, quantity} = newOrder
     if (newRow || !addFromShop) cartState[puzzleId] = quantity
@@ -14,18 +14,20 @@ export const addToLocalStorage = (
       qty = parseInt(qty, 10) + quantity
       cartState[puzzleId] = qty
     }
-    if (fetchCart) dispatch(fetchCart(null))
+    window.localStorage.setItem('guestCart', JSON.stringify(cartState))
+    if (fetchCart) fetchCart(null) //dispatch(fetchCart(null))
   }
 }
 
 export const addToCart = (newOrder, addFromShop = false, fetchCart = null) => {
   const {userId, newRow} = newOrder
+  const user = {id: userId}
   newOrder.addFromShop = addFromShop //api check this whether to increment
   return async dispatch => {
     try {
       if (newRow) await axios.post(`/api/cart/${userId}`, newOrder)
       else await axios.put(`/api/cart/${userId}`, newOrder)
-      if (fetchCart) dispatch(fetchCart(userId))
+      if (fetchCart) dispatch(fetchCart(user))
     } catch (error) {
       console.error(error)
     }

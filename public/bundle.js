@@ -178,7 +178,6 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           addFromShop = _this$props.addFromShop,
           fetchCart = _this$props.fetchCart;
-      console.log('I am the BUTTON, and I see the cart!->', cart);
       event.preventDefault(); //check if this puzzleOrder already exists on state
 
       var puzzleId = parseInt(this.props.id, 10);
@@ -229,11 +228,11 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    addToLocalStorage: function addToLocalStorage(newOrder, fetchCart) {
-      return dispatch(Object(_store_order__WEBPACK_IMPORTED_MODULE_2__["addToLocalStorage"])(newOrder, fetchCart));
+    addToLocalStorage: function addToLocalStorage(newOrder, addFromShop, fetchCart) {
+      return dispatch(Object(_store_order__WEBPACK_IMPORTED_MODULE_2__["addToLocalStorage"])(newOrder, addFromShop, fetchCart));
     },
-    addToCart: function addToCart(newOrder, fetchCart) {
-      return dispatch(Object(_store_order__WEBPACK_IMPORTED_MODULE_2__["addToCart"])(newOrder, fetchCart));
+    addToCart: function addToCart(newOrder, addFromShop, fetchCart) {
+      return dispatch(Object(_store_order__WEBPACK_IMPORTED_MODULE_2__["addToCart"])(newOrder, addFromShop, fetchCart));
     }
   };
 };
@@ -473,7 +472,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Cart */ "./client/components/Cart.js");
+/* harmony import */ var _CartList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CartList */ "./client/components/CartList.js");
 /* harmony import */ var _store_cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/cart */ "./client/store/cart.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -502,15 +501,15 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var CartUser = /*#__PURE__*/function (_React$Component) {
-  _inherits(CartUser, _React$Component);
+var Cart = /*#__PURE__*/function (_React$Component) {
+  _inherits(Cart, _React$Component);
 
-  var _super = _createSuper(CartUser);
+  var _super = _createSuper(Cart);
 
-  function CartUser(props) {
+  function Cart(props) {
     var _this;
 
-    _classCallCheck(this, CartUser);
+    _classCallCheck(this, Cart);
 
     _this = _super.call(this, props);
     _this.state = {
@@ -519,30 +518,26 @@ var CartUser = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  _createClass(CartUser, [{
+  _createClass(Cart, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var userId = this.props.userId;
-      this.props.fetchCart(userId);
+      var userId = this.props.activeCart.userId;
+      var user = {
+        id: userId
+      };
+      this.props.fetchCart(user);
       this.setState({
         mounted: true
       });
     }
   }, {
-    key: "lineItem",
-    value: function lineItem(item) {
-      return item.PuzzleOrders.subtotal;
-    }
-  }, {
     key: "render",
     value: function render() {
       if (this.state.mounted) {
-        var _this$props = this.props,
-            activeCart = _this$props.activeCart,
-            refreshCart = _this$props.refreshCart;
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        var activeCart = this.props.activeCart;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartList__WEBPACK_IMPORTED_MODULE_2__["default"], {
           activeCart: activeCart,
-          refreshCart: refreshCart
+          fetchCart: this.props.fetchCart
         }));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading cart..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -555,7 +550,7 @@ var CartUser = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return CartUser;
+  return Cart;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 var mapState = function mapState(state) {
@@ -566,13 +561,56 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    refreshCart: function refreshCart(userId) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_3__["fetchCart"])(userId));
-    }
+    fetchCart: function fetchCart(userData) {
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_3__["fetchCart"])(userData));
+    } //takes obj w/ id on it
+
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(CartUser));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(Cart));
+
+/***/ }),
+
+/***/ "./client/components/CartList.js":
+/*!***************************************!*\
+  !*** ./client/components/CartList.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _AddCartButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddCartButton */ "./client/components/AddCartButton.js");
+
+
+
+var Cart = function Cart(props) {
+  var _props$activeCart = props.activeCart,
+      puzzles = _props$activeCart.puzzles,
+      pricePaid = _props$activeCart.pricePaid;
+  var fetchCart = props.fetchCart; //handlers for add and delete will have to be passed in as well
+
+  if (puzzles && puzzles.length) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Order Total: ", pricePaid), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", null, puzzles.filter(function (item) {
+      return item.qty || item.PuzzleOrders;
+    }).map(function (item) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        key: item.id
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, item.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Qty: ".concat(item.qty ? item.qty : item.PuzzleOrders.quantity, "\n            -- at $").concat((item.price / 100).toFixed(2), " each")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        id: item.id,
+        fetchCart: fetchCart,
+        quantity: item.qty ? item.qty : item.PuzzleOrders.quantity
+      }));
+    })));
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Nothing in your cart?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Let's find a corner piece!"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Cart);
 
 /***/ }),
 
@@ -1287,7 +1325,7 @@ var Navbar = function Navbar(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "PUZZLE PARTY"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/puzzles"
   }, "All Puzzles"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: "/cart"
+    to: "/cart/".concat(userId || 'guest')
   }, "Cart"), isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/home"
   }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -1478,7 +1516,7 @@ var Routes = /*#__PURE__*/function (_Component) {
         path: "/puzzles/:puzzleId",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["SinglePuzzle"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/cart/".concat(cart.userId),
+        path: "/cart/".concat(cart.userId || 'guest'),
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Cart"]
       }), !isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/login",
@@ -1838,7 +1876,9 @@ var calculateTotal = function calculateTotal(puzzleArr) {
 };
 
 var fetchCart = function fetchCart(userData) {
-  if (userData) {
+  console.log('Cart FETCH dispatched, thunkaroo!');
+
+  if (userData && userData.id > 0) {
     return /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
         var _yield$axios$get, data, id, pricePaid, puzzles, userId;
@@ -1901,7 +1941,7 @@ var fetchCart = function fetchCart(userData) {
                 case 0:
                   _context2.prev = 0;
                   _context2.next = 3;
-                  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/cart', guestCart);
+                  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/cart/guest', guestCart);
 
                 case 3:
                   _yield$axios$post = _context2.sent;
@@ -2040,7 +2080,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var addToLocalStorage = function addToLocalStorage(newOrder) {
   var addFromShop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   var fetchCart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-  return function (dispatch) {
+  return function () {
     var cartState = JSON.parse(localStorage.getItem('guestCart')) || {};
     var puzzleId = newOrder.puzzleId,
         newRow = newOrder.newRow,
@@ -2050,7 +2090,8 @@ var addToLocalStorage = function addToLocalStorage(newOrder) {
       qty = parseInt(qty, 10) + quantity;
       cartState[puzzleId] = qty;
     }
-    if (fetchCart) dispatch(fetchCart(null));
+    window.localStorage.setItem('guestCart', JSON.stringify(cartState));
+    if (fetchCart) fetchCart(null); //dispatch(fetchCart(null))
   };
 };
 var addToCart = function addToCart(newOrder) {
@@ -2058,6 +2099,9 @@ var addToCart = function addToCart(newOrder) {
   var fetchCart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   var userId = newOrder.userId,
       newRow = newOrder.newRow;
+  var user = {
+    id: userId
+  };
   newOrder.addFromShop = addFromShop; //api check this whether to increment
 
   return /*#__PURE__*/function () {
@@ -2085,7 +2129,7 @@ var addToCart = function addToCart(newOrder) {
               return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(userId), newOrder);
 
             case 8:
-              if (fetchCart) dispatch(fetchCart(userId));
+              if (fetchCart) dispatch(fetchCart(user));
               _context.next = 14;
               break;
 

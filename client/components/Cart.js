@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Cart from './Cart'
+import CartList from './CartList'
 import {fetchCart} from '../store/cart'
 
-class CartUser extends React.Component {
+class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -12,21 +12,18 @@ class CartUser extends React.Component {
   }
 
   componentDidMount() {
-    const {userId} = this.props
-    this.props.fetchCart(userId)
+    const {userId} = this.props.activeCart
+    const user = {id: userId}
+    this.props.fetchCart(user)
     this.setState({mounted: true})
-  }
-
-  lineItem(item) {
-    return item.PuzzleOrders.subtotal
   }
 
   render() {
     if (this.state.mounted) {
-      const {activeCart, refreshCart} = this.props
+      const {activeCart} = this.props
       return (
         <div>
-          <Cart activeCart={activeCart} refreshCart={refreshCart} />
+          <CartList activeCart={activeCart} fetchCart={this.props.fetchCart} />
         </div>
       )
     } else {
@@ -53,8 +50,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    refreshCart: userId => dispatch(fetchCart(userId))
+    fetchCart: userData => dispatch(fetchCart(userData)) //takes obj w/ id on it
   }
 }
 
-export default connect(mapState, mapDispatch)(CartUser)
+export default connect(mapState, mapDispatch)(Cart)

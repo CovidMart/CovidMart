@@ -1,22 +1,32 @@
 import React from 'react'
+import AddCartButton from './AddCartButton'
 
 const Cart = props => {
-  const {orderArray, lineItemSubtotal} = props
+  const {puzzles, pricePaid} = props.activeCart
+  const {fetchCart} = props
   //handlers for add and delete will have to be passed in as well
-  if (orderArray.length) {
+  if (puzzles && puzzles.length) {
     return (
       <div>
-        <h1>Party Carty!</h1>
+        <h3>Party Carty!</h3>
+        <h5>Order Total: {pricePaid}</h5>
         <ol>
-          {orderArray.map(item => (
-            <li key={item.id}>
-              <h4>{item.title}</h4>
-              <p>
-                {`Qty: ${item.qty ? item.qty : item.PuzzleOrders.quantity}
-            -- Subtotal: $${(lineItemSubtotal(item) / 100).toFixed(2)}`}
-              </p>
-            </li>
-          ))}
+          {puzzles
+            .filter(item => item.qty || item.PuzzleOrders)
+            .map(item => (
+              <li key={item.id}>
+                <h4>{item.title}</h4>
+                <p>
+                  {`Qty: ${item.qty ? item.qty : item.PuzzleOrders.quantity}
+            -- at $${(item.price / 100).toFixed(2)} each`}
+                </p>
+                <AddCartButton
+                  id={item.id}
+                  fetchCart={fetchCart}
+                  quantity={item.qty ? item.qty : item.PuzzleOrders.quantity}
+                />
+              </li>
+            ))}
         </ol>
       </div>
     )

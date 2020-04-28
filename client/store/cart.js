@@ -16,7 +16,8 @@ const calculateTotal = puzzleArr => {
 }
 
 export const fetchCart = userData => {
-  if (userData) {
+  console.log('Cart FETCH dispatched, thunkaroo!')
+  if (userData && userData.id > 0) {
     return async dispatch => {
       try {
         const {data} = await axios.get(`/api/cart/${userData.id}`)
@@ -35,7 +36,7 @@ export const fetchCart = userData => {
     if (typeof guestCart.cartData === 'object') {
       return async dispatch => {
         try {
-          const {data} = await axios.post('/api/cart', guestCart)
+          const {data} = await axios.post('/api/cart/guest', guestCart)
           const configuredCart = {
             id: 0, //guest order 0
             pricePaid: calculateTotal(data),

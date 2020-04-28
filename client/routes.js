@@ -36,7 +36,7 @@ class Routes extends Component {
         <Route exact path="/puzzles" component={AllPuzzles} />
         <Route exact path="/checkout" component={CheckoutPage} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
-        <Route path={`/cart/${cart.userId}`} component={Cart} />
+        <Route path={`/cart/${cart.userId || 'guest'}`} component={Cart} />
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available if NOT logged in */}

@@ -5,7 +5,7 @@ module.exports = router
 
 // ----'GET' Guest Cart----//
 
-router.post('/', async (req, res, next) => {
+router.post('/guest', async (req, res, next) => {
   const guestCart = req.body.cartData
   const cartPuzzles = []
   try {

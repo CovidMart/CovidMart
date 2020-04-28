@@ -15,7 +15,6 @@ export class AddCartButton extends React.Component {
   clickAddToCart(event) {
     const cart = this.props.activeCart
     const {addFromShop, fetchCart} = this.props
-    console.log('I am the BUTTON, and I see the cart!->', cart)
     event.preventDefault()
     //check if this puzzleOrder already exists on state
     const puzzleId = parseInt(this.props.id, 10)
@@ -62,9 +61,10 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  addToLocalStorage: (newOrder, fetchCart) =>
-    dispatch(addToLocalStorage(newOrder, fetchCart)),
-  addToCart: (newOrder, fetchCart) => dispatch(addToCart(newOrder, fetchCart))
+  addToLocalStorage: (newOrder, addFromShop, fetchCart) =>
+    dispatch(addToLocalStorage(newOrder, addFromShop, fetchCart)),
+  addToCart: (newOrder, addFromShop, fetchCart) =>
+    dispatch(addToCart(newOrder, addFromShop, fetchCart))
 })
 
 export default connect(mapState, mapDispatch)(AddCartButton)
