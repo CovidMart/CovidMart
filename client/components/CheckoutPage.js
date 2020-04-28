@@ -41,14 +41,25 @@ export class CheckoutPage extends React.Component {
     if (this.state.mounted) {
       return (
         <div>
+          <h3>Current User Info On File</h3>
+          {this.props.isLoggedIn && (
+            <div>
+              {this.props.user.firstName} {this.props.user.lastName},{' '}
+              {this.props.user.address}, {this.props.user.phone}
+            </div>
+          )}
           <UserInfoForm />
           {this.props.isLoggedIn && (
             <CartUser {...this.props} userId={this.props.userId} />
           )}
           {!this.props.isLoggedIn && <CartGuest />}
-          <Checkout />
+          <Checkout
+            amount={100}
+            name="Puzzle Party"
+            description="Thank you for your order!"
+          />
           <button type="button" onClick={this.handleClick}>
-            CHECKOUT
+            CLEAR CART
           </button>
         </div>
       )
@@ -71,7 +82,8 @@ export class CheckoutPage extends React.Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.singleUser.id,
-    userId: state.user.singleUser.id
+    userId: state.user.singleUser.id,
+    user: state.user.singleUser
   }
 }
 

@@ -1152,12 +1152,16 @@ var CheckoutPage = /*#__PURE__*/function (_React$Component) {
       console.log(this.props, 'checkoutpage this.props');
 
       if (this.state.mounted) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfoForm__WEBPACK_IMPORTED_MODULE_2__["default"], null), this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartUser__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, this.props, {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Current User Info On File"), this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.firstName, " ", this.props.user.lastName, ",", ' ', this.props.user.address, ", ", this.props.user.phone), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfoForm__WEBPACK_IMPORTED_MODULE_2__["default"], null), this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartUser__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, this.props, {
           userId: this.props.userId
-        })), !this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartGuest__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_Checkout__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        })), !this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartGuest__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_Checkout__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          amount: 100,
+          name: 'Puzzle Party',
+          description: 'Thank you for your order!'
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
           onClick: this.handleClick
-        }, "CHECKOUT"));
+        }, "CLEAR CART"));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading Checkout Page..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: "loadingPuzzleGif.webp",
@@ -1175,7 +1179,8 @@ var CheckoutPage = /*#__PURE__*/function (_React$Component) {
 var mapState = function mapState(state) {
   return {
     isLoggedIn: !!state.user.singleUser.id,
-    userId: state.user.singleUser.id
+    userId: state.user.singleUser.id,
+    user: state.user.singleUser
   };
 };
 
@@ -1519,7 +1524,7 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleChange
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
-      }, "submit"))));
+      }, "Update Info"))));
     }
   }]);
 
@@ -61466,7 +61471,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var CURRENCY = 'EUR';
+var CURRENCY = 'USD';
 
 var fromEuroToCent = function fromEuroToCent(amount) {
   return amount * 100;
@@ -61501,7 +61506,7 @@ var Checkout = function Checkout(_ref) {
     amount: fromEuroToCent(amount),
     token: onToken(amount, description),
     currency: CURRENCY,
-    stripeKey: "pk_test_1sycucQETJ4F56X6ipqKRHJh00d68vN98Y"
+    stripeKey: _constants_stripe__WEBPACK_IMPORTED_MODULE_3__["default"]
   });
 };
 
