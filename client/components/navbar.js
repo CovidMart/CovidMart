@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, fetchCart} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
   <div>
@@ -12,6 +12,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
     <nav>
       <div>
         <Link to="/puzzles">All Puzzles</Link>
+        <Link to={`/cart/${userId || 'guest'}`}>Cart</Link>
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links AFTER you log in */}
@@ -19,14 +20,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
             <a href="#" onClick={handleClick}>
               Logout
             </a>
-            <Link to={`/cart/${userId}`}>Cart</Link>
           </div>
         ) : (
           <div>
             {/* The navbar will show these links BEFORE you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-            <Link to="/cart">Cart</Link>
           </div>
         )}
         {isAdmin && (
@@ -57,6 +56,7 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
+      dispatch(fetchCart(null))
     }
   }
 }

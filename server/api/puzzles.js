@@ -31,7 +31,7 @@ router.post('/', isAdmin, async (req, res, next) => {
       title: req.body.title,
       price: req.body.price,
       pieceCount: req.body.pieceCount,
-      dimentions: req.body.dimentions,
+      dimensions: req.body.dimensions,
       imageUrl: req.body.imageUrl,
       category: req.body.category,
       description: req.body.description
@@ -43,14 +43,14 @@ router.post('/', isAdmin, async (req, res, next) => {
 })
 
 router.put('/:puzzleId', isAdmin, async (req, res, next) => {
-  const pid = req.params.puzzleId
+  const id = req.params.puzzleId
   try {
-    const updatePuzzle = await Puzzle.findByPk(pid)
+    const updatePuzzle = await Puzzle.findByPk(id)
     await updatePuzzle.update({
       title: req.body.title,
       price: req.body.price,
       pieceCount: req.body.pieceCount,
-      dimentions: req.body.dimentions,
+      dimensions: req.body.dimensions,
       imageUrl: req.body.imageUrl,
       category: req.body.category,
       description: req.body.description
@@ -63,11 +63,17 @@ router.put('/:puzzleId', isAdmin, async (req, res, next) => {
 
 router.delete('/:puzzleId', isAdmin, async (req, res, next) => {
   const id = req.params.puzzleId
-  await Puzzle.destroy({
-    where: {
-      id
-    }
-  })
+  try {
+    const OutstockPuzzle = await Puzzle.findByPk(id)
+    await OutstockPuzzle.update({
+      pieceCount: 0,
+      description:
+        'This Product Is Currently Out Of Stock, Coming Back Soon! Please Check Back Later!'
+    })
+    res.send()
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = router

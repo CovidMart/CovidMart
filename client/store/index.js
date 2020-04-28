@@ -7,15 +7,13 @@ import puzzles from './puzzles'
 import CreatePuzzle from './CreatePuzzle'
 import EditPuzzle from './EditPuzzle'
 import cart from './cart'
-import order from './order'
 
 const reducer = combineReducers({
   user,
   puzzles,
-  cart,
   CreatePuzzle,
   EditPuzzle,
-  order
+  cart
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -24,3 +22,4 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
+export * from './cart'

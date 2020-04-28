@@ -7,10 +7,12 @@ const initialState = {
   price: 0.0,
   pieceCount: 0,
   category: '',
-  description: ''
+  description: '',
+  message: ''
 }
 
 const SET_VALUE = 'SET_VALUE'
+const GET_PUZZLE_DATA = 'GET_PUZZLE_DATA'
 
 const setValue = (name, value) => {
   return {
@@ -20,19 +22,38 @@ const setValue = (name, value) => {
   }
 }
 
-const fetchEditPuzzle = () => {
+const getPuzzleData = puzzle => {
+  return {
+    type: GET_PUZZLE_DATA,
+    puzzle
+  }
+}
+
+const fetchEditPuzzle = id => {
+  return async (dispatch, getState) => {
+    const state = getState().EditPuzzle
+    try {
+      await axios.put(`/api/puzzles/${id}`, {
+        title: state.title,
+        imageUrl: state.imageUrl,
+        dimensions: state.dimensions,
+        price: state.price,
+        pieceCount: state.pieceCount,
+        category: state.category,
+        description: state.description
+      })
+      dispatch(setValue('message', 'Save Successfully!'))
+    } catch (error) {
+      dispatch(console.error(error))
+    }
+  }
+}
+
+const fetchPuzzleData = id => {
   return async dispatch => {
     try {
-      const {data} = await axios.put('/api/puzzles', {
-        title: this.state.title,
-        imageUrl: this.state.imageUrl,
-        dimensions: this.state.dimensions,
-        price: this.state.price,
-        pieceCount: this.state.pieceCount,
-        category: this.state.category,
-        description: this.state.description
-      })
-      dispatch(setValue(data))
+      const {data} = await axios.get(`/api/puzzles/${id}`)
+      dispatch(getPuzzleData(data))
     } catch (error) {
       dispatch(console.error(error))
     }
@@ -45,10 +66,12 @@ function EditPuzzleReducer(state = initialState, action) {
       const copy = {...state}
       copy[action.name] = action.value
       return copy
+    case GET_PUZZLE_DATA:
+      return {...state, ...action.puzzle}
     default:
       return state
   }
 }
 
-export {setValue, fetchEditPuzzle}
+export {setValue, getPuzzleData, fetchEditPuzzle, fetchPuzzleData}
 export default EditPuzzleReducer

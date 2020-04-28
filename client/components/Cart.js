@@ -1,33 +1,65 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import CartList from './CartList'
+import {fetchCart} from '../store/cart'
 
-const Cart = props => {
-  const {orderArray, lineItemSubtotal} = props
-  //handlers for add and delete will have to be passed in as well
-  if (orderArray.length) {
-    return (
-      <div>
-        <h1>Party Carty!</h1>
-        <ol>
-          {orderArray.map(item => (
-            <li key={item.id}>
-              <h4>{item.title}</h4>
-              <p>
-                {`Qty: ${item.qty ? item.qty : item.PuzzleOrders.quantity}
-            -- Subtotal: $${(lineItemSubtotal(item) / 100).toFixed(2)}`}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    )
+class Cart extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      mounted: false
+    }
   }
-  return (
-    <div>
-      <h1>Party Carty!</h1>
-      <p>Nothing in your cart?</p>
-      <p>Let's find a corner piece!</p>
-    </div>
-  )
+
+  componentDidMount() {
+    const {userId} = this.props || 0
+    const user = {id: userId}
+    this.props.fetchCart(user)
+    this.setState({mounted: true})
+  }
+
+  render() {
+    const {userId} = this.props.activeCart || 0
+    if (this.state.mounted) {
+      const {activeCart} = this.props
+      return (
+        <div>
+          <CartList activeCart={activeCart} fetchCart={this.props.fetchCart} />
+          {this.props.match.path == `/cart/${userId || 'guest'}` && (
+            <Link to={`/cart/${userId || 'guest'}/checkout`}>
+              <button type="button">CHECKOUT NOW</button>
+            </Link>
+          )}
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <h2>Loading cart...</h2>
+          <img
+            src="/loadingPuzzleGif.webp"
+            alt="Animated Puzzle Pieces"
+            height="160"
+            width="160"
+          />
+        </div>
+      )
+    }
+  }
 }
 
-export default Cart
+const mapState = state => {
+  return {
+    activeCart: state.cart.activeCart,
+    userId: state.user.singleUser.id
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    fetchCart: userData => dispatch(fetchCart(userData))
+  }
+}
+
+export default connect(mapState, mapDispatch)(Cart)
