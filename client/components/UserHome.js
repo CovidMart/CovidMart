@@ -21,7 +21,6 @@ export class UserHome extends React.Component {
       id
     } = this.props.singleUser
 
-
     return (
       <div>
         <h2>Welcome, {firstName}!</h2>

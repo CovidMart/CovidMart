@@ -8,7 +8,7 @@ class GuestButton extends Component {
         <div> New Customer </div>
         <div> Checkout as Guest </div>
         <div>
-          <Link to="/cart/guest">Continue to Checkout</Link>
+          <Link to="/cart">Continue to Checkout</Link>
         </div>
       </div>
     )

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchEditPuzzle, setValue} from '../../store/CreatePuzzle'
+import {fetchEditPuzzle, setValue} from '../../store/EditPuzzle'
 
 class EditPuzzle extends Component {
   handleChange(name, event) {
@@ -13,7 +13,7 @@ class EditPuzzle extends Component {
 
     return (
       <form onSubmit={submit}>
-        <div className="center"> Add New Product: </div>
+        <div className="center"> Edit Product: </div>
 
         <br />
 
@@ -49,7 +49,7 @@ class EditPuzzle extends Component {
 
         <div className="formInput">
           <label htmlFor="price"> Product Prices: </label>
-          <textarea
+          <input
             type="text"
             name="price"
             onChange={this.handleChange.bind(this, 'price')}
@@ -59,7 +59,7 @@ class EditPuzzle extends Component {
 
         <div className="formInput">
           <label htmlFor="pieceCount"> Product Inventory: </label>
-          <textarea
+          <input
             type="text"
             name="pieceCount"
             onChange={this.handleChange.bind(this, 'pieceCount')}
@@ -69,7 +69,7 @@ class EditPuzzle extends Component {
 
         <div className="formInput">
           <label htmlFor="category"> Category Product Belongs To: </label>
-          <textarea
+          <input
             type="text"
             name="category"
             onChange={this.handleChange.bind(this, 'category')}

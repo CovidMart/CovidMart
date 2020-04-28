@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from './index'
 
 const ALL_PUZZLES = 'ALL_PUZZLES'
 const SINGLE_PUZZLE = 'SINGLE_PUZZLE'
