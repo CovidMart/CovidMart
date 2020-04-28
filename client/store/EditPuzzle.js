@@ -11,7 +11,7 @@ const initialState = {
   message: ''
 }
 
-const SET_VALUE = 'SET_VALUE'
+const SET_VALUE = 'EDIT_SET_VALUE' // Change action name to avoid conflict with action name from other reducer
 const GET_PUZZLE_DATA = 'GET_PUZZLE_DATA'
 
 const setValue = (name, value) => {

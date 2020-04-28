@@ -38,7 +38,8 @@ label {
 }
 
 nav a {
-  display: inline-block;
+  /* display: inline-block; */
+  display: inline-table;
   margin: 1em;
 }
 

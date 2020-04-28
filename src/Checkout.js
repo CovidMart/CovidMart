@@ -29,6 +29,7 @@ const Checkout = ({name, description, amount}) => (
     token={onToken(amount, description)}
     currency={CURRENCY}
     stripeKey={STRIPE_PUBLISHABLE}
+    bitcoin
   />
 )
 export default Checkout

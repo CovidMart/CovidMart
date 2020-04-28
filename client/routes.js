@@ -34,23 +34,27 @@ class Routes extends Component {
         <Route exact path="/" component={AllPuzzles} />
         <Route exact path="/puzzles" component={AllPuzzles} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
-        <Route path={`/cart/${cart.userId || 'guest'}`} component={Cart} />
-        <Route
-          exact
-          path={`/cart/${cart.userId || 'guest'}/checkout`}
-          component={CheckoutPage}
-        />
+        <Route exact path={`/cart/${cart.userId}`} component={Cart} />
+        <Route exact path="/cart/guest" component={Cart} />
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available if NOT logged in */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route exact path="/cart/guest/checkout" component={CheckoutPage} />
           </Switch>
         )}
         {isLoggedIn && !isAdmin && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route
+              exact
+              path={`/cart/${this.props.userId}/checkout`}
+              render={props => (
+                <CheckoutPage {...props} id={this.props.userId} />
+              )}
+            />
           </Switch>
         )}
 
@@ -58,7 +62,11 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after admin logging in */}
             <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
-            <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
+            <Route
+              exact
+              path="/admin/puzzle/edit/:puzzleId"
+              component={EditPuzzle}
+            />
             <Route exact path="/users" component={AllUsers} />
           </Switch>
         )}
