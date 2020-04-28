@@ -7,6 +7,7 @@ const corsOptions = {
       ? callback(null, true)
       : callback(new Error('Not allowed by CORS'))
 }
+
 const configureServer = app => {
   app.use(cors(corsOptions))
   app.use(bodyParser.json())
