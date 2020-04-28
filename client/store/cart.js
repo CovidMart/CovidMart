@@ -9,7 +9,8 @@ const setCart = cart => ({
 
 const calculateTotal = puzzleArr => {
   return puzzleArr.reduce((a, c) => {
-    a += c.PuzzleOrders.subtotal
+    if (c.PuzzleOrders) a += c.PuzzleOrders.subtotal
+    else a += c.price * c.qty
     return a
   }, 0)
 }
@@ -36,8 +37,13 @@ export const fetchCart = userData => {
         try {
           const {data} = await axios.post('/api/cart', guestCart)
           console.log('Guest cart API req returns as DATA:', data)
-          //modify data with any missing vals
-          dispatch(setCart(data))
+          const configuredCart = {
+            id: 0, //guest order 0
+            pricePaid: calculateTotal(data),
+            puzzles: data, //arr w/ qty stored directly on each el
+            userId: 0 //guest ID 0
+          }
+          dispatch(setCart(configuredCart))
         } catch (error) {
           console.error(error)
         }

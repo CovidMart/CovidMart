@@ -1754,7 +1754,7 @@ var setCart = function setCart(cart) {
 
 var calculateTotal = function calculateTotal(puzzleArr) {
   return puzzleArr.reduce(function (a, c) {
-    a += c.PuzzleOrders.subtotal;
+    if (c.PuzzleOrders) a += c.PuzzleOrders.subtotal;else a += c.price * c.qty;
     return a;
   }, 0);
 };
@@ -1815,7 +1815,7 @@ var fetchCart = function fetchCart(userData) {
     if (_typeof(guestCart.cartData) === 'object') {
       return /*#__PURE__*/function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
-          var _yield$axios$post, data;
+          var _yield$axios$post, data, configuredCart;
 
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
@@ -1828,23 +1828,31 @@ var fetchCart = function fetchCart(userData) {
                 case 3:
                   _yield$axios$post = _context2.sent;
                   data = _yield$axios$post.data;
-                  console.log('Guest cart API req returns as DATA:', data); //modify data with any missing vals
+                  console.log('Guest cart API req returns as DATA:', data);
+                  configuredCart = {
+                    id: 0,
+                    //guest order 0
+                    pricePaid: calculateTotal(data),
+                    puzzles: data,
+                    //arr w/ qty stored directly on each el
+                    userId: 0 //guest ID 0
 
-                  dispatch(setCart(data));
-                  _context2.next = 12;
+                  };
+                  dispatch(setCart(configuredCart));
+                  _context2.next = 13;
                   break;
 
-                case 9:
-                  _context2.prev = 9;
+                case 10:
+                  _context2.prev = 10;
                   _context2.t0 = _context2["catch"](0);
                   console.error(_context2.t0);
 
-                case 12:
+                case 13:
                 case "end":
                   return _context2.stop();
               }
             }
-          }, _callee2, null, [[0, 9]]);
+          }, _callee2, null, [[0, 10]]);
         }));
 
         return function (_x2) {
