@@ -9,13 +9,13 @@ export class CheckoutPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      mounted: false
+      // mounted: false
     }
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    this.setState({mounted: true})
+    // this.setState({mounted: true})
   }
 
   handleClick() {
@@ -31,41 +31,41 @@ export class CheckoutPage extends React.Component {
   render() {
     console.log('---CHECKOUT PAGE IS RENDERED-----')
     console.log(this.props, 'checkoutpage this.props')
-    if (this.state.mounted) {
-      return (
-        <div>
-          <h3>Current User Info On File</h3>
-          {this.props.isLoggedIn && (
-            <div>
-              {this.props.user.firstName} {this.props.user.lastName},{' '}
-              {this.props.user.address}, {this.props.user.phone}
-            </div>
-          )}
-          <UserInfoForm />
-          <Cart />
-          <Checkout
-            amount={100}
-            name="Puzzle Party"
-            description="Thank you for your order!"
-          />
-          <button type="button" onClick={this.handleClick}>
-            CLEAR CART
-          </button>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <h2>Loading Checkout Page...</h2>
-          <img
-            src="loadingPuzzleGif.webp"
-            alt="Animated Puzzle Pieces"
-            height="160"
-            width="160"
-          />
-        </div>
-      )
-    }
+    // if (this.state.mounted) {
+    return (
+      <div>
+        <h3>Current User Info On File</h3>
+        {this.props.isLoggedIn && (
+          <div>
+            {this.props.user.firstName} {this.props.user.lastName},{' '}
+            {this.props.user.address}, {this.props.user.phone}
+          </div>
+        )}
+        <UserInfoForm />
+        <Cart />
+        <Checkout
+          amount={100}
+          name="Puzzle Party"
+          description="Thank you for your order!"
+        />
+        <button type="button" onClick={this.handleClick}>
+          CLEAR CART
+        </button>
+      </div>
+    )
+    // } else {
+    //   return (
+    //     <div>
+    //       <h2>Loading Checkout Page...</h2>
+    //       <img
+    //         src="loadingPuzzleGif.webp"
+    //         alt="Animated Puzzle Pieces"
+    //         height="160"
+    //         width="160"
+    //       />
+    //     </div>
+    //   )
+    // }
   }
 }
 

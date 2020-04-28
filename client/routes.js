@@ -36,7 +36,8 @@ class Routes extends Component {
         <Route exact path="/" component={AllPuzzles} />
         <Route exact path="/puzzles" component={AllPuzzles} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
-        <Route path={`/cart/${cart.userId || 'guest'}`} component={Cart} />
+        <Route exact path={`/cart/${cart.userId}`} component={Cart} />
+        <Route exact path="/cart/guest" component={Cart} />
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available if NOT logged in */}
@@ -52,7 +53,9 @@ class Routes extends Component {
             <Route
               exact
               path={`/cart/${this.props.userId}/checkout`}
-              component={CheckoutPage}
+              render={props => (
+                <CheckoutPage {...props} id={this.props.userId} />
+              )}
             />
           </Switch>
         )}
