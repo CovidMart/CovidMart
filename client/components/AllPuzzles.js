@@ -8,9 +8,9 @@ import AddCartButton from './AddCartButton'
  * COMPONENT
  */
 export class AllPuzzles extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   componentDidMount() {
     this.props.fetchAllPuzzles()
@@ -30,9 +30,7 @@ export class AllPuzzles extends React.Component {
                 <h3>{puzzle.title}</h3>
               </Link>
               <h3>${puzzle.price / 100}</h3>
-              {puzzle.pieceCount > 0 && (
-                <AddCartButton id={puzzle.id} price={puzzle.price} />
-              )}
+              <AddCartButton id={puzzle.id} addFromShop={true} />
 
               {this.props.isAdmin && (
                 <div>

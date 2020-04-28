@@ -1,16 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
-import CartUser from './CartUser'
-import CartGuest from './CartGuest'
+import Cart from './Cart'
 import Checkout from '../../src/Checkout'
 import {checkoutUserCart, checkoutGuestCart} from '../store/cart'
-
-// on mount, this component copies data from window.localStorage
-// which thunk will dispatch in api request for the corresponding puzzle data
-// by sending the window.localStorage cartObj in the req.body as guestCart
-// the returned puzzles go on state for info display in the cart
-// quantity is added to the json data (array of puzzles) before res.jsoning it
 
 export class CheckoutPage extends React.Component {
   constructor(props) {
@@ -26,7 +19,6 @@ export class CheckoutPage extends React.Component {
   }
 
   handleClick() {
-    console.log('clicked!!!')
     if (this.props.isLoggedIn) {
       let userId = this.props.userId
       this.props.checkoutUserCart(userId)
@@ -49,10 +41,7 @@ export class CheckoutPage extends React.Component {
             </div>
           )}
           <UserInfoForm />
-          {this.props.isLoggedIn && (
-            <CartUser {...this.props} userId={this.props.userId} />
-          )}
-          {!this.props.isLoggedIn && <CartGuest />}
+          <Cart />
           <Checkout
             amount={100}
             name="Puzzle Party"

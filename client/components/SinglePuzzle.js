@@ -41,7 +41,7 @@ export class SinglePuzzle extends React.Component {
         {this.props.price && (
           <AddCartButton
             id={this.props.match.params.puzzleId}
-            price={this.props.price}
+            addFromShop={true}
           />
         )}
       </div>

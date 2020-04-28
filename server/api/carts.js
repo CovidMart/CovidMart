@@ -3,18 +3,16 @@ const {User, Puzzle, Order, PuzzleOrders} = require('../db/models')
 const {userLoggedIn} = require('./gatekeepers')
 module.exports = router
 
-// ----Guest Cart----//
+// ----'GET' Guest Cart----//
 
-router.post('/', async (req, res, next) => {
-  const guestCart = req.body.guestCart ? JSON.parse(req.body.guestCart) : {}
-  console.log('Routes guest car', guestCart)
+router.post('/guest', async (req, res, next) => {
+  const guestCart = req.body.cartData
   const cartPuzzles = []
   try {
     // eslint-disable-next-line guard-for-in
     for (let puzzleId in guestCart) {
       let foundPuzzle = await Puzzle.findByPk(puzzleId)
       if (foundPuzzle) {
-        //add qty to puzzle just for guest vv
         foundPuzzle.dataValues.qty = guestCart[puzzleId]
         cartPuzzles.push(foundPuzzle)
       }
@@ -25,7 +23,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-//----User Cart----//
+//----GET User Cart----//
 
 router.get('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
@@ -35,13 +33,64 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
       where: {stillInCart: true},
       include: [{model: Puzzle}]
     })
-    res.json(activeOrders)
+    res.json(activeOrders[0])
   } catch (error) {
     next(error)
   }
 })
 
+//---POST User New Order---//
+
+router.post('/:userId', userLoggedIn, async (req, res, next) => {
+  const uid = req.params.userId
+  const {puzzleId, quantity} = req.body
+  try {
+    const orderedPuzzle = await Puzzle.findByPk(puzzleId)
+    const activeOrder = await Order.findOne({
+      where: {userId: uid, stillInCart: true}
+    })
+    if (activeOrder) {
+      //add new puzzle order to it
+      await activeOrder.addPuzzle(orderedPuzzle, {
+        through: {quantity, price: orderedPuzzle.price}
+      })
+    } else {
+      //create new order
+      const newOrder = await Order.create()
+      await newOrder.addPuzzle(orderedPuzzle, {
+        through: {quantity, price: orderedPuzzle.price}
+      })
+      await newOrder.setUser(uid)
+    }
+    res.sendStatus(201)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//---PUT User Cart Qty---//
+
 router.put('/:userId', userLoggedIn, async (req, res, next) => {
+  const {orderId, puzzleId, quantity, addFromShop} = req.body
+  try {
+    const orderToChange = await PuzzleOrders.findOne({
+      where: {orderId, puzzleId}
+    })
+    if (addFromShop) {
+      const total = orderToChange.quantity + quantity
+      orderToChange.update({quantity: total})
+    } else {
+      orderToChange.update({quantity})
+    }
+    res.sendStatus(201)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//---PUT Checkout Cart---//
+
+router.put('/:userId/checkout', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
   try {
     const currentUser = await User.findByPk(uid)
@@ -56,55 +105,8 @@ router.put('/:userId', userLoggedIn, async (req, res, next) => {
   }
 })
 
-///route to add item to the cart
-router.post('/:userId', async (req, res, next) => {
-  if (req.session.passport) {
-    const uid = req.session.passport.user
-    const {quantity, puzzleId} = req.body
-    console.log('Api route got qty & pid?', quantity, puzzleId)
-    try {
-      //grab the puzzle the user wants to buy
-      const orderedPuzzle = await Puzzle.findByPk(puzzleId)
-      //check if user has an active order
-      const activeOrder = await Order.findOne({
-        where: {userId: uid, stillInCart: true}
-      })
-      if (activeOrder) {
-        //check if this puzzle is already in the order
-        const currPuzzle = await activeOrder.getPuzzles({
-          where: {id: puzzleId}
-        })
-        if (currPuzzle.length) {
-          //get the existing puzzle row in OrderPuzzles to update qty
-          const updatePuzzle = await PuzzleOrders.findOne({
-            where: {puzzleId}
-          })
-          //if desired qty is now 0, delete the PuzzleOrder row
-          if (quantity <= 0) {
-            await updatePuzzle.destroy()
-          } else {
-            await updatePuzzle.update({quantity})
-          }
-        } else {
-          //add new puzzle to the existing order
-          await activeOrder.addPuzzle(orderedPuzzle, {
-            through: {quantity, price: orderedPuzzle.price}
-          })
-        }
-      } else {
-        //create new order
-        const newOrder = await Order.create()
-        await newOrder.addPuzzle(orderedPuzzle, {
-          through: {quantity, price: orderedPuzzle.price}
-        })
-        await newOrder.setUser(uid)
-      }
-      res.sendStatus(201)
-    } catch (err) {
-      next(err)
-    }
-  } else {
-    //user is not logged in
-    res.sendStatus(202)
-  }
+//---DELETE Puzzle from Order---//
+
+router.delete('/:userId', userLoggedIn, async (req, res, next) => {
+  //delete user's order for this puzzle from the puzzleOrders
 })

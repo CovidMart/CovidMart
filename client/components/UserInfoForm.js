@@ -22,9 +22,6 @@ class UserInfoForm extends React.Component {
   }
 
   handleChange(event) {
-    console.log(this)
-    // console.log(this.state, '----state----')
-
     this.setState({
       [event.target.name]: event.target.value
     })
