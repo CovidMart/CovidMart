@@ -1,44 +1,31 @@
 import axios from 'axios'
 
-export const addToLocalStorage = (newOrder, fetchCart = null) => {
-  return () => {
-    try {
-      const getState = localStorage.getItem('guestCart')
-      let orderInfo = {}
-      let quantity = newOrder.quantity
-      let puzzle = parseInt(newOrder.puzzleId, 10)
-
-      //create new order for new guest
-      //if state does not exist, create it and add the puzzleID:quantity as a key-value pair object to the array
-      if (getState === null) {
-        orderInfo[puzzle] = quantity.toString()
-        const newState = JSON.stringify(orderInfo)
-        localStorage.setItem('guestCart', newState)
-      } else if (getState) {
-        //if state exists, add new puzzle to it
-        const pullOrder = JSON.parse(getState)
-        //if puzzle ID exists, then update the quantity
-        if (puzzle in pullOrder) {
-          pullOrder[puzzle] = quantity
-        } else {
-          pullOrder[puzzle] = quantity.toString()
-        }
-
-        const newState = JSON.stringify(pullOrder)
-        localStorage.setItem('guestCart', newState)
-      }
-    } catch (error) {
-      console.error(error)
+export const addToLocalStorage = (
+  newOrder,
+  addFromShop = false,
+  fetchCart = null
+) => {
+  return dispatch => {
+    const cartState = JSON.parse(localStorage.getItem('guestCart')) || {}
+    const {puzzleId, newRow, quantity} = newOrder
+    if (newRow || !addFromShop) cartState[puzzleId] = quantity
+    else {
+      let qty = cartState[puzzleId]
+      qty = parseInt(qty, 10) + quantity
+      cartState[puzzleId] = qty
     }
+    if (fetchCart) dispatch(fetchCart(null))
   }
 }
 
-export const addToCart = (newOrder, fetchCart = null) => {
-  const userId = newOrder.userId
-  return async () => {
+export const addToCart = (newOrder, addFromShop = false, fetchCart = null) => {
+  const {userId, newRow} = newOrder
+  newOrder.addFromShop = addFromShop //api check this whether to increment
+  return async dispatch => {
     try {
-      await axios.post(`/api/cart/${userId}`, newOrder)
-      if (fetchCart) fetchCart(userId)
+      if (newRow) await axios.post(`/api/cart/${userId}`, newOrder)
+      else await axios.put(`/api/cart/${userId}`, newOrder)
+      if (fetchCart) dispatch(fetchCart(userId))
     } catch (error) {
       console.error(error)
     }

@@ -175,6 +175,9 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
     key: "clickAddToCart",
     value: function clickAddToCart(event) {
       var cart = this.props.activeCart;
+      var _this$props = this.props,
+          addFromShop = _this$props.addFromShop,
+          fetchCart = _this$props.fetchCart;
       console.log('I am the BUTTON, and I see the cart!->', cart);
       event.preventDefault(); //check if this puzzleOrder already exists on state
 
@@ -182,7 +185,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
       var prePuzzles = cart.puzzles.map(function (pzl) {
         return pzl.id;
       });
-      var newRow = prePuzzles.indexOf(puzzleId) >= 0;
+      var newRow = prePuzzles.indexOf(puzzleId) < 0;
       var userId = parseInt(cart.userId, 10);
       var newOrder = {
         userId: userId,
@@ -190,8 +193,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
         newRow: newRow,
         quantity: parseInt(this.state.quantity, 10)
       };
-      var fetchCart = this.props.fetchCart;
-      if (userId) this.props.addToCart(newOrder, fetchCart);else this.props.addToLocalStorage(newOrder, fetchCart);
+      if (userId) this.props.addToCart(newOrder, addFromShop, fetchCart);else this.props.addToLocalStorage(newOrder, addFromShop, fetchCart);
     }
   }, {
     key: "handleChange",
@@ -755,7 +757,7 @@ var SinglePuzzle = /*#__PURE__*/function (_React$Component) {
         width: "300"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, this.props.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "$", this.props.price / 100), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Number of Pieces:"), " ", this.props.pieceCount), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Dimensions:"), " ", this.props.dimensions, " inches"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Category:"), " ", this.props.category), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Description: "), this.props.description), this.props.price && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
         id: this.props.match.params.puzzleId,
-        price: this.props.price
+        addFromShop: true
       }));
     }
   }]);
@@ -2036,67 +2038,74 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var addToLocalStorage = function addToLocalStorage(newOrder) {
-  var fetchCart = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  return function () {
-    try {
-      var getState = localStorage.getItem('guestCart');
-      var orderInfo = {};
-      var quantity = newOrder.quantity;
-      var puzzle = parseInt(newOrder.puzzleId, 10); //create new order for new guest
-      //if state does not exist, create it and add the puzzleID:quantity as a key-value pair object to the array
-
-      if (getState === null) {
-        orderInfo[puzzle] = quantity.toString();
-        var newState = JSON.stringify(orderInfo);
-        localStorage.setItem('guestCart', newState);
-      } else if (getState) {
-        //if state exists, add new puzzle to it
-        var pullOrder = JSON.parse(getState); //if puzzle ID exists, then update the quantity
-
-        if (puzzle in pullOrder) {
-          pullOrder[puzzle] = quantity;
-        } else {
-          pullOrder[puzzle] = quantity.toString();
-        }
-
-        var _newState = JSON.stringify(pullOrder);
-
-        localStorage.setItem('guestCart', _newState);
-      }
-    } catch (error) {
-      console.error(error);
+  var addFromShop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var fetchCart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  return function (dispatch) {
+    var cartState = JSON.parse(localStorage.getItem('guestCart')) || {};
+    var puzzleId = newOrder.puzzleId,
+        newRow = newOrder.newRow,
+        quantity = newOrder.quantity;
+    if (newRow || !addFromShop) cartState[puzzleId] = quantity;else {
+      var qty = cartState[puzzleId];
+      qty = parseInt(qty, 10) + quantity;
+      cartState[puzzleId] = qty;
     }
+    if (fetchCart) dispatch(fetchCart(null));
   };
 };
 var addToCart = function addToCart(newOrder) {
-  var fetchCart = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var userId = newOrder.userId;
-  return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
+  var addFromShop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var fetchCart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  var userId = newOrder.userId,
+      newRow = newOrder.newRow;
+  newOrder.addFromShop = addFromShop; //api check this whether to increment
 
-          case 3:
-            if (fetchCart) fetchCart(userId);
-            _context.next = 9;
-            break;
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
 
-          case 6:
-            _context.prev = 6;
-            _context.t0 = _context["catch"](0);
-            console.error(_context.t0);
+              if (!newRow) {
+                _context.next = 6;
+                break;
+              }
 
-          case 9:
-          case "end":
-            return _context.stop();
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
+
+            case 4:
+              _context.next = 8;
+              break;
+
+            case 6:
+              _context.next = 8;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(userId), newOrder);
+
+            case 8:
+              if (fetchCart) dispatch(fetchCart(userId));
+              _context.next = 14;
+              break;
+
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](0);
+              console.error(_context.t0);
+
+            case 14:
+            case "end":
+              return _context.stop();
+          }
         }
-      }
-    }, _callee, null, [[0, 6]]);
-  }));
+      }, _callee, null, [[0, 11]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
 };
 
 /***/ }),

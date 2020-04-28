@@ -14,12 +14,13 @@ export class AddCartButton extends React.Component {
 
   clickAddToCart(event) {
     const cart = this.props.activeCart
+    const {addFromShop, fetchCart} = this.props
     console.log('I am the BUTTON, and I see the cart!->', cart)
     event.preventDefault()
     //check if this puzzleOrder already exists on state
     const puzzleId = parseInt(this.props.id, 10)
     const prePuzzles = cart.puzzles.map(pzl => pzl.id)
-    const newRow = prePuzzles.indexOf(puzzleId) >= 0
+    const newRow = prePuzzles.indexOf(puzzleId) < 0
     const userId = parseInt(cart.userId, 10)
     const newOrder = {
       userId,
@@ -27,9 +28,8 @@ export class AddCartButton extends React.Component {
       newRow,
       quantity: parseInt(this.state.quantity, 10)
     }
-    const fetchCart = this.props.fetchCart
-    if (userId) this.props.addToCart(newOrder, fetchCart)
-    else this.props.addToLocalStorage(newOrder, fetchCart)
+    if (userId) this.props.addToCart(newOrder, addFromShop, fetchCart)
+    else this.props.addToLocalStorage(newOrder, addFromShop, fetchCart)
   }
 
   handleChange(event) {
