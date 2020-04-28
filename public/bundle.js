@@ -1065,6 +1065,16 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
 
+    _defineProperty(_assertThisInitialized(_this), "handleEmailChange", function (event) {
+      console.log('handleEmailChange');
+
+      _this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
+        _this.validateEmail();
+      });
+
+      console.log(_this.state, '<----local form state');
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (event) {
       event.preventDefault();
       var user = _this.state;
@@ -1074,12 +1084,22 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
     });
 
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleEmailChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.validateEmail = _this.validateEmail.bind(_assertThisInitialized(_this));
+    _this.handleAddressChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.validateAddress = _this.validateAddress.bind(_assertThisInitialized(_this));
+    _this.handlePhoneNumberChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.validatePhone = _this.validatePhone.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
-      firstName: '',
-      lastName: '',
-      address: '',
-      phone: ''
+      email: null,
+      firstName: null,
+      lastName: null,
+      address: null,
+      phone: null,
+      phoneError: '',
+      emailError: '',
+      addressError: ''
     };
     return _this;
   }
@@ -1087,7 +1107,53 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
   _createClass(UserInfoForm, [{
     key: "handleChange",
     value: function handleChange(event) {
+      console.log('regular handlechange');
       this.setState(_defineProperty({}, event.target.name, event.target.value));
+      console.log(this.state, '<----local form state');
+    }
+  }, {
+    key: "validateEmail",
+    value: function validateEmail() {
+      var email = this.state.email;
+      this.setState({
+        emailError: email.length > 5 ? null : '**Please enter a valid email address'
+      });
+    }
+  }, {
+    key: "handlePhoneNumberChange",
+    value: function handlePhoneNumberChange(event) {
+      var _this2 = this;
+
+      this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
+        _this2.validatePhone();
+      });
+      console.log(this.state, '<----local form state');
+    }
+  }, {
+    key: "validatePhone",
+    value: function validatePhone() {
+      var phone = this.state.phone;
+      this.setState({
+        phoneError: phone.length > 7 ? null : '**Please enter a valid phone number'
+      });
+    }
+  }, {
+    key: "handleAddressChange",
+    value: function handleAddressChange(event) {
+      var _this3 = this;
+
+      this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
+        _this3.validateAddress();
+      });
+      console.log(this.state, '<----local form state');
+    }
+  }, {
+    key: "validateAddress",
+    value: function validateAddress() {
+      var address = this.state.address;
+      this.setState({
+        phoneError: address.length > 7 ? null : '**Please enter a valid address'
+      });
     }
   }, {
     key: "render",
@@ -1096,7 +1162,13 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
         className: "userInfo"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Update User Info:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, !this.props.user.id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        name: "email",
+        onChange: this.handleEmailChange,
+        placeholder: "Email Address",
+        onBlur: this.validateEmail
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "firstName",
         onChange: this.handleChange,
@@ -1110,13 +1182,21 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
         type: "text",
         name: "address",
         onChange: this.handleChange,
-        placeholder: "Address"
+        placeholder: "Address",
+        onBlur: this.validateAddress
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "phone",
-        onChange: this.handleChange,
-        placeholder: "Phone Number"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onChange: this.handlePhoneNumberChange,
+        placeholder: "Phone Number",
+        onBlur: this.validatePhone
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "invalid-feedback"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, this.state.phoneError)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "invalid-feedback"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, this.state.emailError)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "invalid-feedback"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, this.state.addressError)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
       }, "Update Info"))));
     }
