@@ -62,7 +62,11 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after admin logging in */}
             <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
-            <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
+            <Route
+              exact
+              path="/admin/puzzle/edit/:puzzleId"
+              component={EditPuzzle}
+            />
             <Route exact path="/users" component={AllUsers} />
           </Switch>
         )}

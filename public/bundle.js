@@ -345,7 +345,7 @@ var CreatePuzzle = /*#__PURE__*/function (_Component) {
         type: "text",
         name: "title",
         onChange: this.handleChange.bind(this, 'title'),
-        value: puzzle.name
+        value: puzzle.title
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -705,7 +705,7 @@ var AllPuzzles = /*#__PURE__*/function (_React$Component) {
         }), _this.props.isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
           className: "edit-button",
           to: "/admin/puzzle/edit/".concat(puzzle.id)
-        }, " ", ' ', "Edit ", ' '), puzzle.pieceCount > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        }, ' ', "Edit", ' '), puzzle.pieceCount > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "button",
           value: "delete",
           className: "deleteButton",
@@ -1998,7 +1998,7 @@ var Routes = /*#__PURE__*/function (_Component) {
         component: _components__WEBPACK_IMPORTED_MODULE_4__["CreatePuzzle"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
-        path: "/admin/puzzle/edit",
+        path: "/admin/puzzle/edit/:puzzleId",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["EditPuzzle"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
@@ -2104,7 +2104,14 @@ var initialState = {
   description: '',
   message: ''
 };
-var SET_VALUE = 'SET_VALUE';
+var SET_VALUE = 'SET_ADDED_VALUE';
+var ADDED_SAVED = 'ADDED_SAVED';
+
+var saved = function saved() {
+  return {
+    type: ADDED_SAVED
+  };
+};
 
 var setValue = function setValue(name, value) {
   return {
@@ -2140,7 +2147,7 @@ var AddPuzzle = function AddPuzzle() {
               });
 
             case 4:
-              dispatch(setValue('message', 'Save Successfully!'));
+              dispatch(saved());
               _context.next = 10;
               break;
 
@@ -2174,6 +2181,11 @@ function addPuzzleReducer() {
       copy[action.name] = action.value; //modifying original copy, not copy of copy
 
       return copy;
+
+    case ADDED_SAVED:
+      return _objectSpread({}, initialState, {
+        message: 'Save Successfully!'
+      });
 
     default:
       return state;
@@ -2221,7 +2233,8 @@ var initialState = {
   description: '',
   message: ''
 };
-var SET_VALUE = 'SET_VALUE';
+var SET_VALUE = 'EDIT_SET_VALUE'; // Change action name to avoid conflict with action name from other reducer
+
 var GET_PUZZLE_DATA = 'GET_PUZZLE_DATA';
 
 var setValue = function setValue(name, value) {
