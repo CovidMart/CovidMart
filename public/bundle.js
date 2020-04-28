@@ -1156,8 +1156,8 @@ var CheckoutPage = /*#__PURE__*/function (_React$Component) {
           userId: this.props.userId
         })), !this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartGuest__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_Checkout__WEBPACK_IMPORTED_MODULE_5__["default"], {
           amount: 100,
-          name: 'Puzzle Party',
-          description: 'Thank you for your order!'
+          name: "Puzzle Party",
+          description: "Thank you for your order!"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
           onClick: this.handleClick
