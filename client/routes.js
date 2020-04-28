@@ -28,6 +28,7 @@ class Routes extends Component {
   render() {
     const {isLoggedIn, isAdmin, cart} = this.props
     console.log('GOT CART?!?!?!?', cart)
+    console.log(this.props, 'this.props from Routes')
 
     return (
       <Switch>
@@ -46,12 +47,22 @@ class Routes extends Component {
             {/* Routes placed here are only available if NOT logged in */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route
+              exact
+              path="/cart/guest/checkout"
+              component={CheckoutPage}
+            />
           </Switch>
         )}
         {isLoggedIn && !isAdmin && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route
+              exact
+              path={`/cart/${this.props.userId}/checkout`}
+              component={CheckoutPage}
+            />
           </Switch>
         )}
 

@@ -540,6 +540,8 @@ var Cart = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.props, 'this.props in Cart');
+
       var _ref2 = this.props.activeCart || 0,
           userId = _ref2.userId;
 
@@ -548,7 +550,7 @@ var Cart = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartList__WEBPACK_IMPORTED_MODULE_3__["default"], {
           activeCart: activeCart,
           fetchCart: this.props.fetchCart
-        }), this.props.match.path == "/cart/".concat(userId || 'guest') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        }), this.props.match && this.props.match.path == "/cart/".concat(userId || 'guest') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/cart/".concat(userId || 'guest', "/checkout")
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button"
@@ -712,10 +714,11 @@ var CheckoutPage = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log('---CHECKOUT PAGE IS RENDERED-----');
       console.log(this.props, 'checkoutpage this.props');
 
       if (this.state.mounted) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Current User Info On File"), this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.firstName, " ", this.props.user.lastName, ",", ' ', this.props.user.address, ", ", this.props.user.phone), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfoForm__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_Checkout__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Current User Info On File"), this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.firstName, " ", this.props.user.lastName, ",", ' ', this.props.user.address, ", ", this.props.user.phone), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_Checkout__WEBPACK_IMPORTED_MODULE_4__["default"], {
           amount: 100,
           name: "Puzzle Party",
           description: "Thank you for your order!"
@@ -1559,6 +1562,7 @@ var Routes = /*#__PURE__*/function (_Component) {
           isAdmin = _this$props.isAdmin,
           cart = _this$props.cart;
       console.log('GOT CART?!?!?!?', cart);
+      console.log(this.props, 'this.props from Routes');
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/",
@@ -1584,9 +1588,17 @@ var Routes = /*#__PURE__*/function (_Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/signup",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Signup"]
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/cart/guest/checkout",
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["CheckoutPage"]
       })), isLoggedIn && !isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/home",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["UserHome"]
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/cart/".concat(this.props.userId, "/checkout"),
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["CheckoutPage"]
       })), isLoggedIn && isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/admin/puzzle/create",

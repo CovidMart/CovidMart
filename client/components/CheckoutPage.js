@@ -29,6 +29,7 @@ export class CheckoutPage extends React.Component {
   }
 
   render() {
+    console.log('---CHECKOUT PAGE IS RENDERED-----')
     console.log(this.props, 'checkoutpage this.props')
     if (this.state.mounted) {
       return (
@@ -40,8 +41,8 @@ export class CheckoutPage extends React.Component {
               {this.props.user.address}, {this.props.user.phone}
             </div>
           )}
-          <UserInfoForm />
-          <Cart />
+          {/* <UserInfoForm /> */}
+          {/* <Cart /> */}
           <Checkout
             amount={100}
             name="Puzzle Party"
