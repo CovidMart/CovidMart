@@ -550,7 +550,7 @@ var Cart = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartList__WEBPACK_IMPORTED_MODULE_3__["default"], {
           activeCart: activeCart,
           fetchCart: this.props.fetchCart
-        }), this.props.match && this.props.match.path == "/cart/".concat(userId || 'guest') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        }), this.props.match && this.props.match.path === "/cart/".concat(userId || 'guest') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/cart/".concat(userId || 'guest', "/checkout")
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button"
@@ -603,14 +603,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Cart = function Cart(props) {
+var CartList = function CartList(props) {
   var _props$activeCart = props.activeCart,
       puzzles = _props$activeCart.puzzles,
       pricePaid = _props$activeCart.pricePaid;
   var fetchCart = props.fetchCart; //handlers for add and delete will have to be passed in as well
 
   if (puzzles && puzzles.length) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Order Total: ", pricePaid), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", null, puzzles.filter(function (item) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Order Total: ", pricePaid), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, puzzles.filter(function (item) {
       return item.qty || item.PuzzleOrders;
     }).map(function (item) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -623,10 +623,10 @@ var Cart = function Cart(props) {
     })));
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Nothing in your cart?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Let's find a corner piece!"));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Nothing in your cart?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Let's find a corner piece!"));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Cart);
+/* harmony default export */ __webpack_exports__["default"] = (CartList);
 
 /***/ }),
 
@@ -942,12 +942,17 @@ var UserHome = /*#__PURE__*/function (_React$Component) {
 
   _createClass(UserHome, [{
     key: "componentDidMount",
-    // constructor(props) {
-    //   super(props)
-    // }
     value: function componentDidMount() {
       var user = this.props.singleUser;
-      this.props.fetchCart(user);
+      this.props.getCart(user);
+
+      if (window.localStorage.guestCart) {
+        var cartData = JSON.parse(window.localStorage.guestCart);
+
+        if (_typeof(cartData) === 'object') {
+          this.props.mergeCart(cartData, user);
+        }
+      }
     }
   }, {
     key: "render",
@@ -983,8 +988,11 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    fetchCart: function fetchCart(userData) {
+    getCart: function getCart(userData) {
       return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_4__["fetchCart"])(userData));
+    },
+    mergeCart: function mergeCart(cartData, user, fetch) {
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_4__["mergeMyCart"])(cartData, user, fetch));
     }
   };
 };
@@ -1392,7 +1400,7 @@ var Navbar = function Navbar(_ref) {
       userId = _ref.userId;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "PUZZLE PARTY"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/puzzles"
-  }, "All Puzzles"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  }, "Shop"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/cart/".concat(userId || 'guest')
   }, "Cart"), isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/home"
@@ -1571,8 +1579,6 @@ var Routes = /*#__PURE__*/function (_Component) {
           isLoggedIn = _this$props.isLoggedIn,
           isAdmin = _this$props.isAdmin,
           cart = _this$props.cart;
-      console.log('GOT CART?!?!?!?', cart);
-      console.log(this.props, 'this.props from Routes');
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/",
@@ -1973,12 +1979,13 @@ function EditPuzzleReducer() {
 /*!******************************!*\
   !*** ./client/store/cart.js ***!
   \******************************/
-/*! exports provided: fetchCart, checkoutUserCart, checkoutGuestCart, default */
+/*! exports provided: fetchCart, mergeMyCart, checkoutUserCart, checkoutGuestCart, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCart", function() { return fetchCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeMyCart", function() { return mergeMyCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkoutUserCart", function() { return checkoutUserCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkoutGuestCart", function() { return checkoutGuestCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return cartReducer; });
@@ -2014,8 +2021,6 @@ var calculateTotal = function calculateTotal(puzzleArr) {
 };
 
 var fetchCart = function fetchCart(userData) {
-  console.log('Cart FETCH dispatched, thunkaroo!');
-
   if (userData && userData.id) {
     return /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
@@ -2119,39 +2124,134 @@ var fetchCart = function fetchCart(userData) {
     window.localStorage.setItem('guestCart', '{}');
   }
 };
+var mergeMyCart = function mergeMyCart(guestCart, user) {
+  return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+    var _yield$axios$get2, data, id, puzzles, p, quantity, pid, i, puzzleId;
+
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/cart/".concat(user.id));
+
+          case 3:
+            _yield$axios$get2 = _context3.sent;
+            data = _yield$axios$get2.data;
+            id = data.id, puzzles = data.puzzles;
+
+            if (!id) {
+              puzzles = [];
+            } // eslint-disable-next-line guard-for-in
+
+
+            _context3.t0 = regeneratorRuntime.keys(guestCart);
+
+          case 8:
+            if ((_context3.t1 = _context3.t0()).done) {
+              _context3.next = 27;
+              break;
+            }
+
+            p = _context3.t1.value;
+            quantity = guestCart[p];
+            pid = parseInt(p, 10);
+            i = 0;
+
+          case 13:
+            if (!(i < puzzles.length)) {
+              _context3.next = 25;
+              break;
+            }
+
+            puzzleId = parseInt(puzzles[i].id);
+
+            if (!(pid === puzzleId)) {
+              _context3.next = 20;
+              break;
+            }
+
+            _context3.next = 18;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(user.id), {
+              orderId: id,
+              puzzleId: puzzleId,
+              quantity: quantity,
+              addFromShop: true
+            });
+
+          case 18:
+            _context3.next = 22;
+            break;
+
+          case 20:
+            _context3.next = 22;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(user.id), {
+              puzzleId: puzzleId,
+              quantity: quantity
+            });
+
+          case 22:
+            i++;
+            _context3.next = 13;
+            break;
+
+          case 25:
+            _context3.next = 8;
+            break;
+
+          case 27:
+            window.localStorage.clear();
+            fetchCart(user);
+            _context3.next = 34;
+            break;
+
+          case 31:
+            _context3.prev = 31;
+            _context3.t2 = _context3["catch"](0);
+            console.error(_context3.t2);
+
+          case 34:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[0, 31]]);
+  }));
+};
 var checkoutUserCart = function checkoutUserCart(userId) {
   return /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
+              _context4.prev = 0;
+              _context4.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(userId, "/checkout"), {
                 stillInCart: false
               });
 
             case 3:
               dispatch(setCart({}));
-              _context3.next = 9;
+              _context4.next = 9;
               break;
 
             case 6:
-              _context3.prev = 6;
-              _context3.t0 = _context3["catch"](0);
-              console.error(_context3.t0);
+              _context4.prev = 6;
+              _context4.t0 = _context4["catch"](0);
+              console.error(_context4.t0);
 
             case 9:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3, null, [[0, 6]]);
+      }, _callee4, null, [[0, 6]]);
     }));
 
     return function (_x3) {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }();
 };
@@ -2185,7 +2285,7 @@ function cartReducer() {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, fetchAllUsers, updateUserInStore, auth, logout, fetchCart, checkoutUserCart, checkoutGuestCart */
+/*! exports provided: default, me, fetchAllUsers, updateUserInStore, auth, logout, fetchCart, mergeMyCart, checkoutUserCart, checkoutGuestCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2212,6 +2312,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["logout"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fetchCart", function() { return _cart__WEBPACK_IMPORTED_MODULE_8__["fetchCart"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "mergeMyCart", function() { return _cart__WEBPACK_IMPORTED_MODULE_8__["mergeMyCart"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "checkoutUserCart", function() { return _cart__WEBPACK_IMPORTED_MODULE_8__["checkoutUserCart"]; });
 
@@ -2282,58 +2384,53 @@ var addToCart = function addToCart(newOrder) {
   var addFromShop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   var fetchCart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   var userId = newOrder.userId,
-      newRow = newOrder.newRow;
+      newRow = newOrder.newRow,
+      quantity = newOrder.quantity;
   var user = {
     id: userId
   };
   newOrder.addFromShop = addFromShop; //api check this whether to increment
 
-  return /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
+  return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
 
-              if (!newRow) {
-                _context.next = 6;
-                break;
-              }
-
-              _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
-
-            case 4:
-              _context.next = 8;
+            if (!newRow) {
+              _context.next = 6;
               break;
+            }
 
-            case 6:
-              _context.next = 8;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(userId), newOrder);
+            _context.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
 
-            case 8:
-              if (fetchCart) dispatch(fetchCart(user));
-              _context.next = 14;
-              break;
+          case 4:
+            _context.next = 8;
+            break;
 
-            case 11:
-              _context.prev = 11;
-              _context.t0 = _context["catch"](0);
-              console.error(_context.t0);
+          case 6:
+            _context.next = 8;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(userId), newOrder);
 
-            case 14:
-            case "end":
-              return _context.stop();
-          }
+          case 8:
+            if (fetchCart) fetchCart(user);
+            _context.next = 14;
+            break;
+
+          case 11:
+            _context.prev = 11;
+            _context.t0 = _context["catch"](0);
+            console.error(_context.t0);
+
+          case 14:
+          case "end":
+            return _context.stop();
         }
-      }, _callee, null, [[0, 11]]);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
+      }
+    }, _callee, null, [[0, 11]]);
+  }));
 };
 
 /***/ }),
