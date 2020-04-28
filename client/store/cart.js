@@ -1,15 +1,10 @@
 import axios from 'axios'
 
 const SET_CART = 'SET_CART'
-const CHECKOUT = 'CHECKOUT'
 
 const setCart = cart => ({
   type: SET_CART,
   cart
-})
-
-const checkout = () => ({
-  type: CHECKOUT
 })
 
 const calculateTotal = puzzleArr => {
@@ -22,7 +17,7 @@ const calculateTotal = puzzleArr => {
 
 export const fetchCart = userData => {
   console.log('Cart FETCH dispatched, thunkaroo!')
-  if (userData && userData.id > 0) {
+  if (userData && userData.id) {
     return async dispatch => {
       try {
         const {data} = await axios.get(`/api/cart/${userData.id}`)
@@ -62,11 +57,10 @@ export const fetchCart = userData => {
 export const checkoutUserCart = userId => {
   return async dispatch => {
     try {
-      //Prob have to change route, maybe use /api/checkout
       await axios.put(`/api/cart/${userId}/checkout`, {
         stillInCart: false
       })
-      dispatch(checkout())
+      dispatch(setCart({}))
     } catch (error) {
       console.error(error)
     }
@@ -74,8 +68,9 @@ export const checkoutUserCart = userId => {
 }
 
 export const checkoutGuestCart = () => {
+  window.localStorage.setItem('guestCart', '{}')
   return dispatch => {
-    dispatch(checkout())
+    dispatch(setCart({}))
   }
 }
 
@@ -87,8 +82,6 @@ export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case SET_CART:
       return {...state, activeCart: action.cart}
-    case CHECKOUT:
-      return {...state, activeCart: {}}
     default:
       return state
   }

@@ -39,14 +39,30 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
   }
 })
 
-//---POST User Cart Qty---//
+//---POST User New Order---//
 
 router.post('/:userId', userLoggedIn, async (req, res, next) => {
   const uid = req.params.userId
-  const {quantity, puzzleId} = req.body
+  const {puzzleId, quantity} = req.body
   try {
-    //create new puzzleorder and add to user
-    //create order, add puzzle, add userId
+    const orderedPuzzle = await Puzzle.findByPk(puzzleId)
+    const activeOrder = await Order.findOne({
+      where: {userId: uid, stillInCart: true}
+    })
+    if (activeOrder) {
+      //add new puzzle order to it
+      await activeOrder.addPuzzle(orderedPuzzle, {
+        through: {quantity, price: orderedPuzzle.price}
+      })
+    } else {
+      //create new order
+      const newOrder = await Order.create()
+      await newOrder.addPuzzle(orderedPuzzle, {
+        through: {quantity, price: orderedPuzzle.price}
+      })
+      await newOrder.setUser(uid)
+    }
+    res.sendStatus(201)
   } catch (error) {
     next(error)
   }
@@ -55,11 +71,18 @@ router.post('/:userId', userLoggedIn, async (req, res, next) => {
 //---PUT User Cart Qty---//
 
 router.put('/:userId', userLoggedIn, async (req, res, next) => {
-  const uid = req.params.userId
-  //Some req.body property tells us whether to increment or straight-change
+  const {orderId, puzzleId, quantity, addFromShop} = req.body
   try {
-    //if addNew
-    //if Increment
+    const orderToChange = await PuzzleOrders.findOne({
+      where: {orderId, puzzleId}
+    })
+    if (addFromShop) {
+      const total = orderToChange.quantity + quantity
+      orderToChange.update({quantity: total})
+    } else {
+      orderToChange.update({quantity})
+    }
+    res.sendStatus(201)
   } catch (error) {
     next(error)
   }

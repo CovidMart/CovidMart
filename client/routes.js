@@ -38,7 +38,7 @@ class Routes extends Component {
         <Route path={`/cart/${cart.userId || 'guest'}`} component={Cart} />
         <Route
           exact
-          path={`/checkout/${cart.userId || 'guest'}`}
+          path={`/cart/${cart.userId || 'guest'}/checkout`}
           component={CheckoutPage}
         />
         {!isLoggedIn && (

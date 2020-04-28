@@ -21,7 +21,9 @@ export class AddCartButton extends React.Component {
     const prePuzzles = cart.puzzles.map(pzl => pzl.id)
     const newRow = prePuzzles.indexOf(puzzleId) < 0
     const userId = parseInt(cart.userId, 10)
+    const orderId = parseInt(cart.id, 10)
     const newOrder = {
+      orderId,
       userId,
       puzzleId,
       newRow,

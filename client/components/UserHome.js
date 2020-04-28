@@ -2,14 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
+import {fetchCart} from '../store/cart'
 
 /**
  * COMPONENT
  */
 export class UserHome extends React.Component {
-  constructor(props) {
-    super(props)
+  // constructor(props) {
+  //   super(props)
+  // }
+
+  componentDidMount() {
+    const user = this.props.singleUser
+    this.props.fetchCart(user)
   }
+
   render() {
     const {
       email,
@@ -52,7 +59,13 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = dispatch => {
+  return {
+    fetchCart: userData => dispatch(fetchCart(userData))
+  }
+}
+
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES

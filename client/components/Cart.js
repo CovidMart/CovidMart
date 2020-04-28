@@ -13,21 +13,21 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    const {userId} = this.props.activeCart
+    const {userId} = this.props || 0
     const user = {id: userId}
     this.props.fetchCart(user)
     this.setState({mounted: true})
   }
 
   render() {
-    const {userId} = this.props.activeCart
+    const {userId} = this.props.activeCart || 0
     if (this.state.mounted) {
       const {activeCart} = this.props
       return (
         <div>
           <CartList activeCart={activeCart} fetchCart={this.props.fetchCart} />
           {this.props.match.path == `/cart/${userId || 'guest'}` && (
-            <Link to={`checkout/${userId || 'guest'}`}>
+            <Link to={`/cart/${userId || 'guest'}/checkout`}>
               <button type="button">CHECKOUT NOW</button>
             </Link>
           )}
@@ -51,13 +51,14 @@ class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    activeCart: state.cart.activeCart
+    activeCart: state.cart.activeCart,
+    userId: state.user.singleUser.id
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchCart: userData => dispatch(fetchCart(userData)) //takes obj w/ id on it
+    fetchCart: userData => dispatch(fetchCart(userData))
   }
 }
 
