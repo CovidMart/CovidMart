@@ -48,7 +48,7 @@ class UserInfoForm extends React.Component {
           <p>Phone Number:</p>
           <input type="text" name="phone" onChange={this.handleChange} />
           <p>
-            <button type="submit">submit</button>
+            <button type="submit">Update Info</button>
           </p>
         </form>
       </div>

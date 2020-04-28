@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import CartList from './CartList'
 import {fetchCart} from '../store/cart'
 
@@ -19,11 +20,17 @@ class Cart extends React.Component {
   }
 
   render() {
+    const {userId} = this.props.activeCart
     if (this.state.mounted) {
       const {activeCart} = this.props
       return (
         <div>
           <CartList activeCart={activeCart} fetchCart={this.props.fetchCart} />
+          {this.props.match.path == `/cart/${userId || 'guest'}` && (
+            <Link to={`checkout/${userId || 'guest'}`}>
+              <button type="button">CHECKOUT NOW</button>
+            </Link>
+          )}
         </div>
       )
     } else {

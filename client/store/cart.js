@@ -1,10 +1,15 @@
 import axios from 'axios'
 
 const SET_CART = 'SET_CART'
+const CHECKOUT = 'CHECKOUT'
 
 const setCart = cart => ({
   type: SET_CART,
   cart
+})
+
+const checkout = () => ({
+  type: CHECKOUT
 })
 
 const calculateTotal = puzzleArr => {
@@ -54,6 +59,26 @@ export const fetchCart = userData => {
   }
 }
 
+export const checkoutUserCart = userId => {
+  return async dispatch => {
+    try {
+      //Prob have to change route, maybe use /api/checkout
+      await axios.put(`/api/cart/${userId}/checkout`, {
+        stillInCart: false
+      })
+      dispatch(checkout())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const checkoutGuestCart = () => {
+  return dispatch => {
+    dispatch(checkout())
+  }
+}
+
 const initialState = {
   activeCart: {}
 }
@@ -62,6 +87,8 @@ export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case SET_CART:
       return {...state, activeCart: action.cart}
+    case CHECKOUT:
+      return {...state, activeCart: {}}
     default:
       return state
   }

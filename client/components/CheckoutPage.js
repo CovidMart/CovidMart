@@ -2,13 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
 import Cart from './Cart'
-import {fetchPuzzlesForCart} from '../store/cart'
-
-// on mount, this component copies data from window.localStorage
-// which thunk will dispatch in api request for the corresponding puzzle data
-// by sending the window.localStorage cartObj in the req.body as guestCart
-// the returned puzzles go on state for info display in the cart
-// quantity is added to the json data (array of puzzles) before res.jsoning it
+import Checkout from '../../src/Checkout'
+import {checkoutUserCart, checkoutGuestCart} from '../store/cart'
 
 export class CheckoutPage extends React.Component {
   constructor(props) {
@@ -16,30 +11,51 @@ export class CheckoutPage extends React.Component {
     this.state = {
       mounted: false
     }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.setState({mounted: true})
   }
 
+  handleClick() {
+    if (this.props.isLoggedIn) {
+      let userId = this.props.userId
+      this.props.checkoutUserCart(userId)
+    } else {
+      window.localStorage.clear()
+      this.props.checkoutGuestCart()
+    }
+  }
+
   render() {
+    console.log(this.props, 'checkoutpage this.props')
     if (this.state.mounted) {
       return (
         <div>
+          <h3>Current User Info On File</h3>
+          {this.props.isLoggedIn && (
+            <div>
+              {this.props.user.firstName} {this.props.user.lastName},{' '}
+              {this.props.user.address}, {this.props.user.phone}
+            </div>
+          )}
           <UserInfoForm />
-          <h2>CART COMPONENT STUFFFFF</h2>
-          <ul>
-            <li>COOL PUZZLE 1</li>
-            <li>COOL PUZZLE 2</li>
-            <li>COOL PUZZLE 3</li>
-            <li>COOL PUZZLE 4</li>
-          </ul>
+          <Cart />
+          <Checkout
+            amount={100}
+            name="Puzzle Party"
+            description="Thank you for your order!"
+          />
+          <button type="button" onClick={this.handleClick}>
+            CLEAR CART
+          </button>
         </div>
       )
     } else {
       return (
         <div>
-          <h2>Loading user info...</h2>
+          <h2>Loading Checkout Page...</h2>
           <img
             src="loadingPuzzleGif.webp"
             alt="Animated Puzzle Pieces"
@@ -54,14 +70,17 @@ export class CheckoutPage extends React.Component {
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.singleUser.id
+    isLoggedIn: !!state.user.singleUser.id,
+    userId: state.user.singleUser.id,
+    user: state.user.singleUser
   }
 }
 
-// const mapDispatch = dispatch => {
-//   return {
-//     fetchCart: cartData => dispatch(fetchPuzzlesForCart(cartData))
-//   }
-// }
+const mapDispatch = dispatch => {
+  return {
+    checkoutUserCart: userId => dispatch(checkoutUserCart(userId)),
+    checkoutGuestCart: () => dispatch(checkoutGuestCart())
+  }
+}
 
-export default connect(mapState)(CheckoutPage)
+export default connect(mapState, mapDispatch)(CheckoutPage)
