@@ -912,6 +912,8 @@ var Cart = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.props, 'this.props in Cart');
+
       var _ref2 = this.props.activeCart || 0,
           userId = _ref2.userId;
 
@@ -920,7 +922,7 @@ var Cart = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartList__WEBPACK_IMPORTED_MODULE_3__["default"], {
           activeCart: activeCart,
           fetchCart: this.props.fetchCart
-        }), this.props.match.path === "/cart/".concat(userId || 'guest') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        }), this.props.match && this.props.match.path === "/cart/".concat(userId || 'guest') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: "/cart/".concat(userId || 'guest', "/checkout")
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button"
@@ -1056,8 +1058,7 @@ var CheckoutPage = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, CheckoutPage);
 
     _this = _super.call(this, props);
-    _this.state = {
-      mounted: false
+    _this.state = {// mounted: false
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     return _this;
@@ -1065,10 +1066,7 @@ var CheckoutPage = /*#__PURE__*/function (_React$Component) {
 
   _createClass(CheckoutPage, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      this.setState({
-        mounted: true
-      });
+    value: function componentDidMount() {// this.setState({mounted: true})
     }
   }, {
     key: "handleClick",
@@ -1084,23 +1082,31 @@ var CheckoutPage = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.state.mounted) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Current User Info On File"), this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.firstName, " ", this.props.user.lastName, ",", ' ', this.props.user.address, ", ", this.props.user.phone), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfoForm__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_Checkout__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          amount: 100,
-          name: "Puzzle Party",
-          description: "Thank you for your order!"
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          type: "button",
-          onClick: this.handleClick
-        }, "CLEAR CART"));
-      } else {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading Checkout Page..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: "loadingPuzzleGif.webp",
-          alt: "Animated Puzzle Pieces",
-          height: "160",
-          width: "160"
-        }));
-      }
+      console.log('---CHECKOUT PAGE IS RENDERED-----');
+      console.log(this.props, 'checkoutpage this.props'); // if (this.state.mounted) {
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Current User Info On File"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.firstName, " ", this.props.user.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.address), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.phone)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfoForm__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Order Total: $", this.props.cart.pricePaid / 100), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_Checkout__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        amount: this.props.cart.pricePaid / 100,
+        name: "Puzzle Party",
+        description: "Thank you for your order!",
+        bitcoin: true,
+        email: this.props.user.email
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        onClick: this.handleClick
+      }, "CLEAR CART")); // } else {
+      //   return (
+      //     <div>
+      //       <h2>Loading Checkout Page...</h2>
+      //       <img
+      //         src="loadingPuzzleGif.webp"
+      //         alt="Animated Puzzle Pieces"
+      //         height="160"
+      //         width="160"
+      //       />
+      //     </div>
+      //   )
+      // }
     }
   }]);
 
@@ -1111,7 +1117,8 @@ var mapState = function mapState(state) {
   return {
     isLoggedIn: !!state.user.singleUser.id,
     userId: state.user.singleUser.id,
-    user: state.user.singleUser
+    user: state.user.singleUser,
+    cart: state.cart.activeCart
   };
 };
 
@@ -1459,24 +1466,28 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "userInfo"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "UPDATE USER INFO:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Update User Info:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "First Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "firstName",
-        onChange: this.handleChange
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Last Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.handleChange,
+        placeholder: "First Name"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "lastName",
-        onChange: this.handleChange
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Address:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.handleChange,
+        placeholder: "Last Name"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "address",
-        onChange: this.handleChange
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Phone Number:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.handleChange,
+        placeholder: "Address"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "phone",
-        onChange: this.handleChange
+        onChange: this.handleChange,
+        placeholder: "Phone Number"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
       }, "Update Info"))));
@@ -1883,6 +1894,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./client/store/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1932,6 +1945,8 @@ var Routes = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       var _this$props = this.props,
           isLoggedIn = _this$props.isLoggedIn,
           isAdmin = _this$props.isAdmin,
@@ -1949,21 +1964,34 @@ var Routes = /*#__PURE__*/function (_Component) {
         path: "/puzzles/:puzzleId",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["SinglePuzzle"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/cart/".concat(cart.userId || 'guest'),
+        exact: true,
+        path: "/cart/".concat(cart.userId),
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Cart"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
-        path: "/cart/".concat(cart.userId || 'guest', "/checkout"),
-        component: _components__WEBPACK_IMPORTED_MODULE_4__["CheckoutPage"]
+        path: "/cart/guest",
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["Cart"]
       }), !isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/login",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Login"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/signup",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Signup"]
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/cart/guest/checkout",
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["CheckoutPage"]
       })), isLoggedIn && !isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/home",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["UserHome"]
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/cart/".concat(this.props.userId, "/checkout"),
+        render: function render(props) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_4__["CheckoutPage"], _extends({}, props, {
+            id: _this.props.userId
+          }));
+        }
       })), isLoggedIn && isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/admin/puzzle/create",
@@ -61529,7 +61557,8 @@ var Checkout = function Checkout(_ref) {
     amount: fromEuroToCent(amount),
     token: onToken(amount, description),
     currency: CURRENCY,
-    stripeKey: _constants_stripe__WEBPACK_IMPORTED_MODULE_3__["default"]
+    stripeKey: _constants_stripe__WEBPACK_IMPORTED_MODULE_3__["default"],
+    bitcoin: true
   });
 };
 
