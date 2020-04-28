@@ -12,7 +12,8 @@ import {
   CheckoutPage,
   CreatePuzzle,
   EditPuzzle,
-  Cart
+  Cart,
+  OrderHistory
 } from './components'
 
 import {me, fetchCart} from './store'
@@ -46,29 +47,24 @@ class Routes extends Component {
             {/* Routes placed here are only available if NOT logged in */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/history" component={OrderHistory} />
           </Switch>
         )}
-        {isLoggedIn &&
-          !isAdmin && (
-            <Switch>
-              {/* Routes placed here are only available after logging in */}
-              <Route path="/home" component={UserHome} />
-            </Switch>
-          )}
+        {isLoggedIn && !isAdmin && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+          </Switch>
+        )}
 
-        {isLoggedIn &&
-          isAdmin && (
-            <Switch>
-              {/* Routes placed here are only available after admin logging in */}
-              <Route
-                exact
-                path="/admin/puzzle/create"
-                component={CreatePuzzle}
-              />
-              <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
-              <Route exact path="/users" component={AllUsers} />
-            </Switch>
-          )}
+        {isLoggedIn && isAdmin && (
+          <Switch>
+            {/* Routes placed here are only available after admin logging in */}
+            <Route exact path="/admin/puzzle/create" component={CreatePuzzle} />
+            <Route exact path="/admin/puzzle/edit" component={EditPuzzle} />
+            <Route exact path="/users" component={AllUsers} />
+          </Switch>
+        )}
 
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />

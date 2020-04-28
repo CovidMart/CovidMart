@@ -7,13 +7,15 @@ import puzzles from './puzzles'
 import CreatePuzzle from './CreatePuzzle'
 import EditPuzzle from './EditPuzzle'
 import cart from './cart'
+import orderHistory from './orderHistory'
 
 const reducer = combineReducers({
   user,
   puzzles,
   CreatePuzzle,
   EditPuzzle,
-  cart
+  cart,
+  orderHistory
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
