@@ -41,6 +41,21 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
   }
 })
 
+router.put('/:userId', userLoggedIn, async (req, res, next) => {
+  const uid = req.params.userId
+  try {
+    const currentUser = await User.findByPk(uid)
+    const activeOrders = await currentUser.getOrders({
+      where: {stillInCart: true}
+    })
+    const mostRecentOrder = activeOrders[0]
+    const checkedOutOrder = await mostRecentOrder.update(req.body)
+    res.json(checkedOutOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
 ///route to add item to the cart
 router.post('/:userId', async (req, res, next) => {
   if (req.session.passport) {
