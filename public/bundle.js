@@ -1313,28 +1313,6 @@ var AuthForm = function AuthForm(props) {
     className: "fab fa-facebook-f mr-2"
   }), " ", displayName, " with Facebook")))))));
 };
-
-{}
-/* <form onSubmit={handleSubmit} name={name}>
-      <div>
-        <label htmlFor="email">
-          <small>Email</small>
-        </label>
-        <input name="email" type="text" />
-      </div>
-      <div>
-        <label htmlFor="password">
-          <small>Password</small>
-        </label>
-        <input name="password" type="password" />
-      </div>
-      <div>
-        <button type="submit">{displayName}</button>
-      </div>
-      {error && error.response && <div> {error.response.data} </div>}
-    </form>
-    <a href="/auth/google">{displayName} with Google</a> */
-
 /**
  * CONTAINER
  *   Note that we have two different sets of 'mapStateToProps' functions -
@@ -1342,6 +1320,7 @@ var AuthForm = function AuthForm(props) {
  *   function, and share the same Component. This is a good example of how we
  *   can stay DRY with interfaces that are very similar to each other!
  */
+
 
 var mapLogin = function mapLogin(state) {
   return {
