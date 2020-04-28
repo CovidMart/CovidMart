@@ -47,7 +47,10 @@ class Routes extends Component {
             {/* Routes placed here are only available if NOT logged in */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/history" component={OrderHistory} />
+            <Route
+              path="/history"
+              render={props => <OrderHistory {...props} />}
+            />
           </Switch>
         )}
         {isLoggedIn && !isAdmin && (

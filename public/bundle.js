@@ -813,12 +813,12 @@ var OrderHistory = /*#__PURE__*/function (_React$Component) {
   _createClass(OrderHistory, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      console.log(this.props);
       this.props.fetchOrderHistory();
     }
   }, {
     key: "render",
     value: function render() {
-      console.log('PROPPSSS', this.state);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "HELLLOOOOOO")));
     }
   }]);
@@ -1676,7 +1676,9 @@ var Routes = /*#__PURE__*/function (_Component) {
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Signup"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/history",
-        component: _components__WEBPACK_IMPORTED_MODULE_4__["OrderHistory"]
+        render: function render(props) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_4__["OrderHistory"], props);
+        }
       })), isLoggedIn && !isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/home",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["UserHome"]
@@ -2443,19 +2445,21 @@ var setOrders = function setOrders(orders) {
   };
 };
 var fetchOrderHistory = function fetchOrderHistory() {
-  var state = _index__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
-  var userId = state.user.singleUser.id;
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var _ref2, data;
+      var _axios$get, data;
 
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               try {
-                console.log('USERID', userId);
-                _ref2 = userID && axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/orders/".concat(userId)), data = _ref2.data;
+                // store.subscribe(()=>{
+                //   this.setState({
+                //     userId: store.getState().user.singleUser.id
+                //   })
+                // })
+                _axios$get = axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/orders/27'), data = _axios$get.data;
                 dispatch(setOrders(data));
               } catch (error) {
                 dispatch(console.error(error));

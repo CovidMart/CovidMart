@@ -9,13 +9,14 @@ export const setOrders = orders => ({
 })
 
 export const fetchOrderHistory = () => {
-  const state = store.getState()
-  const userId = state.user.singleUser.id
   return async dispatch => {
     try {
-      console.log('USERID', userId)
-
-      const {data} = userID && axios.get(`/api/orders/${userId}`)
+      // store.subscribe(()=>{
+      //   this.setState({
+      //     userId: store.getState().user.singleUser.id
+      //   })
+      // })
+      const {data} = axios.get('/api/orders/27')
       dispatch(setOrders(data))
     } catch (error) {
       dispatch(console.error(error))
