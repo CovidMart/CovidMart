@@ -36,14 +36,21 @@ export class AllPuzzles extends React.Component {
 
               {this.props.isAdmin && (
                 <div>
-                  <Link to={`/admin/puzzle/edit/${puzzle.id}`}> Edit </Link>
-                  <br />
-                  <input
-                    type="button"
-                    value="delete"
-                    className="deleteButton"
-                    onClick={deletePuzzle.bind(this, puzzle.id)}
-                  />
+                  <Link
+                    className="edit-button"
+                    to={`/admin/puzzle/edit/${puzzle.id}`}
+                  >
+                    {' '}
+                    Edit{' '}
+                  </Link>
+                  {puzzle.pieceCount > 0 && (
+                    <input
+                      type="button"
+                      value="delete"
+                      className="deleteButton"
+                      onClick={deletePuzzle.bind(this, puzzle.id)}
+                    />
+                  )}
                 </div>
               )}
             </div>
