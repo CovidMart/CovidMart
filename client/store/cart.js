@@ -16,7 +16,6 @@ const calculateTotal = puzzleArr => {
 }
 
 export const fetchCart = userData => {
-  console.log('Cart FETCH dispatched, thunkaroo!')
   if (userData && userData.id) {
     return async dispatch => {
       try {
@@ -51,6 +50,38 @@ export const fetchCart = userData => {
     } else window.localStorage.setItem('guestCart', '{}')
   } else {
     window.localStorage.setItem('guestCart', '{}')
+  }
+}
+
+export const mergeMyCart = (guestCart, user) => async () => {
+  try {
+    const {data} = await axios.get(`/api/cart/${user.id}`)
+    let {id, puzzles} = data
+    if (!id) {
+      puzzles = []
+    }
+    // eslint-disable-next-line guard-for-in
+    for (let p in guestCart) {
+      let quantity = guestCart[p]
+      let pid = parseInt(p, 10)
+      for (let i = 0; i < puzzles.length; i++) {
+        let puzzleId = parseInt(puzzles[i].id)
+        if (pid === puzzleId) {
+          await axios.put(`/api/cart/${user.id}`, {
+            orderId: id,
+            puzzleId,
+            quantity,
+            addFromShop: true
+          })
+        } else {
+          await axios.post(`/api/cart/${user.id}`, {puzzleId, quantity})
+        }
+      }
+    }
+    window.localStorage.clear()
+    fetchCart(user)
+  } catch (error) {
+    console.error(error)
   }
 }
 

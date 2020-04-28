@@ -26,7 +26,7 @@ class Cart extends React.Component {
       return (
         <div>
           <CartList activeCart={activeCart} fetchCart={this.props.fetchCart} />
-          {this.props.match.path == `/cart/${userId || 'guest'}` && (
+          {this.props.match.path === `/cart/${userId || 'guest'}` && (
             <Link to={`/cart/${userId || 'guest'}/checkout`}>
               <button type="button">CHECKOUT NOW</button>
             </Link>

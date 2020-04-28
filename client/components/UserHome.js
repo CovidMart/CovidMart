@@ -2,19 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
-import {fetchCart} from '../store/cart'
+import {fetchCart, mergeMyCart} from '../store/cart'
 
 /**
  * COMPONENT
  */
 export class UserHome extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  // }
-
   componentDidMount() {
     const user = this.props.singleUser
-    this.props.fetchCart(user)
+    this.props.getCart(user)
+    if (window.localStorage.guestCart) {
+      const cartData = JSON.parse(window.localStorage.guestCart)
+      if (typeof cartData === 'object') {
+        this.props.mergeCart(cartData, user)
+      }
+    }
   }
 
   render() {
@@ -61,7 +63,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchCart: userData => dispatch(fetchCart(userData))
+    getCart: userData => dispatch(fetchCart(userData)),
+    mergeCart: (cartData, user, fetch) =>
+      dispatch(mergeMyCart(cartData, user, fetch))
   }
 }
 
