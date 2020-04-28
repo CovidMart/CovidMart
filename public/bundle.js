@@ -164,10 +164,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      quantity: 0,
-      puzzleId: _this.props.id,
-      price: _this.props.price,
-      orderId: 1
+      quantity: _this.props.quantity || 0
     };
     _this.clickAddToCart = _this.clickAddToCart.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -177,22 +174,24 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
   _createClass(AddCartButton, [{
     key: "clickAddToCart",
     value: function clickAddToCart(event) {
-      event.preventDefault();
+      var cart = this.props.activeCart;
+      console.log('I am the BUTTON, and I see the cart!->', cart);
+      event.preventDefault(); //check if this puzzleOrder already exists on state
 
-      try {
-        var newOrder = {
-          quantity: parseInt(this.state.quantity, 10),
-          puzzleId: parseInt(this.state.puzzleId, 10),
-          price: this.state.price,
-          orderId: this.state.orderId
-        };
-        this.props.addToCart(newOrder);
-        this.setState({
-          quantity: 0
-        });
-      } catch (err) {
-        console.log(err);
-      }
+      var puzzleId = parseInt(this.props.id, 10);
+      var prePuzzles = cart.puzzles.map(function (pzl) {
+        return pzl.id;
+      });
+      var newRow = prePuzzles.indexOf(puzzleId) >= 0;
+      var userId = parseInt(cart.userId, 10);
+      var newOrder = {
+        userId: userId,
+        puzzleId: puzzleId,
+        newRow: newRow,
+        quantity: parseInt(this.state.quantity, 10)
+      };
+      var fetchCart = this.props.fetchCart;
+      if (userId) this.props.addToCart(newOrder, fetchCart);else this.props.addToLocalStorage(newOrder, fetchCart);
     }
   }, {
     key: "handleChange",
@@ -207,7 +206,7 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: this.clickAddToCart
-      }, "ADD TO CART")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, this.props.addFromShop ? 'Add to Cart' : 'Update Cart')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         name: "quantity",
         type: "number",
         min: "0",
@@ -222,14 +221,17 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
 
 var mapState = function mapState(state) {
   return {
-    quantity: state.quantity
+    activeCart: state.cart.activeCart
   };
 };
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    addToCart: function addToCart(event) {
-      return dispatch(Object(_store_order__WEBPACK_IMPORTED_MODULE_2__["addToCart"])(event));
+    addToLocalStorage: function addToLocalStorage(newOrder, fetchCart) {
+      return dispatch(Object(_store_order__WEBPACK_IMPORTED_MODULE_2__["addToLocalStorage"])(newOrder, fetchCart));
+    },
+    addToCart: function addToCart(newOrder, fetchCart) {
+      return dispatch(Object(_store_order__WEBPACK_IMPORTED_MODULE_2__["addToCart"])(newOrder, fetchCart));
     }
   };
 };
@@ -290,14 +292,17 @@ var AllPuzzles = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(AllPuzzles);
 
-  function AllPuzzles(props) {
+  function AllPuzzles() {
     _classCallCheck(this, AllPuzzles);
 
-    return _super.call(this, props);
+    return _super.apply(this, arguments);
   }
 
   _createClass(AllPuzzles, [{
     key: "componentDidMount",
+    // constructor(props) {
+    //   super(props)
+    // }
     value: function componentDidMount() {
       this.props.fetchAllPuzzles();
     }
@@ -321,7 +326,7 @@ var AllPuzzles = /*#__PURE__*/function (_React$Component) {
           src: puzzle.imageUrl
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, puzzle.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "$", puzzle.price / 100), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: puzzle.id,
-          price: puzzle.price
+          addFromShop: true
         }), _this.props.isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
           to: "/admin/puzzle/edit/".concat(puzzle.id)
         }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -465,24 +470,107 @@ var mapDispatch = function mapDispatch(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Cart */ "./client/components/Cart.js");
+/* harmony import */ var _store_cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/cart */ "./client/store/cart.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
-var Cart = function Cart(props) {
-  var orderArray = props.orderArray,
-      lineItemSubtotal = props.lineItemSubtotal; //handlers for add and delete will have to be passed in as well
 
-  if (orderArray.length) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", null, orderArray.map(function (item) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        key: item.id
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, item.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Qty: ".concat(item.qty ? item.qty : item.PuzzleOrders.quantity, "\n            -- Subtotal: $").concat((lineItemSubtotal(item) / 100).toFixed(2))));
-    })));
+
+
+
+var CartUser = /*#__PURE__*/function (_React$Component) {
+  _inherits(CartUser, _React$Component);
+
+  var _super = _createSuper(CartUser);
+
+  function CartUser(props) {
+    var _this;
+
+    _classCallCheck(this, CartUser);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      mounted: false
+    };
+    return _this;
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Party Carty!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Nothing in your cart?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Let's find a corner piece!"));
+  _createClass(CartUser, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var userId = this.props.userId;
+      this.props.fetchCart(userId);
+      this.setState({
+        mounted: true
+      });
+    }
+  }, {
+    key: "lineItem",
+    value: function lineItem(item) {
+      return item.PuzzleOrders.subtotal;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.mounted) {
+        var _this$props = this.props,
+            activeCart = _this$props.activeCart,
+            refreshCart = _this$props.refreshCart;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          activeCart: activeCart,
+          refreshCart: refreshCart
+        }));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading cart..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: "/loadingPuzzleGif.webp",
+          alt: "Animated Puzzle Pieces",
+          height: "160",
+          width: "160"
+        }));
+      }
+    }
+  }]);
+
+  return CartUser;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var mapState = function mapState(state) {
+  return {
+    activeCart: state.cart.activeCart
+  };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Cart);
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    refreshCart: function refreshCart(userId) {
+      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_3__["fetchCart"])(userId));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(CartUser));
 
 /***/ }),
 
@@ -1196,22 +1284,22 @@ var Navbar = function Navbar(_ref) {
       userId = _ref.userId;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "PUZZLE PARTY"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/puzzles"
-  }, " Puzzles Home"), isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  }, "All Puzzles"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/cart"
+  }, "Cart"), isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/home"
-  }, " User Home "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#",
     onClick: handleClick
-  }, "Logout"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: "/cart/".concat(userId)
-  }, "Cart")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  }, "Logout")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/login"
   }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/signup"
-  }, "Sign Up"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: "/cart"
-  }, "Cart")), isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  }, "Sign Up")), isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/admin/puzzle/create"
-  }, " Create Puzzles ")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+  }, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/admin/puzzle/edit"
+  }, " ")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
 };
 /**
  * CONTAINER
@@ -1317,8 +1405,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./client/store/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1371,16 +1457,9 @@ var Routes = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
           isLoggedIn = _this$props.isLoggedIn,
           isAdmin = _this$props.isAdmin,
-          userId = _this$props.userId,
           cart = _this$props.cart;
       console.log('GOT CART?!?!?!?(please say yes', cart);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/login",
-        component: _components__WEBPACK_IMPORTED_MODULE_4__["Login"]
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/signup",
-        component: _components__WEBPACK_IMPORTED_MODULE_4__["Signup"]
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["AllPuzzles"]
@@ -1396,21 +1475,18 @@ var Routes = /*#__PURE__*/function (_Component) {
         exact: true,
         path: "/puzzles/:puzzleId",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["SinglePuzzle"]
-      }), !isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        exact: true,
-        path: "/cart",
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/cart/".concat(cart.userId),
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Cart"]
+      }), !isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/login",
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["Login"]
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/signup",
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["Signup"]
       })), isLoggedIn && !isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/home",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["UserHome"]
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        exact: true,
-        path: "/cart/".concat(userId),
-        render: function render(props) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_4__["Cart"], _extends({}, props, {
-            userId: userId
-          }));
-        }
       })), isLoggedIn && isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/admin/puzzle/create",
@@ -1945,146 +2021,83 @@ var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(reducer, m
 /*!*******************************!*\
   !*** ./client/store/order.js ***!
   \*******************************/
-/*! exports provided: addPuzzleOrder, addToCart, default */
+/*! exports provided: addToLocalStorage, addToCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPuzzleOrder", function() { return addPuzzleOrder; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToLocalStorage", function() { return addToLocalStorage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return orderReducer; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./client/store/index.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+var addToLocalStorage = function addToLocalStorage(newOrder) {
+  var fetchCart = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  return function () {
+    try {
+      var getState = localStorage.getItem('guestCart');
+      var orderInfo = {};
+      var quantity = newOrder.quantity;
+      var puzzle = parseInt(newOrder.puzzleId, 10); //create new order for new guest
+      //if state does not exist, create it and add the puzzleID:quantity as a key-value pair object to the array
 
-var ADD_TO_CART = 'ADD_TO_CART';
-var addPuzzleOrder = function addPuzzleOrder(order) {
-  return {
-    type: ADD_TO_CART,
-    order: order
+      if (getState === null) {
+        orderInfo[puzzle] = quantity.toString();
+        var newState = JSON.stringify(orderInfo);
+        localStorage.setItem('guestCart', newState);
+      } else if (getState) {
+        //if state exists, add new puzzle to it
+        var pullOrder = JSON.parse(getState); //if puzzle ID exists, then update the quantity
+
+        if (puzzle in pullOrder) {
+          pullOrder[puzzle] = quantity;
+        } else {
+          pullOrder[puzzle] = quantity.toString();
+        }
+
+        var _newState = JSON.stringify(pullOrder);
+
+        localStorage.setItem('guestCart', _newState);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 var addToCart = function addToCart(newOrder) {
-  //Pulls userID off store if loggedin
-  var state = _index__WEBPACK_IMPORTED_MODULE_1__["default"].getState();
-  var userId = state.user.singleUser.id; //Guest User Add to Cart
+  var fetchCart = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var userId = newOrder.userId;
+  return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
 
-  if (userId === undefined) {
-    return /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-        var getState, orderInfo, quantity, puzzle, newState, pullOrder, _newState;
+          case 3:
+            if (fetchCart) fetchCart(userId);
+            _context.next = 9;
+            break;
 
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                try {
-                  getState = localStorage.getItem('guestCart');
-                  orderInfo = {};
-                  quantity = newOrder.quantity;
-                  puzzle = parseInt(newOrder.puzzleId, 10); //create new order for new guest
-                  //if state does not exist, create it and add the puzzleID:quantity as a key-value pair object to the array
+          case 6:
+            _context.prev = 6;
+            _context.t0 = _context["catch"](0);
+            console.error(_context.t0);
 
-                  if (getState === null) {
-                    orderInfo[puzzle] = quantity.toString();
-                    newState = JSON.stringify(orderInfo);
-                    localStorage.setItem('guestCart', newState);
-                  } else if (getState) {
-                    //if state exists, add new puzzle to it
-                    pullOrder = JSON.parse(getState); //if puzzle ID exists, then update the quantity
-
-                    if (puzzle in pullOrder) {
-                      pullOrder[puzzle] = quantity;
-                    } else {
-                      pullOrder[puzzle] = quantity.toString();
-                    }
-
-                    _newState = JSON.stringify(pullOrder);
-                    localStorage.setItem('guestCart', _newState);
-                  }
-                } catch (error) {
-                  dispatch(console.error(error));
-                }
-
-              case 1:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }(); //Logged In User Add to Cart
-  } else {
-    return /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
-        var _yield$axios$post, data;
-
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/".concat(userId), newOrder);
-
-              case 3:
-                _yield$axios$post = _context2.sent;
-                data = _yield$axios$post.data;
-                dispatch(addPuzzleOrder(data));
-                _context2.next = 11;
-                break;
-
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2["catch"](0);
-                dispatch(console.error(_context2.t0));
-
-              case 11:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, null, [[0, 8]]);
-      }));
-
-      return function (_x2) {
-        return _ref2.apply(this, arguments);
-      };
-    }();
-  }
+          case 9:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 6]]);
+  }));
 };
-var initialState = {
-  purchasedPuzzle: []
-};
-function orderReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case ADD_TO_CART:
-      return _objectSpread({}, state, {
-        purchasedPuzzle: action.order
-      });
-
-    default:
-      return state;
-  }
-}
 
 /***/ }),
 

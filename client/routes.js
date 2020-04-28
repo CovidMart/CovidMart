@@ -26,33 +26,28 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn, isAdmin, userId, cart} = this.props
+    const {isLoggedIn, isAdmin, cart} = this.props
     console.log('GOT CART?!?!?!?(please say yes', cart)
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
         <Route exact path="/" component={AllPuzzles} />
         <Route exact path="/puzzles" component={AllPuzzles} />
         <Route exact path="/checkout" component={CheckoutPage} />
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
+        <Route path={`/cart/${cart.userId}`} component={Cart} />
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available if NOT logged in */}
-            <Route exact path="/cart" component={Cart} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
           </Switch>
         )}
         {isLoggedIn && !isAdmin && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            <Route
-              exact
-              path={`/cart/${userId}`}
-              render={props => <Cart {...props} userId={userId} />}
-            />
           </Switch>
         )}
 
