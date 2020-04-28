@@ -294,16 +294,43 @@ var CreatePuzzle = /*#__PURE__*/function (_Component) {
       this.props.changeValue(name, event.target.value);
     }
   }, {
+    key: "onSubmit",
+    value: function onSubmit(evt) {
+      evt.preventDefault(); //preventDefault stop browser submit
+
+      this.props.submitPuzzle(); // use action creator to submit instead
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.changeValue('message', '');
+    }
+  }, {
     key: "render",
     value: function render() {
       var puzzle = this.props.puzzle;
+<<<<<<< HEAD
+      var submit = this.onSubmit.bind(this); // need to bind(this) for function
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "edit-container",
+        onSubmit: submit
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+=======
       var submit = this.props.submitPuzzle;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: submit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         className: "center"
       }, " Add New Product: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "formInput"
+<<<<<<< HEAD
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "image",
+        src: puzzle.imageUrl
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+=======
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "title"
       }, " Puzzle Title "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -312,19 +339,42 @@ var CreatePuzzle = /*#__PURE__*/function (_Component) {
         onChange: this.handleChange.bind(this, 'title'),
         value: puzzle.name
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "imageUrl"
+<<<<<<< HEAD
+      }, " Product ImageUrl: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, " Product ImageUrl: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "imageUrl",
         onChange: this.handleChange.bind(this, 'imageUrl'),
         value: puzzle.imageUrl
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "formInput"
+<<<<<<< HEAD
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "title"
+      }, " Puzzle Title "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+        type: "text",
+        name: "title",
+        onChange: this.handleChange.bind(this, 'title'),
+        value: puzzle.name
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "formInput"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "dimensions"
+      }, " Product Dimensions: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "dimensions"
       }, " Product Dimensions: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "dimensions",
         onChange: this.handleChange.bind(this, 'dimensions'),
@@ -333,7 +383,12 @@ var CreatePuzzle = /*#__PURE__*/function (_Component) {
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "price"
+<<<<<<< HEAD
+      }, " Product Prices: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, " Product Prices: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "price",
         onChange: this.handleChange.bind(this, 'price'),
@@ -342,7 +397,12 @@ var CreatePuzzle = /*#__PURE__*/function (_Component) {
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "pieceCount"
+<<<<<<< HEAD
+      }, " Product Inventory: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, " Product Inventory: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "pieceCount",
         onChange: this.handleChange.bind(this, 'pieceCount'),
@@ -351,7 +411,12 @@ var CreatePuzzle = /*#__PURE__*/function (_Component) {
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "category"
+<<<<<<< HEAD
+      }, " Category: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, " Category Product Belongs To: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "category",
         onChange: this.handleChange.bind(this, 'category'),
@@ -360,16 +425,29 @@ var CreatePuzzle = /*#__PURE__*/function (_Component) {
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "description"
+<<<<<<< HEAD
+      }, "Product Descriptions: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        className: "textarea",
+=======
       }, "Product Descriptions: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "description",
         onChange: this.handleChange.bind(this, 'description'),
         value: puzzle.description
+<<<<<<< HEAD
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, puzzle.message), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        value: "Submit",
+        onClick: submit
+      })));
+=======
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "center"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
       }, "Submit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
     }
   }]);
 
@@ -410,7 +488,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_EditPuzzle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/EditPuzzle */ "./client/store/EditPuzzle.js");
+<<<<<<< HEAD
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+=======
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -453,16 +535,45 @@ var EditPuzzle = /*#__PURE__*/function (_Component) {
       this.props.changeValue(name, event.target.value);
     }
   }, {
+    key: "onSubmit",
+    value: function onSubmit(evt) {
+      evt.preventDefault();
+      var id = this.props.match.params.puzzleId;
+      this.props.submitPuzzle(id);
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var id = this.props.match.params.puzzleId;
+      this.props.getPuzzle(id);
+      this.props.changeValue('message', '');
+    }
+  }, {
     key: "render",
     value: function render() {
       var puzzle = this.props.puzzle;
+<<<<<<< HEAD
+      var submit = this.onSubmit.bind(this);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "edit-container",
+=======
       var submit = this.props.submitPuzzle;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         onSubmit: submit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "center"
       }, " Edit Product: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "formInput"
+<<<<<<< HEAD
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "image",
+        src: puzzle.imageUrl
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "imageUrl"
+      }, " Product ImageUrl: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "title"
       }, " Puzzle Title "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -475,15 +586,33 @@ var EditPuzzle = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "imageUrl"
       }, " Product ImageUrl: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "imageUrl",
         onChange: this.handleChange.bind(this, 'imageUrl'),
         value: puzzle.imageUrl
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "formInput"
+<<<<<<< HEAD
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "title"
+      }, " Puzzle Title "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+        type: "text",
+        name: "title",
+        onChange: this.handleChange.bind(this, 'title'),
+        value: puzzle.title
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "formInput"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "dimensions"
+      }, " Product Dimensions: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "dimensions"
       }, " Product Dimensions: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "dimensions",
         onChange: this.handleChange.bind(this, 'dimensions'),
@@ -492,7 +621,12 @@ var EditPuzzle = /*#__PURE__*/function (_Component) {
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "price"
+<<<<<<< HEAD
+      }, " Product Prices: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, " Product Prices: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "price",
         onChange: this.handleChange.bind(this, 'price'),
@@ -501,7 +635,12 @@ var EditPuzzle = /*#__PURE__*/function (_Component) {
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "pieceCount"
+<<<<<<< HEAD
+      }, " Product Inventory: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, " Product Inventory: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "pieceCount",
         onChange: this.handleChange.bind(this, 'pieceCount'),
@@ -510,7 +649,12 @@ var EditPuzzle = /*#__PURE__*/function (_Component) {
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "category"
+<<<<<<< HEAD
+      }, " Category Product Belongs To: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "input",
+=======
       }, " Category Product Belongs To: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "category",
         onChange: this.handleChange.bind(this, 'category'),
@@ -519,16 +663,29 @@ var EditPuzzle = /*#__PURE__*/function (_Component) {
         className: "formInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "description"
+<<<<<<< HEAD
+      }, "Product Descriptions: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        className: "textarea",
+=======
       }, "Product Descriptions: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         type: "text",
         name: "description",
         onChange: this.handleChange.bind(this, 'description'),
         value: puzzle.description
+<<<<<<< HEAD
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, puzzle.message), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+=======
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
         className: "center"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
+<<<<<<< HEAD
+      }, "Submit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
+=======
       }, "Submit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
     }
   }]);
 
@@ -537,17 +694,28 @@ var EditPuzzle = /*#__PURE__*/function (_Component) {
 
 var mapState = function mapState(state) {
   return {
-    puzzle: state.CreatePuzzle
+    puzzle: state.EditPuzzle
   };
 };
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
+<<<<<<< HEAD
+    submitPuzzle: function submitPuzzle(id) {
+      return dispatch(Object(_store_EditPuzzle__WEBPACK_IMPORTED_MODULE_2__["fetchEditPuzzle"])(id));
+    },
+    changeValue: function changeValue(name, value) {
+      return dispatch(Object(_store_EditPuzzle__WEBPACK_IMPORTED_MODULE_2__["setValue"])(name, value));
+    },
+    getPuzzle: function getPuzzle(id) {
+      return dispatch(Object(_store_EditPuzzle__WEBPACK_IMPORTED_MODULE_2__["fetchPuzzleData"])(id));
+=======
     submitPuzzle: function submitPuzzle() {
       return dispatch(Object(_store_EditPuzzle__WEBPACK_IMPORTED_MODULE_2__["fetchEditPuzzle"])());
     },
     changeValue: function changeValue(name, value) {
       return dispatch(Object(_store_EditPuzzle__WEBPACK_IMPORTED_MODULE_2__["setValue"])(name, value));
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
     }
   };
 };
@@ -637,12 +805,21 @@ var AllPuzzles = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "images",
           src: puzzle.imageUrl
+<<<<<<< HEAD
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, puzzle.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "$", puzzle.price / 100), puzzle.pieceCount > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          id: puzzle.id,
+          price: puzzle.price
+        }), _this.props.isAdmin && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+          to: "/admin/puzzle/edit/".concat(puzzle.id)
+        }, " Edit "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+=======
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, puzzle.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "$", puzzle.price / 100), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: puzzle.id,
           price: puzzle.price
         }), _this.props.isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
           to: "/admin/puzzle/edit/".concat(puzzle.id)
         }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
           type: "button",
           value: "delete",
           className: "deleteButton",
@@ -670,8 +847,8 @@ var mapDispatch = function mapDispatch(dispatch) {
     fetchAllPuzzles: function fetchAllPuzzles() {
       return dispatch(Object(_store_puzzles__WEBPACK_IMPORTED_MODULE_2__["fetchAllPuzzles"])());
     },
-    deletePuzzle: function deletePuzzle() {
-      return dispatch(Object(_store_puzzles__WEBPACK_IMPORTED_MODULE_2__["removePuzzle"])());
+    deletePuzzle: function deletePuzzle(id) {
+      return dispatch(Object(_store_puzzles__WEBPACK_IMPORTED_MODULE_2__["removePuzzle"])(id));
     }
   };
 };
@@ -2123,8 +2300,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddPuzzle", function() { return AddPuzzle; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-var _this = undefined;
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2143,7 +2318,8 @@ var initialState = {
   price: 0,
   pieceCount: 0,
   category: '',
-  description: ''
+  description: '',
+  message: ''
 };
 var SET_VALUE = 'SET_VALUE';
 
@@ -2151,12 +2327,64 @@ var setValue = function setValue(name, value) {
   return {
     type: SET_VALUE,
     name: name,
-    value: value
+    // name denoted different property under same attribute as "name" in CreatePuzzle componnet
+    value: value // set property value accordingly
+
   };
 }; // thunk creator
 
 
 var AddPuzzle = function AddPuzzle() {
+<<<<<<< HEAD
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(dispatch, getState) {
+        var state;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                state = getState().CreatePuzzle; //global store, getState instead of passing in value
+
+                _context.prev = 1;
+                _context.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/puzzles', {
+                  title: state.title,
+                  imageUrl: state.imageUrl,
+                  dimensions: state.dimensions,
+                  price: state.price,
+                  pieceCount: state.pieceCount,
+                  category: state.category,
+                  description: state.description
+                });
+
+              case 4:
+                dispatch(setValue('message', 'Save Successfully!'));
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](1);
+                dispatch(console.error(_context.t0));
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 7]]);
+      }));
+
+      return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+      };
+    }()
+  );
+=======
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
       var _yield$axios$post, data;
@@ -2201,6 +2429,7 @@ var AddPuzzle = function AddPuzzle() {
       return _ref.apply(this, arguments);
     };
   }();
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
 };
 
 function addPuzzleReducer() {
@@ -2229,17 +2458,17 @@ function addPuzzleReducer() {
 /*!************************************!*\
   !*** ./client/store/EditPuzzle.js ***!
   \************************************/
-/*! exports provided: setValue, fetchEditPuzzle, default */
+/*! exports provided: setValue, getPuzzleData, fetchEditPuzzle, fetchPuzzleData, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setValue", function() { return setValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPuzzleData", function() { return getPuzzleData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchEditPuzzle", function() { return fetchEditPuzzle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchPuzzleData", function() { return fetchPuzzleData; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-var _this = undefined;
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2258,9 +2487,11 @@ var initialState = {
   price: 0.0,
   pieceCount: 0,
   category: '',
-  description: ''
+  description: '',
+  message: ''
 };
 var SET_VALUE = 'SET_VALUE';
+var GET_PUZZLE_DATA = 'GET_PUZZLE_DATA';
 
 var setValue = function setValue(name, value) {
   return {
@@ -2270,6 +2501,63 @@ var setValue = function setValue(name, value) {
   };
 };
 
+<<<<<<< HEAD
+var getPuzzleData = function getPuzzleData(puzzle) {
+  return {
+    type: GET_PUZZLE_DATA,
+    puzzle: puzzle
+  };
+};
+
+var fetchEditPuzzle = function fetchEditPuzzle(id) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(dispatch, getState) {
+        var state;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                state = getState().EditPuzzle;
+                _context.prev = 1;
+                _context.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/puzzles/".concat(id), {
+                  title: state.title,
+                  imageUrl: state.imageUrl,
+                  dimensions: state.dimensions,
+                  price: state.price,
+                  pieceCount: state.pieceCount,
+                  category: state.category,
+                  description: state.description
+                });
+
+              case 4:
+                dispatch(setValue('message', 'Save Successfully!'));
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](1);
+                dispatch(console.error(_context.t0));
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 7]]);
+      }));
+
+      return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+      };
+    }()
+  );
+=======
 var fetchEditPuzzle = function fetchEditPuzzle() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
@@ -2315,6 +2603,51 @@ var fetchEditPuzzle = function fetchEditPuzzle() {
       return _ref.apply(this, arguments);
     };
   }();
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
+};
+
+var fetchPuzzleData = function fetchPuzzleData(id) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref2 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(dispatch) {
+        var _ref3, data;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/puzzles/".concat(id));
+
+              case 3:
+                _ref3 = _context2.sent;
+                data = _ref3.data;
+                dispatch(getPuzzleData(data));
+                _context2.next = 11;
+                break;
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](0);
+                dispatch(console.error(_context2.t0));
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 8]]);
+      }));
+
+      return function (_x3) {
+        return _ref2.apply(this, arguments);
+      };
+    }()
+  );
 };
 
 function EditPuzzleReducer() {
@@ -2327,6 +2660,9 @@ function EditPuzzleReducer() {
 
       copy[action.name] = action.value;
       return copy;
+
+    case GET_PUZZLE_DATA:
+      return _objectSpread({}, state, {}, action.puzzle);
 
     default:
       return state;
@@ -2880,6 +3216,26 @@ var fetchOnePuzzle = function fetchOnePuzzle(id) {
   }();
 };
 var removePuzzle = function removePuzzle(id) {
+<<<<<<< HEAD
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref5 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee3(dispatch) {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/puzzles/".concat(id));
+
+              case 3:
+                dispatch(fetchAllPuzzles());
+                _context3.next = 9;
+                break;
+=======
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -2894,6 +3250,7 @@ var removePuzzle = function removePuzzle(id) {
               dispatch(fetchAllPuzzles());
               _context3.next = 9;
               break;
+>>>>>>> a05993202bba6f90cb2308b2fc5f886ae5928372
 
             case 6:
               _context3.prev = 6;
