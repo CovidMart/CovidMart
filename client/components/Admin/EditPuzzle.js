@@ -20,11 +20,8 @@ class EditPuzzle extends Component {
   componentDidMount() {
     const id = this.props.match.params.puzzleId
     this.props.getPuzzle(id)
+    this.props.changeValue('message', '')
   }
-
-  // render1() {
-  //   return <h1>Hello</h1>
-  // }
 
   render() {
     let puzzle = this.props.puzzle
@@ -37,6 +34,9 @@ class EditPuzzle extends Component {
         <br />
         <div className="formInput">
           <img className="image" src={puzzle.imageUrl} />
+        </div>
+
+        <div>
           <label htmlFor="imageUrl"> Product ImageUrl: </label>
           <input
             className="input"
@@ -114,11 +114,12 @@ class EditPuzzle extends Component {
         </div>
 
         <br />
-        <br />
+        <div>{puzzle.message}</div>
         <br />
         <div className="center">
           <button type="submit">Submit</button>
         </div>
+        <br />
       </form>
     )
   }

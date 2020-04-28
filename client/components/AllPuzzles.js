@@ -30,13 +30,13 @@ export class AllPuzzles extends React.Component {
                 <h3>{puzzle.title}</h3>
               </Link>
               <h3>${puzzle.price / 100}</h3>
-              <AddCartButton id={puzzle.id} price={puzzle.price} />
+              {puzzle.pieceCount > 0 && (
+                <AddCartButton id={puzzle.id} price={puzzle.price} />
+              )}
 
               {this.props.isAdmin && (
                 <div>
-                  <br />
-                  <Link to={`/admin/puzzle/edit/${puzzle.id}`}>Edit</Link>
-                  <br />
+                  <Link to={`/admin/puzzle/edit/${puzzle.id}`}> Edit </Link>
                   <br />
                   <input
                     type="button"
@@ -67,7 +67,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchAllPuzzles: () => dispatch(fetchAllPuzzles()),
-    deletePuzzle: () => dispatch(removePuzzle())
+    deletePuzzle: id => dispatch(removePuzzle(id))
   }
 }
 

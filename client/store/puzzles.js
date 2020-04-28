@@ -43,7 +43,7 @@ export const fetchOnePuzzle = id => {
 export const removePuzzle = id => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/puzzles${id}`)
+      await axios.delete(`/api/puzzles/${id}`)
       dispatch(fetchAllPuzzles())
     } catch (error) {
       dispatch(console.error(error))

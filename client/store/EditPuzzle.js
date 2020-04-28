@@ -7,7 +7,8 @@ const initialState = {
   price: 0.0,
   pieceCount: 0,
   category: '',
-  description: ''
+  description: '',
+  message: ''
 }
 
 const SET_VALUE = 'SET_VALUE'
@@ -41,6 +42,7 @@ const fetchEditPuzzle = id => {
         category: state.category,
         description: state.description
       })
+      dispatch(setValue('message', 'Save Successfully!'))
     } catch (error) {
       dispatch(console.error(error))
     }

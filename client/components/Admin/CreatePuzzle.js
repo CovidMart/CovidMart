@@ -12,6 +12,10 @@ class CreatePuzzle extends Component {
     this.props.submitPuzzle() // use action creator to submit instead
   }
 
+  componentDidMount() {
+    this.props.changeValue('message', '')
+  }
+
   render() {
     let puzzle = this.props.puzzle
     let submit = this.onSubmit.bind(this) // need to bind(this) for function
@@ -103,16 +107,11 @@ class CreatePuzzle extends Component {
           />
         </div>
 
-        <br />
-        <br />
-        <br />
-        <div className="center">
+        <div>{puzzle.message}</div>
+
+        <div>
           <input type="submit" value="Submit" onClick={submit} />
         </div>
-
-        <br />
-        <br />
-        <br />
       </form>
     )
   }

@@ -7,7 +7,8 @@ const initialState = {
   price: 0,
   pieceCount: 0,
   category: '',
-  description: ''
+  description: '',
+  message: ''
 }
 
 const SET_VALUE = 'SET_VALUE'
@@ -34,7 +35,7 @@ const AddPuzzle = () => {
         category: state.category,
         description: state.description
       })
-      // dispatch(setValue(data))
+      dispatch(setValue('message', 'Save Successfully!'))
     } catch (error) {
       dispatch(console.error(error))
     }

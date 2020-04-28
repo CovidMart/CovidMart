@@ -292,6 +292,11 @@ function (_Component) {
       this.props.submitPuzzle(); // use action creator to submit instead
     }
   }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.changeValue('message', '');
+    }
+  }, {
     key: "render",
     value: function render() {
       var puzzle = this.props.puzzle;
@@ -377,13 +382,11 @@ function (_Component) {
         name: "description",
         onChange: this.handleChange.bind(this, 'description'),
         value: puzzle.description
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "center"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, puzzle.message), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "Submit",
         onClick: submit
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
+      })));
     }
   }]);
 
@@ -474,10 +477,8 @@ function (_Component) {
     value: function componentDidMount() {
       var id = this.props.match.params.puzzleId;
       this.props.getPuzzle(id);
-    } // render1() {
-    //   return <h1>Hello</h1>
-    // }
-
+      this.props.changeValue('message', '');
+    }
   }, {
     key: "render",
     value: function render() {
@@ -493,7 +494,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "image",
         src: puzzle.imageUrl
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "imageUrl"
       }, " Product ImageUrl: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "input",
@@ -561,11 +562,11 @@ function (_Component) {
         name: "description",
         onChange: this.handleChange.bind(this, 'description'),
         value: puzzle.description
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, puzzle.message), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
-      }, "Submit")));
+      }, "Submit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null));
     }
   }]);
 
@@ -673,12 +674,12 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "images",
           src: puzzle.imageUrl
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, puzzle.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "$", puzzle.price / 100), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, puzzle.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "$", puzzle.price / 100), puzzle.pieceCount > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: puzzle.id,
           price: puzzle.price
-        }), _this.props.isAdmin && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+        }), _this.props.isAdmin && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
           to: "/admin/puzzle/edit/".concat(puzzle.id)
-        }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        }, " Edit "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "button",
           value: "delete",
           className: "deleteButton",
@@ -706,8 +707,8 @@ var mapDispatch = function mapDispatch(dispatch) {
     fetchAllPuzzles: function fetchAllPuzzles() {
       return dispatch(Object(_store_puzzles__WEBPACK_IMPORTED_MODULE_2__["fetchAllPuzzles"])());
     },
-    deletePuzzle: function deletePuzzle() {
-      return dispatch(Object(_store_puzzles__WEBPACK_IMPORTED_MODULE_2__["removePuzzle"])());
+    deletePuzzle: function deletePuzzle(id) {
+      return dispatch(Object(_store_puzzles__WEBPACK_IMPORTED_MODULE_2__["removePuzzle"])(id));
     }
   };
 };
@@ -2077,7 +2078,8 @@ var initialState = {
   price: 0,
   pieceCount: 0,
   category: '',
-  description: ''
+  description: '',
+  message: ''
 };
 var SET_VALUE = 'SET_VALUE';
 
@@ -2119,20 +2121,21 @@ var AddPuzzle = function AddPuzzle() {
                 });
 
               case 4:
-                _context.next = 9;
+                dispatch(setValue('message', 'Save Successfully!'));
+                _context.next = 10;
                 break;
 
-              case 6:
-                _context.prev = 6;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](1);
                 dispatch(console.error(_context.t0));
 
-              case 9:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 6]]);
+        }, _callee, null, [[1, 7]]);
       }));
 
       return function (_x, _x2) {
@@ -2197,7 +2200,8 @@ var initialState = {
   price: 0.0,
   pieceCount: 0,
   category: '',
-  description: ''
+  description: '',
+  message: ''
 };
 var SET_VALUE = 'SET_VALUE';
 var GET_PUZZLE_DATA = 'GET_PUZZLE_DATA';
@@ -2243,20 +2247,21 @@ var fetchEditPuzzle = function fetchEditPuzzle(id) {
                 });
 
               case 4:
-                _context.next = 9;
+                dispatch(setValue('message', 'Save Successfully!'));
+                _context.next = 10;
                 break;
 
-              case 6:
-                _context.prev = 6;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](1);
                 dispatch(console.error(_context.t0));
 
-              case 9:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 6]]);
+        }, _callee, null, [[1, 7]]);
       }));
 
       return function (_x, _x2) {
@@ -2788,7 +2793,7 @@ var removePuzzle = function removePuzzle(id) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/puzzles".concat(id));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/puzzles/".concat(id));
 
               case 3:
                 dispatch(fetchAllPuzzles());
