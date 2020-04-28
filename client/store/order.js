@@ -20,14 +20,14 @@ export const addToLocalStorage = (
 }
 
 export const addToCart = (newOrder, addFromShop = false, fetchCart = null) => {
-  const {userId, newRow} = newOrder
+  const {userId, newRow, quantity} = newOrder
   const user = {id: userId}
   newOrder.addFromShop = addFromShop //api check this whether to increment
-  return async dispatch => {
+  return async () => {
     try {
       if (newRow) await axios.post(`/api/cart/${userId}`, newOrder)
       else await axios.put(`/api/cart/${userId}`, newOrder)
-      if (fetchCart) dispatch(fetchCart(user))
+      if (fetchCart) fetchCart(user)
     } catch (error) {
       console.error(error)
     }

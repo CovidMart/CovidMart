@@ -4,23 +4,27 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import Cart from '../Cart'
+import CartList from '../CartList'
+import {fetchCart} from '../../store/cart'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe('Cart', () => {
+describe('CartList', () => {
   let cart
 
   beforeEach(() => {
-    const orderArray = [{id: 5, title: 'Pokemon Party', qty: 1, price: 2255}]
+    const activeCart = {
+      id: 0,
+      pricePaid: 2255,
+      puzzles: [{id: 5, title: 'Pokemon Party', qty: 1, price: 2255}],
+      userId: 0
+    }
 
-    const subtotal = item => item.qty * item.price
+    cart = shallow(<CartList activeCart={activeCart} fetchCart={fetchCart} />)
 
-    cart = shallow(<Cart orderArray={orderArray} lineItemSubtotal={subtotal} />)
-  })
-
-  it('renders title of an order item in an h4', () => {
-    expect(cart.find('h4').text()).to.be.equal('Pokemon Party')
+    it('renders title of an order item in an h4', () => {
+      expect(cart.find('h4').text()).to.be.equal('Pokemon Party')
+    })
   })
 })

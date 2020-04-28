@@ -29,7 +29,6 @@ export class CheckoutPage extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'checkoutpage this.props')
     if (this.state.mounted) {
       return (
         <div>
