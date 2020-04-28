@@ -34,19 +34,25 @@ export class CheckoutPage extends React.Component {
     // if (this.state.mounted) {
     return (
       <div>
-        <h3>Current User Info On File</h3>
         {this.props.isLoggedIn && (
           <div>
-            {this.props.user.firstName} {this.props.user.lastName},{' '}
-            {this.props.user.address}, {this.props.user.phone}
+            <h4>Current User Info On File</h4>
+            <div>
+              {this.props.user.firstName} {this.props.user.lastName}
+            </div>
+            <div>{this.props.user.address}</div>
+            <div>{this.props.user.phone}</div>
           </div>
         )}
         <UserInfoForm />
         <Cart />
+        <h2>Order Total: ${this.props.cart.pricePaid / 100}</h2>
         <Checkout
-          amount={100}
+          amount={this.props.cart.pricePaid / 100}
           name="Puzzle Party"
           description="Thank you for your order!"
+          bitcoin
+          email={this.props.user.email}
         />
         <button type="button" onClick={this.handleClick}>
           CLEAR CART
@@ -73,7 +79,8 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.user.singleUser.id,
     userId: state.user.singleUser.id,
-    user: state.user.singleUser
+    user: state.user.singleUser,
+    cart: state.cart.activeCart
   }
 }
 

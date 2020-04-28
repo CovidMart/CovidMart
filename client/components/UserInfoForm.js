@@ -37,16 +37,32 @@ class UserInfoForm extends React.Component {
   render() {
     return (
       <div className="userInfo">
-        <h3>UPDATE USER INFO:</h3>
+        <h4>Update User Info:</h4>
         <form onSubmit={this.handleSubmit}>
-          <p>First Name:</p>
-          <input type="text" name="firstName" onChange={this.handleChange} />
-          <p>Last Name:</p>
-          <input type="text" name="lastName" onChange={this.handleChange} />
-          <p>Address:</p>
-          <input type="text" name="address" onChange={this.handleChange} />
-          <p>Phone Number:</p>
-          <input type="text" name="phone" onChange={this.handleChange} />
+          <input
+            type="text"
+            name="firstName"
+            onChange={this.handleChange}
+            placeholder="First Name"
+          />
+          <input
+            type="text"
+            name="lastName"
+            onChange={this.handleChange}
+            placeholder="Last Name"
+          />
+          <input
+            type="text"
+            name="address"
+            onChange={this.handleChange}
+            placeholder="Address"
+          />
+          <input
+            type="text"
+            name="phone"
+            onChange={this.handleChange}
+            placeholder="Phone Number"
+          />
           <p>
             <button type="submit">Update Info</button>
           </p>
