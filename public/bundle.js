@@ -330,9 +330,10 @@ var AllPuzzles = /*#__PURE__*/function (_React$Component) {
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, puzzle.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "$", puzzle.price / 100), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AddCartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: puzzle.id,
           addFromShop: true
-        }), _this.props.isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+        }), _this.props.isAdmin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+          className: "edit-button",
           to: "/admin/puzzle/edit/".concat(puzzle.id)
-        }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        }, ' ', "Edit", ' '), puzzle.pieceCount > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "button",
           value: "delete",
           className: "deleteButton",
@@ -360,8 +361,8 @@ var mapDispatch = function mapDispatch(dispatch) {
     fetchAllPuzzles: function fetchAllPuzzles() {
       return dispatch(Object(_store_puzzles__WEBPACK_IMPORTED_MODULE_2__["fetchAllPuzzles"])());
     },
-    deletePuzzle: function deletePuzzle() {
-      return dispatch(Object(_store_puzzles__WEBPACK_IMPORTED_MODULE_2__["removePuzzle"])());
+    deletePuzzle: function deletePuzzle(id) {
+      return dispatch(Object(_store_puzzles__WEBPACK_IMPORTED_MODULE_2__["removePuzzle"])(id));
     }
   };
 };
@@ -1677,8 +1678,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddPuzzle", function() { return AddPuzzle; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-var _this = undefined;
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1697,7 +1696,8 @@ var initialState = {
   price: 0,
   pieceCount: 0,
   category: '',
-  description: ''
+  description: '',
+  message: ''
 };
 var SET_VALUE = 'SET_VALUE';
 
@@ -1705,53 +1705,54 @@ var setValue = function setValue(name, value) {
   return {
     type: SET_VALUE,
     name: name,
-    value: value
+    // name denoted different property under same attribute as "name" in CreatePuzzle componnet
+    value: value // set property value accordingly
+
   };
 }; // thunk creator
 
 
 var AddPuzzle = function AddPuzzle() {
   return /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var _yield$axios$post, data;
-
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState) {
+      var state;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
+              state = getState().CreatePuzzle; //global store, getState instead of passing in value
+
+              _context.prev = 1;
+              _context.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/puzzles', {
-                title: _this.state.title,
-                imageUrl: _this.state.imageUrl,
-                dimensions: _this.state.dimensions,
-                price: _this.state.price,
-                pieceCount: _this.state.pieceCount,
-                category: _this.state.category,
-                description: _this.state.description
+                title: state.title,
+                imageUrl: state.imageUrl,
+                dimensions: state.dimensions,
+                price: state.price,
+                pieceCount: state.pieceCount,
+                category: state.category,
+                description: state.description
               });
 
-            case 3:
-              _yield$axios$post = _context.sent;
-              data = _yield$axios$post.data;
-              dispatch(setValue(data));
-              _context.next = 11;
+            case 4:
+              dispatch(setValue('message', 'Save Successfully!'));
+              _context.next = 10;
               break;
 
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](0);
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](1);
               dispatch(console.error(_context.t0));
 
-            case 11:
+            case 10:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 8]]);
+      }, _callee, null, [[1, 7]]);
     }));
 
-    return function (_x) {
+    return function (_x, _x2) {
       return _ref.apply(this, arguments);
     };
   }();
@@ -1783,17 +1784,17 @@ function addPuzzleReducer() {
 /*!************************************!*\
   !*** ./client/store/EditPuzzle.js ***!
   \************************************/
-/*! exports provided: setValue, fetchEditPuzzle, default */
+/*! exports provided: setValue, getPuzzleData, fetchEditPuzzle, fetchPuzzleData, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setValue", function() { return setValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPuzzleData", function() { return getPuzzleData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchEditPuzzle", function() { return fetchEditPuzzle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchPuzzleData", function() { return fetchPuzzleData; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-var _this = undefined;
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1812,9 +1813,11 @@ var initialState = {
   price: 0.0,
   pieceCount: 0,
   category: '',
-  description: ''
+  description: '',
+  message: ''
 };
 var SET_VALUE = 'SET_VALUE';
+var GET_PUZZLE_DATA = 'GET_PUZZLE_DATA';
 
 var setValue = function setValue(name, value) {
   return {
@@ -1824,49 +1827,93 @@ var setValue = function setValue(name, value) {
   };
 };
 
-var fetchEditPuzzle = function fetchEditPuzzle() {
-  return /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var _yield$axios$put, data;
+var getPuzzleData = function getPuzzleData(puzzle) {
+  return {
+    type: GET_PUZZLE_DATA,
+    puzzle: puzzle
+  };
+};
 
+var fetchEditPuzzle = function fetchEditPuzzle(id) {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState) {
+      var state;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/puzzles', {
-                title: _this.state.title,
-                imageUrl: _this.state.imageUrl,
-                dimensions: _this.state.dimensions,
-                price: _this.state.price,
-                pieceCount: _this.state.pieceCount,
-                category: _this.state.category,
-                description: _this.state.description
+              state = getState().EditPuzzle;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/puzzles/".concat(id), {
+                title: state.title,
+                imageUrl: state.imageUrl,
+                dimensions: state.dimensions,
+                price: state.price,
+                pieceCount: state.pieceCount,
+                category: state.category,
+                description: state.description
               });
 
-            case 3:
-              _yield$axios$put = _context.sent;
-              data = _yield$axios$put.data;
-              dispatch(setValue(data));
-              _context.next = 11;
+            case 4:
+              dispatch(setValue('message', 'Save Successfully!'));
+              _context.next = 10;
               break;
 
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](0);
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](1);
               dispatch(console.error(_context.t0));
 
-            case 11:
+            case 10:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 8]]);
+      }, _callee, null, [[1, 7]]);
     }));
 
-    return function (_x) {
+    return function (_x, _x2) {
       return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchPuzzleData = function fetchPuzzleData(id) {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
+      var _yield$axios$get, data;
+
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/puzzles/".concat(id));
+
+            case 3:
+              _yield$axios$get = _context2.sent;
+              data = _yield$axios$get.data;
+              dispatch(getPuzzleData(data));
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](0);
+              dispatch(console.error(_context2.t0));
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 8]]);
+    }));
+
+    return function (_x3) {
+      return _ref2.apply(this, arguments);
     };
   }();
 };
@@ -1881,6 +1928,9 @@ function EditPuzzleReducer() {
 
       copy[action.name] = action.value;
       return copy;
+
+    case GET_PUZZLE_DATA:
+      return _objectSpread({}, state, {}, action.puzzle);
 
     default:
       return state;
@@ -2390,7 +2440,7 @@ var removePuzzle = function removePuzzle(id) {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/puzzles".concat(id));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/puzzles/".concat(id));
 
             case 3:
               dispatch(fetchAllPuzzles());
