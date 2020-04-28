@@ -41,8 +41,8 @@ export class CheckoutPage extends React.Component {
               {this.props.user.address}, {this.props.user.phone}
             </div>
           )}
-          {/* <UserInfoForm /> */}
-          {/* <Cart /> */}
+          <UserInfoForm />
+          <Cart />
           <Checkout
             amount={100}
             name="Puzzle Party"
