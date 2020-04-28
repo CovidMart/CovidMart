@@ -48,7 +48,7 @@ class CreatePuzzle extends Component {
             type="text"
             name="title"
             onChange={this.handleChange.bind(this, 'title')}
-            value={puzzle.name}
+            value={puzzle.title}
           />
         </div>
 

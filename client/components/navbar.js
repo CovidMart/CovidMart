@@ -31,8 +31,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
         {isAdmin && (
           <div>
             {/* Shows these links only to Admin */}
-            <Link to="/admin/puzzle/create"> </Link>
-            <Link to="/admin/puzzle/edit"> </Link>
+            <Link to="/admin/puzzle/create"> Create Puzzle </Link>
           </div>
         )}
       </div>

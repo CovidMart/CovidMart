@@ -30,7 +30,10 @@ export class AllPuzzles extends React.Component {
                 <h3>{puzzle.title}</h3>
               </Link>
               <h3>${puzzle.price / 100}</h3>
-              <AddCartButton id={puzzle.id} addFromShop={true} />
+              {/* puzzle.pieceCount > 0 is to ensured only shows pieceCount when it's not out-of-stocks */}
+              {puzzle.pieceCount > 0 && (
+                <AddCartButton id={puzzle.id} addFromShop={true} />
+              )}
 
               {this.props.isAdmin && (
                 <div>
