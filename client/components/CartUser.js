@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import Cart from './Cart'
 import {fetchUserOrdersForCart} from '../store/cart'
 
@@ -22,11 +23,17 @@ class CartUser extends React.Component {
   }
 
   render() {
+    console.log(this.props, 'CartUser')
     if (this.state.mounted) {
       const {cartArray} = this.props
       return (
         <div>
           <Cart orderArray={cartArray} lineItemSubtotal={this.lineItem} />
+          {this.props.match.path == `/cart/${this.props.userId}` && (
+            <Link to={`checkout/${this.props.userId}`}>
+              <button type="button">CHECKOUT NOW</button>
+            </Link>
+          )}
         </div>
       )
     } else {

@@ -4,6 +4,12 @@ const Cart = props => {
   const {orderArray, lineItemSubtotal} = props
   //handlers for add and delete will have to be passed in as well
   if (orderArray.length) {
+    console.log(orderArray, 'orderArray')
+    let totalOrderCost = orderArray.reduce(
+      (sum, currOrder) => sum + currOrder.price
+    )
+    console.log(totalOrderCost, 'totalOrderCost')
+
     return (
       <div>
         <h1>Party Carty!</h1>
@@ -18,6 +24,9 @@ const Cart = props => {
             </li>
           ))}
         </ol>
+        <p>
+          <strong>TOTAL ORDER COST: $38.97</strong>
+        </p>
       </div>
     )
   }

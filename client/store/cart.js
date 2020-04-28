@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const GET_LOCALSTORAGE_PUZZLES = 'GET_LOCALSTORAGE_PUZZLES'
 const GET_LOGGED_IN_CART = 'GET_LOGGED_IN_CART'
+const CHECKOUT_USER = 'CHECKOUT_USER'
+const CHECKOUT_GUEST = 'CHECKOUT_GUEST'
 
 const getPuzzlesForCart = guestPuzzles => ({
   type: GET_LOCALSTORAGE_PUZZLES,
@@ -11,6 +13,15 @@ const getPuzzlesForCart = guestPuzzles => ({
 const getUserOrdersForCart = userPuzzles => ({
   type: GET_LOGGED_IN_CART,
   userPuzzles
+})
+
+const checkoutUser = order => ({
+  type: CHECKOUT_USER,
+  order
+})
+
+const checkoutGuest = () => ({
+  type: CHECKOUT_GUEST
 })
 
 export const fetchPuzzlesForCart = localStor => {
@@ -35,6 +46,25 @@ export const fetchUserOrdersForCart = userId => {
   }
 }
 
+export const checkoutUserCart = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/cart/${userId}`, {
+        stillInCart: false
+      })
+      dispatch(checkoutUser(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const checkoutGuestCart = () => {
+  return dispatch => {
+    dispatch(checkoutGuest())
+  }
+}
+
 const initialState = {
   guestCart: [],
   userCart: []
@@ -46,6 +76,10 @@ export default function cartReducer(state = initialState, action) {
       return {...state, guestCart: action.guestPuzzles}
     case GET_LOGGED_IN_CART:
       return {...state, userCart: action.userPuzzles}
+    case CHECKOUT_USER:
+      return {...state, userCart: []}
+    case CHECKOUT_GUEST:
+      return {...state, guestCart: []}
     default:
       return state
   }
