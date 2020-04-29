@@ -7,33 +7,39 @@ import {logout, fetchCart} from '../store'
 const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
   <div>
     <br />
-    <br />
-    <h1>PUZZLE PARTY</h1>
     <nav>
+      <a href="/">
+        <h1>PUZZLE PARTY</h1>
+      </a>
       <div>
         <Link to="/puzzles">Shop</Link>
-        <Link to={`/cart/${userId || 'guest'}`}>Cart</Link>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links AFTER you log in */}
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
-          </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links BEFORE you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </div>
-        )}
-        {isAdmin && (
-          <div>
-            {/* Shows these links only to Admin */}
-            <Link to="/admin/puzzle/create"> Create Puzzle </Link>
-          </div>
-        )}
+      </div>
+      {isLoggedIn ? (
+        <div>
+          {/* The navbar will show these links AFTER you log in */}
+          <Link to="/home">Home</Link>
+          <a href="#" onClick={handleClick}>
+            Logout
+          </a>
+        </div>
+      ) : (
+        <div>
+          {/* The navbar will show these links BEFORE you log in */}
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link>
+        </div>
+      )}
+      {isAdmin && (
+        <div>
+          {/* Shows these links only to Admin */}
+          <Link to="/admin/puzzle/create"> Create Puzzle </Link>
+        </div>
+      )}
+      <div>
+        <Link to={`/cart/${userId || 'guest'}`}>
+          <i className="fa fa-fw fa-shopping-cart"></i>
+          Cart
+        </Link>
       </div>
     </nav>
     <hr />
