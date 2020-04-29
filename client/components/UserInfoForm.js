@@ -12,24 +12,101 @@ class UserInfoForm extends React.Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
+    this.handleEmailChange = this.handleChange.bind(this)
+    this.validateEmail = this.validateEmail.bind(this)
+    this.handleAddressChange = this.handleChange.bind(this)
+    this.validateAddress = this.validateAddress.bind(this)
+    this.handlePhoneNumberChange = this.handleChange.bind(this)
+    this.validatePhone = this.validatePhone.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
-      firstName: '',
-      lastName: '',
-      address: '',
-      phone: ''
+      email: null,
+      firstName: null,
+      lastName: null,
+      address: null,
+      phone: null,
+      phoneError: '',
+      emailError: '',
+      addressError: ''
     }
   }
 
   handleChange(event) {
+    console.log('regular handlechange')
     this.setState({
       [event.target.name]: event.target.value
+    })
+    console.log(this.state, '<----local form state')
+  }
+
+  handleEmailChange = event => {
+    console.log('handleEmailChange')
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      () => {
+        this.validateEmail()
+      }
+    )
+    console.log(this.state, '<----local form state')
+  }
+
+  validateEmail() {
+    const {email} = this.state
+    this.setState({
+      emailError:
+        email.length > 5 ? null : '**Please enter a valid email address'
+    })
+  }
+
+  handlePhoneNumberChange(event) {
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      () => {
+        this.validatePhone()
+      }
+    )
+    console.log(this.state, '<----local form state')
+  }
+
+  validatePhone() {
+    const {phone} = this.state
+    this.setState({
+      phoneError:
+        phone.length > 7 ? null : '**Please enter a valid phone number'
+    })
+  }
+
+  handleAddressChange(event) {
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      () => {
+        this.validateAddress()
+      }
+    )
+    console.log(this.state, '<----local form state')
+  }
+
+  validateAddress() {
+    const {address} = this.state
+    this.setState({
+      phoneError: address.length > 7 ? null : '**Please enter a valid address'
     })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    const user = this.state
+    const user = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      address: this.state.address,
+      phone: this.state.phone
+    }
     const {id} = this.props.user
     this.props.updateUser(user, id)
   }
@@ -39,6 +116,15 @@ class UserInfoForm extends React.Component {
       <div className="userInfo">
         <h4>Update User Info:</h4>
         <form onSubmit={this.handleSubmit}>
+          {!this.props.user.id && (
+            <input
+              type="text"
+              name="email"
+              onChange={this.handleEmailChange}
+              placeholder="Email Address"
+              onBlur={this.validateEmail}
+            />
+          )}
           <input
             type="text"
             name="firstName"
@@ -56,13 +142,24 @@ class UserInfoForm extends React.Component {
             name="address"
             onChange={this.handleChange}
             placeholder="Address"
+            onBlur={this.validateAddress}
           />
           <input
             type="text"
             name="phone"
-            onChange={this.handleChange}
+            onChange={this.handlePhoneNumberChange}
             placeholder="Phone Number"
+            onBlur={this.validatePhone}
           />
+          <div className="invalid-feedback">
+            <small>{this.state.phoneError}</small>
+          </div>
+          <div className="invalid-feedback">
+            <small>{this.state.emailError}</small>
+          </div>
+          <div className="invalid-feedback">
+            <small>{this.state.addressError}</small>
+          </div>
           <p>
             <button type="submit">Update Info</button>
           </p>
