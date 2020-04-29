@@ -17,6 +17,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
           Shop
         </Link>
       </div>
+      <div>
+        <Link to="/search">
+          <i className="fa fa-search" aria-hidden="true"></i>
+          Search
+        </Link>
+      </div>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links AFTER you log in */}

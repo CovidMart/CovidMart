@@ -130,15 +130,18 @@ class AuthForm extends React.Component {
                     className="btn btn-lg btn-google btn-block text-uppercase"
                     type="submit"
                   >
-                    <i className="fab fa-google mr-2" /> {displayName} with
-                    Google
+                    <i className="fa fa-google fa-2x" aria-hidden="true"></i>
+                    {displayName} with Google
                   </button>
                   <button
                     className="btn btn-lg btn-facebook btn-block text-uppercase"
                     type="submit"
                   >
-                    <i className="fab fa-facebook-f mr-2" /> {displayName} with
-                    Facebook
+                    <i
+                      className="fa fa-facebook-square fa-2x"
+                      aria-hidden="true"
+                    ></i>
+                    {displayName} with Facebook
                   </button>
                 </form>
               </div>
