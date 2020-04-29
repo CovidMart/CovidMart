@@ -101,7 +101,12 @@ class UserInfoForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    const user = this.state
+    const user = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      address: this.state.address,
+      phone: this.state.phone
+    }
     const {id} = this.props.user
     this.props.updateUser(user, id)
   }
