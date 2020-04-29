@@ -270,3 +270,8 @@ div .card-body {
 }
 
 /* LOGIN END */
+
+/* //VALIDATION */
+.invalid-feedback {
+  color: red;
+}
