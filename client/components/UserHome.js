@@ -12,12 +12,11 @@ export class UserHome extends React.Component {
   componentDidMount() {
     const user = this.props.singleUser
     this.props.getCart(user)
-    if (window.localStorage.guestCart) {
-      const cartData = JSON.parse(window.localStorage.guestCart)
-      if (typeof cartData === 'object') {
-        this.props.mergeCart(cartData, user)
-      }
-    }
+    // if (window.localStorage.guestCart) {
+    //   const cartData = JSON.parse(window.localStorage.guestCart)
+    //   if (typeof cartData === 'object') {
+    //     this.props.mergeCart(cartData, user)
+    //   }
   }
 
   render() {

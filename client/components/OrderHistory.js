@@ -21,22 +21,26 @@ export class OrderHistory extends React.Component {
         <h4> Please click the order number to view details </h4>
         <div>
           <table>
-            <tr>
-              <th>Order Number</th>
-              <th>Puzzle Name</th>
-              <th>Quantity</th>
-              <th>Total</th>
-              <th>Shipping Status</th>
-            </tr>
+            <thead>
+              <tr>
+                <th>Order Number</th>
+                <th>Puzzle Name</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Shipping Status</th>
+              </tr>
+            </thead>
             {orderInfo &&
               orderInfo.map(order => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td>{order.puzzles.map(x => x.title)}</td>
-                  <td>{order.puzzles.map(x => x.PuzzleOrders.quantity)}</td>
-                  <td>${order.pricePaid / 100}</td>
-                  <td>{order.shippingStatus}</td>
-                </tr>
+                <tbody key={order.id}>
+                  <tr>
+                    <td>{order.id}</td>
+                    <td>{order.puzzles.map(x => x.title)}</td>
+                    <td>{order.puzzles.map(x => x.PuzzleOrders.quantity)}</td>
+                    <td>${order.pricePaid / 100}</td>
+                    <td>{order.shippingStatus}</td>
+                  </tr>
+                </tbody>
               ))}
           </table>
         </div>
