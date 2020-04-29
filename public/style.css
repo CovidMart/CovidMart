@@ -15,6 +15,13 @@ h1 {
   margin-top: 0;
 }
 
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Rubik', sans-serif;
+}
+
 a {
   text-decoration: none;
   color: #083d77;
@@ -59,12 +66,47 @@ form div {
   display: inline-block;
 }
 
+.singleView {
+  /* background-color: #F6D8AE; */
+  border-radius: 24px;
+  padding: 2rem;
+  margin-left: 5rem;
+  width: 80%;
+  min-width: 600px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cartView {
+  background-color: #f6d8ae;
+  border-radius: 24px;
+  padding: 2rem;
+  margin-left: 5rem;
+  width: 80%;
+  min-width: 600px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.descContent {
+  padding-left: 2rem;
+}
+
 button {
   font-size: 14px;
   padding: 8px;
   border-radius: 16px;
   background-color: #da4167;
   color: rgb(254, 244, 211);
+}
+
+.checkoutBtn {
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 16px;
+  background-color: #f4d35e;
+  color: #2e4057;
 }
 
 .cart input {
@@ -140,6 +182,13 @@ textarea {
   width: 256px;
   height: 256px;
   border-radius: 8px;
+}
+
+.singleImg {
+  height: 300px;
+  min-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 /* LOGIN START */

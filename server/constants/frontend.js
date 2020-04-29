@@ -1,4 +1,7 @@
-const FRONTEND_DEV_URLS = ['http://localhost:3000']
+const FRONTEND_DEV_URLS = [
+  'http://localhost:3000',
+  'https://puzzle-party.herokuapp.com/'
+]
 const FRONTEND_PROD_URLS = [
   'https://www.yourdomain.com',
   'https://yourdomain.com'

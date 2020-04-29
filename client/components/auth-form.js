@@ -120,7 +120,7 @@ class AuthForm extends React.Component {
                     </label>
                   </div>
                   <button
-                    className="btn btn-lg btn-primary btn-block text-uppercase"
+                    className="checkoutBtn btn btn-lg btn-primary btn-block text-uppercase"
                     type="submit"
                   >
                     {displayName}
