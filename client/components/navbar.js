@@ -7,7 +7,6 @@ import {logout, fetchCart} from '../store'
 const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
   <div>
     <br />
-    <br />
     <h1>PUZZLE PARTY</h1>
     <nav>
       <div>
