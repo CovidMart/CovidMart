@@ -1293,15 +1293,13 @@ var AuthForm = /*#__PURE__*/function (_React$Component) {
       passwordError: ''
     };
     return _this;
-  }
+  } // handleEmailChange(){
+  // }
+  // handlePasswordChange(){
+  // }
+
 
   _createClass(AuthForm, [{
-    key: "handleEmailChange",
-    value: function handleEmailChange() {}
-  }, {
-    key: "handlePasswordChange",
-    value: function handlePasswordChange() {}
-  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
