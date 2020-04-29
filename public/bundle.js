@@ -1619,6 +1619,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store */ "./client/store/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1658,6 +1660,10 @@ var AuthForm = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, AuthForm);
 
     _this = _super.call(this, props);
+    _this.handleEmailChange = _this.handleEmailChange.bind(_assertThisInitialized(_this));
+    _this.validateEmail = _this.validateEmail.bind(_assertThisInitialized(_this));
+    _this.handlePasswordChange = _this.handlePasswordChange.bind(_assertThisInitialized(_this));
+    _this.validatePassword = _this.validatePassword.bind(_assertThisInitialized(_this));
     _this.state = {
       email: '',
       password: '',
@@ -1665,13 +1671,46 @@ var AuthForm = /*#__PURE__*/function (_React$Component) {
       passwordError: ''
     };
     return _this;
-  } // handleEmailChange(){
-  // }
-  // handlePasswordChange(){
-  // }
-
+  }
 
   _createClass(AuthForm, [{
+    key: "handleEmailChange",
+    value: function handleEmailChange() {
+      var _this2 = this;
+
+      this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
+        _this2.validateEmail();
+      });
+      console.log(this.state, '<---handleEmailChange');
+    }
+  }, {
+    key: "handlePasswordChange",
+    value: function handlePasswordChange() {
+      var _this3 = this;
+
+      this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
+        _this3.validatePassword();
+
+        console.log(_this3.state, '<---handleEmailChange');
+      });
+    }
+  }, {
+    key: "validateEmail",
+    value: function validateEmail() {
+      var email = this.state.email;
+      this.setState({
+        emailError: email.length > 5 ? null : '**Please enter a valid email address'
+      });
+    }
+  }, {
+    key: "validatePassword",
+    value: function validatePassword() {
+      var password = this.state.password;
+      this.setState({
+        phoneError: password.length > 8 ? null : '**Please enter password greater than 8 characters'
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -1701,7 +1740,9 @@ var AuthForm = /*#__PURE__*/function (_React$Component) {
         name: "email",
         type: "text",
         id: "inputEmail",
-        className: "form-control"
+        className: "form-control",
+        onChange: this.handleEmailChange,
+        onBlur: this.validateEmail
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "email"
       }, "Email address")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1710,10 +1751,16 @@ var AuthForm = /*#__PURE__*/function (_React$Component) {
         name: "password",
         type: "password",
         id: "inputPassword",
-        className: "form-control"
+        className: "form-control",
+        onChange: this.handlePasswordChange,
+        onBlur: this.validatePassword
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "password"
       }, "Password")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "invalid-feedback"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, this.state.passwordError)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "invalid-feedback"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, this.state.emailError)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "custom-control custom-checkbox mb-3"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",

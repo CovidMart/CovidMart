@@ -9,6 +9,10 @@ import {auth} from '../store'
 class AuthForm extends React.Component {
   constructor(props) {
     super(props)
+    this.handleEmailChange = this.handleEmailChange.bind(this)
+    this.validateEmail = this.validateEmail.bind(this)
+    this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.validatePassword = this.validatePassword.bind(this)
     this.state = {
       email: '',
       password: '',
@@ -17,13 +21,47 @@ class AuthForm extends React.Component {
     }
   }
 
-  // handleEmailChange(){
+  handleEmailChange() {
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      () => {
+        this.validateEmail()
+      }
+    )
+    console.log(this.state, '<---handleEmailChange')
+  }
 
-  // }
+  handlePasswordChange() {
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      () => {
+        this.validatePassword()
+        console.log(this.state, '<---handleEmailChange')
+      }
+    )
+  }
 
-  // handlePasswordChange(){
+  validateEmail() {
+    const {email} = this.state
+    this.setState({
+      emailError:
+        email.length > 5 ? null : '**Please enter a valid email address'
+    })
+  }
 
-  // }
+  validatePassword() {
+    const {password} = this.state
+    this.setState({
+      phoneError:
+        password.length > 8
+          ? null
+          : '**Please enter password greater than 8 characters'
+    })
+  }
 
   render() {
     const {name, displayName, handleSubmit, error} = this.props
@@ -45,6 +83,8 @@ class AuthForm extends React.Component {
                       type="text"
                       id="inputEmail"
                       className="form-control"
+                      onChange={this.handleEmailChange}
+                      onBlur={this.validateEmail}
                     />
                     <label htmlFor="email">Email address</label>
                   </div>
@@ -55,10 +95,17 @@ class AuthForm extends React.Component {
                       type="password"
                       id="inputPassword"
                       className="form-control"
+                      onChange={this.handlePasswordChange}
+                      onBlur={this.validatePassword}
                     />
                     <label htmlFor="password">Password</label>
                   </div>
-
+                  <div className="invalid-feedback">
+                    <small>{this.state.passwordError}</small>
+                  </div>
+                  <div className="invalid-feedback">
+                    <small>{this.state.emailError}</small>
+                  </div>
                   <div className="custom-control custom-checkbox mb-3">
                     <input
                       type="checkbox"
