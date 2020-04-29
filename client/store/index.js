@@ -16,7 +16,8 @@ const reducer = combineReducers({
   CreatePuzzle,
   EditPuzzle,
   cart,
-  search
+  search,
+  orderHistory
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

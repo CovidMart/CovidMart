@@ -14,6 +14,7 @@ export class OrderHistory extends React.Component {
 
   render() {
     let orderInfo = this.props.orderHistory
+    console.log(this.props)
     return (
       <div>
         <h2>Order History:</h2>
@@ -23,6 +24,7 @@ export class OrderHistory extends React.Component {
             <tr>
               <th>Order Number</th>
               <th>Puzzle Name</th>
+              <th>Quantity</th>
               <th>Total</th>
               <th>Shipping Status</th>
             </tr>
@@ -30,7 +32,8 @@ export class OrderHistory extends React.Component {
               orderInfo.map(order => (
                 <tr key={order.id}>
                   <td>{order.id}</td>
-                  <td>{order.puzzles.title}</td>
+                  <td>{order.puzzles.map(x => x.title)}</td>
+                  <td>{order.puzzles.map(x => x.PuzzleOrders.quantity)}</td>
                   <td>${order.pricePaid / 100}</td>
                   <td>{order.shippingStatus}</td>
                 </tr>

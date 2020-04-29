@@ -1,6 +1,4 @@
 import axios from 'axios'
-import store from './index'
-import user from './user'
 
 export const ORDER_HISTORY = 'ORDER_HISTORY'
 
@@ -16,17 +14,6 @@ export const fetchOrderHistory = userId => {
     try {
       const {data} = await axios.get(`/api/orders/${userId}`)
       dispatch(setOrders(data))
-    } catch (error) {
-      dispatch(console.error(error))
-    }
-  }
-}
-
-export const fetchSingleHistory = (userId, orderId) => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.get(`/api/${userId}/${orderId}`)
-      dispatch(setsingleOrder(data))
     } catch (error) {
       dispatch(console.error(error))
     }
