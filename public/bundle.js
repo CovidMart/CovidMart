@@ -180,21 +180,25 @@ var AddCartButton = /*#__PURE__*/function (_React$Component) {
           fetchCart = _this$props.fetchCart;
       event.preventDefault(); //check if this puzzleOrder already exists on state
 
-      var puzzleId = parseInt(this.props.id, 10);
-      var prePuzzles = cart.puzzles.map(function (pzl) {
-        return pzl.id;
-      });
-      var newRow = prePuzzles.indexOf(puzzleId) < 0;
-      var userId = parseInt(cart.userId, 10);
-      var orderId = parseInt(cart.id, 10);
-      var newOrder = {
-        orderId: orderId,
-        userId: userId,
-        puzzleId: puzzleId,
-        newRow: newRow,
-        quantity: parseInt(this.state.quantity, 10)
-      };
-      if (userId) this.props.addToCart(newOrder, addFromShop, fetchCart);else this.props.addToLocalStorage(newOrder, addFromShop, fetchCart);
+      try {
+        var puzzleId = parseInt(this.props.id, 10);
+        var prePuzzles = cart.puzzles.map(function (pzl) {
+          return pzl.id;
+        });
+        var newRow = prePuzzles.indexOf(puzzleId) < 0;
+        var userId = parseInt(cart.userId, 10);
+        var orderId = parseInt(cart.id, 10);
+        var newOrder = {
+          orderId: orderId,
+          userId: userId,
+          puzzleId: puzzleId,
+          newRow: newRow,
+          quantity: parseInt(this.state.quantity, 10)
+        };
+        if (userId) this.props.addToCart(newOrder, addFromShop, fetchCart);else this.props.addToLocalStorage(newOrder, addFromShop, fetchCart);
+      } catch (err) {
+        console.error(err);
+      }
     }
   }, {
     key: "handleChange",

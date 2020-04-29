@@ -17,20 +17,24 @@ export class AddCartButton extends React.Component {
     const {addFromShop, fetchCart} = this.props
     event.preventDefault()
     //check if this puzzleOrder already exists on state
-    const puzzleId = parseInt(this.props.id, 10)
-    const prePuzzles = cart.puzzles.map(pzl => pzl.id)
-    const newRow = prePuzzles.indexOf(puzzleId) < 0
-    const userId = parseInt(cart.userId, 10)
-    const orderId = parseInt(cart.id, 10)
-    const newOrder = {
-      orderId,
-      userId,
-      puzzleId,
-      newRow,
-      quantity: parseInt(this.state.quantity, 10)
+    try {
+      const puzzleId = parseInt(this.props.id, 10)
+      const prePuzzles = cart.puzzles.map(pzl => pzl.id)
+      const newRow = prePuzzles.indexOf(puzzleId) < 0
+      const userId = parseInt(cart.userId, 10)
+      const orderId = parseInt(cart.id, 10)
+      const newOrder = {
+        orderId,
+        userId,
+        puzzleId,
+        newRow,
+        quantity: parseInt(this.state.quantity, 10)
+      }
+      if (userId) this.props.addToCart(newOrder, addFromShop, fetchCart)
+      else this.props.addToLocalStorage(newOrder, addFromShop, fetchCart)
+    } catch (err) {
+      console.error(err)
     }
-    if (userId) this.props.addToCart(newOrder, addFromShop, fetchCart)
-    else this.props.addToLocalStorage(newOrder, addFromShop, fetchCart)
   }
 
   handleChange(event) {
