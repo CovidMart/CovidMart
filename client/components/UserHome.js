@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
 import {fetchCart} from '../store/cart'
+import OrderHistory from './OrderHistory'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -14,7 +16,6 @@ export class UserHome extends React.Component {
 
   componentDidMount() {
     const user = this.props.singleUser
-    this.props.fetchCart(user)
   }
 
   render() {
@@ -45,6 +46,9 @@ export class UserHome extends React.Component {
           <strong>Address:</strong> {address}
         </p>
         <UserInfoForm userId={id} />
+        <div>
+          <OrderHistory userId={id} />
+        </div>
       </div>
     )
   }

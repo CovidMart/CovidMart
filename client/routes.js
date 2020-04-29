@@ -12,8 +12,7 @@ import {
   CheckoutPage,
   CreatePuzzle,
   EditPuzzle,
-  Cart,
-  OrderHistory
+  Cart
 } from './components'
 
 import {me, fetchCart} from './store'
@@ -28,7 +27,7 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn, isAdmin, cart} = this.props
-    console.log('GOT CART?!?!?!?', cart)
+    // console.log('GOT CART?!?!?!?', cart)
 
     return (
       <Switch>
@@ -47,10 +46,6 @@ class Routes extends Component {
             {/* Routes placed here are only available if NOT logged in */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route
-              path="/history"
-              render={props => <OrderHistory {...props} />}
-            />
           </Switch>
         )}
         {isLoggedIn && !isAdmin && (

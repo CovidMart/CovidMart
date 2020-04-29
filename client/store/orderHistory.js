@@ -1,17 +1,20 @@
 import axios from 'axios'
 import store from './index'
+import user from './user'
 
 export const ORDER_HISTORY = 'ORDER_HISTORY'
 
-export const setOrders = orders => ({
-  type: ORDER_HISTORY,
-  orders
-})
+export const setOrders = orders => {
+  return {
+    type: ORDER_HISTORY,
+    orders
+  }
+}
 
-export const fetchOrderHistory = () => {
+export const fetchOrderHistory = userId => {
   return async dispatch => {
     try {
-      const {data} = axios.get(`/api/orders/${userId}`)
+      const {data} = await axios.get(`/api/orders/${userId}`)
       dispatch(setOrders(data))
     } catch (error) {
       dispatch(console.error(error))
@@ -26,7 +29,6 @@ const initialState = {
 export default function orderReducer(state = initialState, action) {
   switch (action.type) {
     case ORDER_HISTORY:
-      console.log(action)
       return {...state, orderHistory: action.orders}
     default:
       return state

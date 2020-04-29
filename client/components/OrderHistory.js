@@ -7,15 +7,31 @@ export class OrderHistory extends React.Component {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.fetchOrderHistory()
+  async componentDidMount() {
+    await this.props.fetchOrderHistory(this.props.userId)
   }
 
   render() {
+    let orderInfo = this.props.orderHistory
     return (
       <div>
+        <h2>Order History:</h2>
         <div>
-          <h2>HELLLOOOOOO</h2>
+          <table>
+            <tr>
+              <th>Order Number</th>
+              <th>Total</th>
+              <th>Shipping Status</th>
+            </tr>
+            {orderInfo &&
+              orderInfo.map(order => (
+                <tr key={order.id}>
+                  <td>{order.id}</td>
+                  <td>${order.pricePaid / 100}</td>
+                  <td>{order.shippingStatus}</td>
+                </tr>
+              ))}
+          </table>
         </div>
       </div>
     )
@@ -24,13 +40,13 @@ export class OrderHistory extends React.Component {
 
 const mapState = state => {
   return {
-    orderHistory: state.orders
+    orderHistory: state.orderHistory.orderHistory
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchOrderHistory: () => dispatch(fetchOrderHistory())
+    fetchOrderHistory: userId => dispatch(fetchOrderHistory(userId))
   }
 }
 
