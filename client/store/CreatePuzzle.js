@@ -11,7 +11,14 @@ const initialState = {
   message: ''
 }
 
-const SET_VALUE = 'SET_VALUE'
+const SET_VALUE = 'SET_ADDED_VALUE'
+const ADDED_SAVED = 'ADDED_SAVED'
+
+const saved = () => {
+  return {
+    type: ADDED_SAVED
+  }
+}
 
 const setValue = (name, value) => {
   return {
@@ -35,7 +42,7 @@ const AddPuzzle = () => {
         category: state.category,
         description: state.description
       })
-      dispatch(setValue('message', 'Save Successfully!'))
+      dispatch(saved())
     } catch (error) {
       dispatch(console.error(error))
     }
@@ -48,6 +55,11 @@ function addPuzzleReducer(state = initialState, action) {
       const copy = {...state}
       copy[action.name] = action.value //modifying original copy, not copy of copy
       return copy
+    case ADDED_SAVED:
+      return {
+        ...initialState,
+        message: 'Save Successfully!'
+      }
     default:
       return state
   }

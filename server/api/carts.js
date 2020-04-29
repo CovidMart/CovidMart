@@ -33,7 +33,8 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
       where: {stillInCart: true},
       include: [{model: Puzzle}]
     })
-    res.json(activeOrders[0])
+    if (activeOrders) res.json(activeOrders[0])
+    else res.json({})
   } catch (error) {
     next(error)
   }
@@ -78,9 +79,11 @@ router.put('/:userId', userLoggedIn, async (req, res, next) => {
     })
     if (addFromShop) {
       const total = orderToChange.quantity + quantity
-      orderToChange.update({quantity: total})
+      await orderToChange.update({quantity: total})
+    } else if (quantity < 1) {
+      await orderToChange.destroy()
     } else {
-      orderToChange.update({quantity})
+      await orderToChange.update({quantity})
     }
     res.sendStatus(201)
   } catch (error) {
@@ -103,10 +106,4 @@ router.put('/:userId/checkout', userLoggedIn, async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-})
-
-//---DELETE Puzzle from Order---//
-
-router.delete('/:userId', userLoggedIn, async (req, res, next) => {
-  //delete user's order for this puzzle from the puzzleOrders
 })

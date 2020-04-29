@@ -7,11 +7,11 @@ import {logout, fetchCart} from '../store'
 const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
   <div>
     <br />
-    <br />
     <h1>PUZZLE PARTY</h1>
     <nav>
       <div>
-        <Link to="/puzzles">All Puzzles</Link>
+        <Link to="/puzzles">Shop</Link>
+        <Link to="/search">Search</Link>
         <Link to={`/cart/${userId || 'guest'}`}>Cart</Link>
         {isLoggedIn ? (
           <div>
@@ -31,8 +31,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
         {isAdmin && (
           <div>
             {/* Shows these links only to Admin */}
-            <Link to="/admin/puzzle/create"> </Link>
-            <Link to="/admin/puzzle/edit"> </Link>
+            <Link to="/admin/puzzle/create"> Create Puzzle </Link>
           </div>
         )}
       </div>

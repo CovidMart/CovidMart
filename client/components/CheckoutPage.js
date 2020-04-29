@@ -9,13 +9,13 @@ export class CheckoutPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      mounted: false
+      // mounted: false
     }
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    this.setState({mounted: true})
+    // this.setState({mounted: true})
   }
 
   handleClick() {
@@ -29,42 +29,49 @@ export class CheckoutPage extends React.Component {
   }
 
   render() {
+    console.log('---CHECKOUT PAGE IS RENDERED-----')
     console.log(this.props, 'checkoutpage this.props')
-    if (this.state.mounted) {
-      return (
-        <div>
-          <h3>Current User Info On File</h3>
-          {this.props.isLoggedIn && (
+    // if (this.state.mounted) {
+    return (
+      <div>
+        {this.props.isLoggedIn && (
+          <div>
+            <h4>Current User Info On File</h4>
             <div>
-              {this.props.user.firstName} {this.props.user.lastName},{' '}
-              {this.props.user.address}, {this.props.user.phone}
+              {this.props.user.firstName} {this.props.user.lastName}
             </div>
-          )}
-          <UserInfoForm />
-          <Cart />
-          <Checkout
-            amount={100}
-            name="Puzzle Party"
-            description="Thank you for your order!"
-          />
-          <button type="button" onClick={this.handleClick}>
-            CLEAR CART
-          </button>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <h2>Loading Checkout Page...</h2>
-          <img
-            src="loadingPuzzleGif.webp"
-            alt="Animated Puzzle Pieces"
-            height="160"
-            width="160"
-          />
-        </div>
-      )
-    }
+            <div>{this.props.user.address}</div>
+            <div>{this.props.user.phone}</div>
+          </div>
+        )}
+        <UserInfoForm />
+        <Cart />
+        <h2>Order Total: ${this.props.cart.pricePaid / 100}</h2>
+        <Checkout
+          amount={this.props.cart.pricePaid / 100}
+          name="Puzzle Party"
+          description="Thank you for your order!"
+          bitcoin
+          email={this.props.user.email}
+        />
+        <button type="button" onClick={this.handleClick}>
+          CLEAR CART
+        </button>
+      </div>
+    )
+    // } else {
+    //   return (
+    //     <div>
+    //       <h2>Loading Checkout Page...</h2>
+    //       <img
+    //         src="loadingPuzzleGif.webp"
+    //         alt="Animated Puzzle Pieces"
+    //         height="160"
+    //         width="160"
+    //       />
+    //     </div>
+    //   )
+    // }
   }
 }
 
@@ -72,7 +79,8 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.user.singleUser.id,
     userId: state.user.singleUser.id,
-    user: state.user.singleUser
+    user: state.user.singleUser,
+    cart: state.cart.activeCart
   }
 }
 
