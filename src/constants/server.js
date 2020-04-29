@@ -1,5 +1,5 @@
 const PAYMENT_SERVER_URL =
   process.env.NODE_ENV === 'production'
-    ? 'http://wwww.heroku.puzzleparty.com'
-    : 'http://localhost:8080'
+    ? ''
+    : 'https://puzzle-party.herokuapp.com/'
 export default PAYMENT_SERVER_URL

@@ -62288,7 +62288,7 @@ var Checkout = function Checkout(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var PAYMENT_SERVER_URL =  false ? undefined : 'http://localhost:8080';
+var PAYMENT_SERVER_URL =  false ? undefined : 'https://puzzle-party.herokuapp.com/';
 /* harmony default export */ __webpack_exports__["default"] = (PAYMENT_SERVER_URL);
 
 /***/ }),
