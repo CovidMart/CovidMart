@@ -1935,7 +1935,7 @@ var AuthForm = /*#__PURE__*/function (_React$Component) {
         className: "btn btn-lg btn-facebook btn-block text-uppercase",
         type: "submit"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        "class": "fa fa-facebook-square fa-2x",
+        className: "fa fa-facebook-square fa-2x",
         "aria-hidden": "true"
       }), displayName, " with Facebook")))))));
     }
@@ -62052,7 +62052,7 @@ var Checkout = function Checkout(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var PAYMENT_SERVER_URL =  false ? undefined : 'http://localhost:8080';
+var PAYMENT_SERVER_URL =  false ? undefined : 'https://puzzle-party.herokuapp.com/';
 /* harmony default export */ __webpack_exports__["default"] = (PAYMENT_SERVER_URL);
 
 /***/ }),
