@@ -12,7 +12,8 @@ import {
   CheckoutPage,
   CreatePuzzle,
   EditPuzzle,
-  Cart
+  Cart,
+  Search
 } from './components'
 
 import {me, fetchCart} from './store'
@@ -36,6 +37,7 @@ class Routes extends Component {
         <Route exact path="/puzzles/:puzzleId" component={SinglePuzzle} />
         <Route exact path={`/cart/${cart.userId}`} component={Cart} />
         <Route exact path="/cart/guest" component={Cart} />
+        <Route exact path="/search" component={Search} />
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available if NOT logged in */}

@@ -12,6 +12,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
     <nav>
       <div>
         <Link to="/puzzles">Shop</Link>
+        <Link to="/search">Search</Link>
         <Link to={`/cart/${userId || 'guest'}`}>Cart</Link>
         {isLoggedIn ? (
           <div>
