@@ -9,7 +9,7 @@ export class OrderHistory extends React.Component {
   }
 
   async componentDidMount() {
-    await this.props.fetchOrderHistory(this.props.userId)
+    this.props.fetchOrderHistory(this.props.userId)
   }
 
   render() {

@@ -20,7 +20,7 @@ export const addToLocalStorage = (
 }
 
 export const addToCart = (newOrder, addFromShop = false, fetchCart = null) => {
-  const {userId, newRow, quantity} = newOrder
+  const {userId, newRow} = newOrder
   const user = {id: userId}
   newOrder.addFromShop = addFromShop //api check this whether to increment
   return async () => {
