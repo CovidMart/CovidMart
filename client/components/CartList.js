@@ -8,8 +8,7 @@ const CartList = props => {
   if (puzzles && puzzles.length) {
     return (
       <div>
-        <h3>Party Carty!</h3>
-        <h5>Order Total: {pricePaid}</h5>
+        <h5>Running Total: ${(pricePaid / 100).toFixed(2)}</h5>
         <ul>
           {puzzles
             .filter(item => item.qty || item.PuzzleOrders)

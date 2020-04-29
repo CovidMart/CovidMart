@@ -24,111 +24,111 @@ const puzzles = [
       'This famous kitsch artwork by Cassius Marcellus Coolidge is the perfect home entertainment for everyone, with a challenging 1,000-piece jigsaw spread on wood-board backing, this will last a lifetime.'
   },
   {
-    title: 'Voltsillam',
+    title: 'All Things That Fly',
     price: 3529,
-    pieceCount: 5663,
-    dimensions: '8x11',
-    imageUrl: 'http://dummyimage.com/327x281.jpg/cc0000/ffffff',
+    pieceCount: 500,
+    dimensions: '8" x 11"',
+    imageUrl: '/puzzles/sportBalls.jpg',
     category: 'Sports',
     description: 'Fusce consequat. Nulla nisl. Nunc nisl.'
   },
   {
-    title: 'Span',
+    title: 'Spring Tulips',
     price: 3362,
-    pieceCount: 353,
-    dimensions: '12x18',
-    imageUrl: 'http://dummyimage.com/397x356.jpg/5fa2dd/ffffff',
+    pieceCount: 350,
+    dimensions: '12" x 18"',
+    imageUrl: '/puzzles/tulipBunch.jpg',
     category: 'Nature',
     description:
       'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.'
   },
   {
-    title: 'Andalax',
+    title: 'Himalayan Sunset',
     price: 3796,
-    pieceCount: 3104,
-    dimensions: '22.5x34',
-    imageUrl: 'http://dummyimage.com/200x328.jpg/dddddd/000000',
+    pieceCount: 3000,
+    dimensions: '22.5" x 34"',
+    imageUrl: '/puzzles/himalayaSunset.jpg',
     category: 'Nature',
     description:
       'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.'
   },
   {
-    title: 'Alpha',
+    title: 'Vintage Hotrod',
     price: 4256,
-    pieceCount: 1591,
+    pieceCount: 1500,
     dimensions: '10x8',
-    imageUrl: 'http://dummyimage.com/258x297.jpg/5fa2dd/ffffff',
+    imageUrl: '/puzzles/VintageHotrod.jpg',
     category: 'Sports',
     description:
       'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.'
   },
   {
-    title: 'Wrapsafe',
+    title: 'When I Grow Up',
     price: 2241,
-    pieceCount: 1870,
-    dimensions: '22.5x34',
-    imageUrl: 'http://dummyimage.com/278x374.jpg/5fa2dd/ffffff',
+    pieceCount: 1800,
+    dimensions: '22.5" x 34"',
+    imageUrl: '/puzzles/kittenFeather.jpg',
     category: 'Kittens',
     description:
       'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.'
   },
   {
-    title: 'Transcof',
+    title: "Knittin' Kittens",
     price: 3404,
-    pieceCount: 5670,
-    dimensions: '12x18',
-    imageUrl: 'http://dummyimage.com/213x238.jpg/5fa2dd/ffffff',
+    pieceCount: 550,
+    dimensions: '12" x 18"',
+    imageUrl: '/puzzles/knittinKittens.jpg',
     category: 'Kittens',
     description:
       'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
   },
   {
-    title: 'Subin',
+    title: 'Hang Ten',
     price: 2958,
-    pieceCount: 2886,
-    dimensions: '10x8',
-    imageUrl: 'http://dummyimage.com/225x270.jpg/cc0000/ffffff',
+    pieceCount: 800,
+    dimensions: '10" x 18"',
+    imageUrl: '/puzzles/surfer.jpg',
     category: 'Sports',
     description:
       'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.'
   },
   {
-    title: 'Viva',
+    title: 'Moon Dragon',
     price: 442,
-    pieceCount: 6652,
-    dimensions: '32x46',
-    imageUrl: 'http://dummyimage.com/361x290.jpg/dddddd/000000',
+    pieceCount: 600,
+    dimensions: '32" x 46"',
+    imageUrl: '/puzzles/moonDragon.jpg',
     category: 'Fantasy',
     description:
       'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.\n\nIn sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.'
   },
   {
-    title: 'Zamit',
+    title: 'Botticelli',
     price: 4948,
-    pieceCount: 5126,
-    dimensions: '12x18',
-    imageUrl: 'http://dummyimage.com/340x203.jpg/5fa2dd/ffffff',
+    pieceCount: 500,
+    dimensions: '12" x 18"',
+    imageUrl: '/puzzles/renaissance.jpg',
     category: 'Art',
     description:
       'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.'
   },
   {
-    title: 'Vagrammo',
+    title: 'Milk',
     price: 521,
-    pieceCount: 2802,
-    dimensions: '12x18',
-    imageUrl: 'http://dummyimage.com/266x320.jpg/5fa2dd/ffffff',
+    pieceCount: 200,
+    dimensions: '12" x 8"',
+    imageUrl: '/puzzles/milkKittens.jpg',
     category: 'Kittens',
     description:
       'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.'
   },
   {
-    title: 'Stronghold',
+    title: 'Pokemon Valley',
     price: 3953,
-    pieceCount: 8958,
-    dimensions: '10x8',
-    imageUrl: 'http://dummyimage.com/366x262.jpg/5fa2dd/ffffff',
-    category: 'Nature',
+    pieceCount: 800,
+    dimensions: '10" x 18"',
+    imageUrl: '/puzzles/Pokemon.jpg',
+    category: 'Fantasy',
     description:
       'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.'
   },

@@ -21,29 +21,31 @@ export class SinglePuzzle extends React.Component {
       return <div>LOADING!!!</div>
     }
     return (
-      <div>
-        <img src={this.props.imageUrl} height="300" width="300" />
-        <h2>{this.props.title}</h2>
-        <h3>${this.props.price / 100}</h3>
-        <p>
-          <strong>Number of Pieces:</strong> {this.props.pieceCount}
-        </p>
-        <p>
-          <strong>Dimensions:</strong> {this.props.dimensions} inches
-        </p>
-        <p>
-          <strong>Category:</strong> {this.props.category}
-        </p>
-        <p>
-          <strong>Description: </strong>
-          {this.props.description}
-        </p>
-        {this.props.price && (
-          <AddCartButton
-            id={this.props.match.params.puzzleId}
-            addFromShop={true}
-          />
-        )}
+      <div className="singleView">
+        <img src={this.props.imageUrl} className="singleImg" />
+        <div className="descContent">
+          <h2>{this.props.title}</h2>
+          <h3>${this.props.price / 100}</h3>
+          <p>
+            <strong>Number of Pieces:</strong> {this.props.pieceCount}
+          </p>
+          <p>
+            <strong>Dimensions:</strong> {this.props.dimensions} inches
+          </p>
+          <p>
+            <strong>Category:</strong> {this.props.category}
+          </p>
+          <p>
+            <strong>Description: </strong>
+            {this.props.description}
+          </p>
+          {this.props.price && (
+            <AddCartButton
+              id={this.props.match.params.puzzleId}
+              addFromShop={true}
+            />
+          )}
+        </div>
       </div>
     )
   }
