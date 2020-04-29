@@ -25,14 +25,19 @@ class Cart extends React.Component {
     if (this.state.mounted) {
       const {activeCart} = this.props
       return (
-        <div>
+        <div className="cartView">
           <CartList activeCart={activeCart} fetchCart={this.props.fetchCart} />
-          {this.props.match &&
-            this.props.match.path === `/cart/${userId || 'guest'}` && (
-              <Link to={`/cart/${userId || 'guest'}/checkout`}>
-                <button type="button">CHECKOUT NOW</button>
-              </Link>
-            )}
+          <div>
+            <h3>Party Carty!</h3>
+            {this.props.match &&
+              this.props.match.path === `/cart/${userId || 'guest'}` && (
+                <Link to={`/cart/${userId || 'guest'}/checkout`}>
+                  <button type="button" className="checkoutBtn">
+                    CHECKOUT NOW
+                  </button>
+                </Link>
+              )}
+          </div>
         </div>
       )
     } else {

@@ -59,19 +59,6 @@ export class CheckoutPage extends React.Component {
         </button>
       </div>
     )
-    // } else {
-    //   return (
-    //     <div>
-    //       <h2>Loading Checkout Page...</h2>
-    //       <img
-    //         src="loadingPuzzleGif.webp"
-    //         alt="Animated Puzzle Pieces"
-    //         height="160"
-    //         width="160"
-    //       />
-    //     </div>
-    //   )
-    // }
   }
 }
 
