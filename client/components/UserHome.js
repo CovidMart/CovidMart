@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import UserInfoForm from './UserInfoForm'
 import {fetchCart} from '../store/cart'
 import OrderHistory from './OrderHistory'
-import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT

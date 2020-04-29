@@ -1,8 +1,7 @@
 const router = require('express').Router()
-const {User, Puzzle, Order, PuzzleOrders} = require('../db/models')
+const {Puzzle, Order} = require('../db/models')
 const {userLoggedIn} = require('./gatekeepers')
 module.exports = router
-const db = require('../db/db')
 
 router.get('/:userId', userLoggedIn, async (req, res, next) => {
   try {
@@ -10,7 +9,8 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
       where: {
         userId: req.params.userId,
         stillInCart: false
-      }
+      },
+      include: [{model: Puzzle}]
     })
     res.json(userOrders)
   } catch (err) {

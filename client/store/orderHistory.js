@@ -22,6 +22,17 @@ export const fetchOrderHistory = userId => {
   }
 }
 
+export const fetchSingleHistory = (userId, orderId) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/${userId}/${orderId}`)
+      dispatch(setsingleOrder(data))
+    } catch (error) {
+      dispatch(console.error(error))
+    }
+  }
+}
+
 const initialState = {
   orderHistory: []
 }
