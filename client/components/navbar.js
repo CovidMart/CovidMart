@@ -7,33 +7,61 @@ import {logout, fetchCart} from '../store'
 const Navbar = ({handleClick, isLoggedIn, isAdmin, userId}) => (
   <div>
     <br />
-    <h1>PUZZLE PARTY</h1>
     <nav>
+      <a href="/">
+        <h1>PUZZLE PARTY</h1>
+      </a>
       <div>
-        <Link to="/puzzles">Shop</Link>
-        <Link to="/search">Search</Link>
-        <Link to={`/cart/${userId || 'guest'}`}>Cart</Link>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links AFTER you log in */}
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
-          </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links BEFORE you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </div>
-        )}
-        {isAdmin && (
-          <div>
-            {/* Shows these links only to Admin */}
-            <Link to="/admin/puzzle/create"> Create Puzzle </Link>
-          </div>
-        )}
+        <Link to="/puzzles">
+          <i className="fa fa-puzzle-piece" aria-hidden="true"></i>
+          Shop
+        </Link>
+      </div>
+      <div>
+        <Link to="/search">
+          <i className="fa fa-search" aria-hidden="true"></i>
+          Search
+        </Link>
+      </div>
+      {isLoggedIn ? (
+        <div>
+          {/* The navbar will show these links AFTER you log in */}
+          <Link to="/home">
+            <i className="fa fa-user" aria-hidden="true"></i>
+            Home
+          </Link>
+          <a href="#" onClick={handleClick}>
+            <i className="fa fa-sign-out" aria-hidden="true"></i>
+            Logout
+          </a>
+        </div>
+      ) : (
+        <div>
+          {/* The navbar will show these links BEFORE you log in */}
+          <Link to="/login">
+            <i className="fa fa-user" aria-hidden="true"></i>
+            Login
+          </Link>
+          <Link to="/signup">
+            <i className="fa fa-check" aria-hidden="true"></i>
+            Sign Up
+          </Link>
+        </div>
+      )}
+      {isAdmin && (
+        <div>
+          {/* Shows these links only to Admin */}
+          <Link to="/admin/puzzle/create">
+            <i className="fa fa-plus" aria-hidden="true"></i>
+            Create Puzzle{' '}
+          </Link>
+        </div>
+      )}
+      <div>
+        <Link to={`/cart/${userId || 'guest'}`}>
+          <i className="fa fa-fw fa-shopping-cart"></i>
+          Cart
+        </Link>
       </div>
     </nav>
     <hr />
