@@ -30,7 +30,9 @@ class Cart extends React.Component {
           {this.props.match &&
             this.props.match.path === `/cart/${userId || 'guest'}` && (
               <Link to={`/cart/${userId || 'guest'}/checkout`}>
-                <button type="button">CHECKOUT NOW</button>
+                <button type="button" className="checkoutBtn">
+                  CHECKOUT NOW
+                </button>
               </Link>
             )}
         </div>
