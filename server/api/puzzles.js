@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {Puzzle} = require('../db/models')
 const {isAdmin} = require('./gatekeepers')
+const {Op} = require('sequelize')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -73,6 +74,22 @@ router.delete('/:puzzleId', isAdmin, async (req, res, next) => {
     res.send()
   } catch (error) {
     next(error)
+  }
+})
+
+router.get('/search/:keyword', async (req, res, next) => {
+  const keyword = req.params.keyword
+  try {
+    const rows = await Puzzle.findAll({
+      where: {
+        title: {
+          [Op.like]: '%' + keyword + '%'
+        }
+      }
+    })
+    res.json(rows)
+  } catch (err) {
+    next(err)
   }
 })
 
