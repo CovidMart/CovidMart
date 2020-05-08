@@ -5,8 +5,8 @@ const {User, Puzzle, Order, PuzzleOrders} = require('./server/db/models')
 const puzzles = [
   {
     title: 'Wharhol TP Mask',
-    price: 2199,
-    pieceCount: 700,
+    price: 1999,
+    pieceCount: 2000,
     dimensions: '27.56" x 19.69"',
     imageUrl: '/puzzles/wharholTPmask.jpg',
     category: 'Art',
@@ -15,8 +15,8 @@ const puzzles = [
   },
   {
     title: 'Dogs Playing Poker',
-    price: 3191,
-    pieceCount: 700,
+    price: 1499,
+    pieceCount: 1500,
     dimensions: '27.56" x 16.68"',
     imageUrl: '/puzzles/pokerDogs.jpg',
     category: 'Art',
@@ -24,323 +24,323 @@ const puzzles = [
       'This famous kitsch artwork by Cassius Marcellus Coolidge is the perfect home entertainment for everyone, with a challenging 1,000-piece jigsaw spread on wood-board backing, this will last a lifetime.'
   },
   {
-    title: 'All Things That Fly',
-    price: 3529,
-    pieceCount: 500,
-    dimensions: '8" x 11"',
-    imageUrl: '/puzzles/sportBalls.jpg',
-    category: 'Sports',
-    description: 'Fusce consequat. Nulla nisl. Nunc nisl.'
-  },
-  {
-    title: 'Spring Tulips',
-    price: 3362,
-    pieceCount: 350,
-    dimensions: '12" x 18"',
-    imageUrl: '/puzzles/tulipBunch.jpg',
-    category: 'Nature',
-    description:
-      'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.'
-  },
-  {
-    title: 'Himalayan Sunset',
-    price: 3796,
+    title: 'Ted Williams',
+    price: 2999,
     pieceCount: 3000,
-    dimensions: '22.5" x 34"',
-    imageUrl: '/puzzles/himalayaSunset.jpg',
+    dimensions: '8x11',
+    imageUrl:
+      'https://baseballhall.org/sites/default/files/styles/fullscreen_image_popup/public/Williams%20Ted%206780.88_Bat_NBL_0.jpg?itok=CYaQ8m4h',
+    category: 'Sports',
+    description: 'A must have for the baseball lover in your life!'
+  },
+  {
+    title: 'Animal Crossing View',
+    price: 1999,
+    pieceCount: 2000,
+    dimensions: '12x18',
+    imageUrl: 'https://miro.medium.com/max/1280/0*H9kJZup7794AwcLs.jpg',
     category: 'Nature',
-    description:
-      'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.\n\nPraesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.'
+    description: 'Looking good on your island!'
   },
   {
-    title: 'Vintage Hotrod',
-    price: 4256,
-    pieceCount: 1500,
+    title: 'A Walk In the Park',
+    price: 2999,
+    pieceCount: 3000,
+    dimensions: '22.5x34',
+    imageUrl:
+      'https://41bfok2rrfmy84ghm2vvsaxf-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/Harvest-Square-June-2018-Melanie-Manson-4-1024x768.jpg',
+    category: 'Nature',
+    description: 'How pretty!'
+  },
+  {
+    title: 'Josh Allen',
+    price: 2499,
+    pieceCount: 2500,
     dimensions: '10x8',
-    imageUrl: '/puzzles/VintageHotrod.jpg',
+    imageUrl:
+      'https://static.nfl.com/static/content/public/photo/2020/01/04/0ap3000001094202.jpg ',
     category: 'Sports',
-    description:
-      'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.'
+    description: "The Buffalo Bills best hope for a Super Bowl. Go Bill's"
   },
   {
-    title: 'When I Grow Up',
-    price: 2241,
-    pieceCount: 1800,
-    dimensions: '22.5" x 34"',
-    imageUrl: '/puzzles/kittenFeather.jpg',
+    title: 'Patient Kittens',
+    price: 999,
+    pieceCount: 1000,
+    dimensions: '22.5x34',
+    imageUrl:
+      'https://lh3.googleusercontent.com/proxy/cmmuxL2n4qGheu5NgAoZZ-0rWjs4QRe9dS_LRUsAR0a5N2K1rO98h4jsdDZ0Z7qjj-Wasn7I2Dz5Camwe3Qt0czZG0Y8JnDZn62bJw',
     category: 'Kittens',
-    description:
-      'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.'
+    description: 'Meow meow meow. Kittens!'
   },
   {
-    title: "Knittin' Kittens",
-    price: 3404,
-    pieceCount: 550,
-    dimensions: '12" x 18"',
-    imageUrl: '/puzzles/knittinKittens.jpg',
+    title: 'Harvest Kittens',
+    price: 2499,
+    pieceCount: 2500,
+    dimensions: '12x18',
+    imageUrl:
+      'https://media.newyorker.com/photos/5909697cc14b3c606c106f22/master/pass/Borowitz-New-Hillary-Clinton-Ad-Features-Just-Kittens.jpg',
     category: 'Kittens',
-    description:
-      'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+    description: 'Meow meow meow meow. Kittens!'
   },
   {
-    title: 'Hang Ten',
-    price: 2958,
-    pieceCount: 800,
-    dimensions: '10" x 18"',
-    imageUrl: '/puzzles/surfer.jpg',
+    title: 'Go Sports!',
+    price: 2999,
+    pieceCount: 3000,
+    dimensions: '10x8',
+    imageUrl:
+      'https://www.sportswearable.net/wp-content/uploads/2019/03/sports-New-Brunswick.jpg',
     category: 'Sports',
-    description:
-      'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.'
+    description: 'Why pick one when you can have them all!'
   },
   {
-    title: 'Moon Dragon',
-    price: 442,
-    pieceCount: 600,
-    dimensions: '32" x 46"',
-    imageUrl: '/puzzles/moonDragon.jpg',
+    title: 'Bigger on the Inside',
+    price: 2500,
+    pieceCount: 2499,
+    dimensions: '32x46',
+    imageUrl:
+      'https://cdn.shopify.com/s/files/1/1550/5277/articles/DW_Tardis_Square_grande.jpg?v=1518600651',
     category: 'Fantasy',
-    description:
-      'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.\n\nIn sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.'
+    description: 'Step aboard the Tardis from "Doctor Who"'
   },
   {
-    title: 'Botticelli',
-    price: 4948,
-    pieceCount: 500,
-    dimensions: '12" x 18"',
-    imageUrl: '/puzzles/renaissance.jpg',
+    title: 'American Pop Culture',
+    price: 2999,
+    pieceCount: 3000,
+    dimensions: '10x8',
+    imageUrl:
+      'https://ih1.redbubble.net/image.521980708.2292/flat,750x1000,075,f.jpg',
+    category: 'Pop Culture',
+    description: 'Americana!'
+  },
+  {
+    title: 'The Starry Night',
+    price: 999,
+    pieceCount: 1000,
+    dimensions: '12x18',
+    imageUrl:
+      'https://cdn.shopify.com/s/files/1/1569/2203/collections/starry-night_2048x.jpg?v=1555871516',
     category: 'Art',
     description:
-      'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.'
+      'The Starry Night, an oil on canvas by Dutch painter Vincent van Gogh.'
   },
   {
-    title: 'Milk',
-    price: 521,
-    pieceCount: 200,
-    dimensions: '12" x 8"',
-    imageUrl: '/puzzles/milkKittens.jpg',
+    title: 'Funny Cat in Green Hat',
+    price: 2499,
+    pieceCount: 2500,
+    dimensions: '12x18',
+    imageUrl: 'https://www.askideas.com/media/08/Funny-Cat-In-Green-Hat.jpg',
     category: 'Kittens',
-    description:
-      'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.'
+    description: 'Meow meow meow. Kittens!'
   },
   {
-    title: 'Pokemon Valley',
-    price: 3953,
-    pieceCount: 800,
-    dimensions: '10" x 18"',
-    imageUrl: '/puzzles/Pokemon.jpg',
-    category: 'Fantasy',
-    description:
-      'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.'
+    title: 'Sunset on the Beach',
+    price: 2499,
+    pieceCount: 2500,
+    dimensions: '10x8',
+    imageUrl: 'https://static.toiimg.com/photo/54406710/.jpg',
+    category: 'Nature',
+    description: 'A warm and beautiful scene'
   },
   {
     title: 'Thunder Storm',
-    price: 525,
-    pieceCount: 2787,
+    price: 999,
+    pieceCount: 1000,
     dimensions: '10x8',
-    imageUrl: 'http://dummyimage.com/352x388.jpg/ff4444/ffffff',
+    imageUrl:
+      'https://images.unsplash.com/photo-1472145246862-b24cf25c4a36?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb',
     category: 'Nature',
-    description:
-      'In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.'
+    description: 'What a scene!'
   },
   {
-    title: 'Kitten Soccer',
-    price: 1601,
-    pieceCount: 8548,
+    title: 'Miracle On Ice',
+    price: 1499,
+    pieceCount: 1500,
     dimensions: '16x24',
-    imageUrl: 'http://dummyimage.com/281x276.jpg/5fa2dd/ffffff',
+    imageUrl: 'https://d.newsweek.com/en/full/1568805/miracle-ice.jpg',
     category: 'Sports',
-    description:
-      'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n\nProin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.'
+    description: "The 1980 'Miracle On Ice' US Olympic Hockey Team"
   },
   {
-    title: 'Bigtax',
-    price: 5432,
-    pieceCount: 3554,
+    title: 'Christmas Kittens',
+    price: 1499,
+    pieceCount: 1500,
     dimensions: '22.5x34',
-    imageUrl: 'http://dummyimage.com/362x216.jpg/dddddd/000000',
+    imageUrl:
+      'https://4my3boyz.com/content/images/thumbs/0017780_christmas-pet-selfies-silly-holiday-cats-kittens-blue-cotton-fabric_500.jpeg',
     category: 'Kittens',
-    description:
-      'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.'
+    description: 'Meowy Christmas!'
   },
   {
-    title: 'Gembucket',
-    price: 3879,
-    pieceCount: 9107,
+    title: 'Middle Earth',
+    price: 3000,
+    pieceCount: 2999,
     dimensions: '11x16',
     imageUrl: 'http://dummyimage.com/309x397.jpg/cc0000/ffffff',
     category: 'Fantasy',
     description:
-      'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.'
+      "The land of Middle Earth from J.R.R. Tolkien's Lord of the Rings"
   },
   {
-    title: 'Stage Craft',
-    price: 2972,
-    pieceCount: 6916,
+    title: 'Hidden Waterfall',
+    price: 2400,
+    pieceCount: 2500,
     dimensions: '8x11',
-    imageUrl: 'http://dummyimage.com/219x354.jpg/dddddd/000000',
+    imageUrl:
+      'https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2017/11/04133712/waterfall.jpg',
     category: 'Nature',
-    description:
-      'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.'
+    description: 'A beautiful water scene'
   },
   {
     title: 'Alpine Way',
-    price: 1393,
-    pieceCount: 2857,
+    price: 1999,
+    pieceCount: 2000,
     dimensions: '32x46',
-    imageUrl: 'http://dummyimage.com/302x233.jpg/ff4444/ffffff',
+    imageUrl:
+      'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB11guXT.img?h=552&w=750&m=6&q=60&u=t&o=f&l=f',
     category: 'Nature',
-    description:
-      'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+    description: 'Get lost in this mountain view!'
   },
   {
-    title: 'Regrant',
-    price: 4172,
-    pieceCount: 650,
+    title: 'The Great Wave off Kanagawa',
+    price: 999,
+    pieceCount: 1000,
     dimensions: '12x18',
-    imageUrl: 'http://dummyimage.com/371x228.jpg/dddddd/000000',
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/commons/a/a5/Tsunami_by_hokusai_19th_century.jpg',
     category: 'Art',
     description:
-      'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.'
+      'The Great Wave off Kanagawa, a woodblock print by the Japanese ukiyo-e artist Hokusai'
   },
   {
-    title: 'Veribet',
-    price: 4436,
-    pieceCount: 4442,
+    title: 'Combic Book Pop!',
+    price: 1499,
+    pieceCount: 1500,
     dimensions: '22.5x34',
-    imageUrl: 'http://dummyimage.com/342x313.jpg/ff4444/ffffff',
+    imageUrl:
+      'https://i.pinimg.com/originals/10/52/69/105269e5cad0204f07a74b6c2b9ac364.jpg',
     category: 'Pop Culture',
-    description:
-      'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.'
+    description: 'POP!'
   },
   {
-    title: 'Holdlamis',
-    price: 197,
-    pieceCount: 5934,
+    title: 'Lost in the Woods',
+    price: 999,
+    pieceCount: 1000,
     dimensions: '8x11',
-    imageUrl: 'http://dummyimage.com/318x293.jpg/5fa2dd/ffffff',
+    imageUrl:
+      'https://www.sierraclub.org/sites/www.sierraclub.org/files/styles/flexslider_full/public/sierra/articles/big/SIERRA-iStock-1084289620-WB.jpg?itok=njJbmkM7',
     category: 'Nature',
-    description:
-      'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.'
+    description: 'Get lost and find the beauty of nature '
   },
   {
-    title: 'Cookley',
-    price: 3222,
-    pieceCount: 1957,
+    title: 'Victory Lap',
+    price: 2999,
+    pieceCount: 3000,
     dimensions: '22.5x34',
-    imageUrl: 'http://dummyimage.com/280x232.jpg/cc0000/ffffff',
+    imageUrl:
+      'https://allthatsinteresting.com/wordpress/wp-content/uploads/2014/04/sports-photos-usain-bolt.jpg',
     category: 'Sports',
-    description:
-      'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.'
+    description: 'Runnnnnnnnnn!'
   },
   {
-    title: 'Stronghold',
-    price: 1674,
-    pieceCount: 6902,
+    title: 'Reef',
+    price: 1499,
+    pieceCount: 1500,
     dimensions: '8x11',
-    imageUrl: 'http://dummyimage.com/200x302.jpg/5fa2dd/ffffff',
+    imageUrl:
+      'https://images.theconversation.com/files/239870/original/file-20181009-72106-6bsj7z.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop',
     category: 'Nature',
-    description:
-      'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.\n\nNulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.'
+    description: 'Under the Sea!'
   },
   {
-    title: 'Konklux',
-    price: 2532,
-    pieceCount: 6467,
+    title: 'Mona Lisa',
+    price: 2499,
+    pieceCount: 2500,
     dimensions: '16x24',
-    imageUrl: 'http://dummyimage.com/254x201.jpg/5fa2dd/ffffff',
+    imageUrl:
+      'https://ae01.alicdn.com/kf/HTB1pvHHomfD8KJjSszhq6zIJFXan/3D-Diy-Round-Diamond-Painting-Kit-Cross-Stitch-Needlework-Mona-Lisa-Square-Drill-Diamond-Embroidery-Picture.jpg',
     category: 'Art',
-    description:
-      'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.\n\nProin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.'
+    description: "Leonardo da Vinci's famous oil painting, The Mona Lisa "
   },
   {
-    title: 'Mat Lam Tam',
-    price: 1484,
-    pieceCount: 7163,
+    title: 'Grumpy Cat',
+    price: 1499,
+    pieceCount: 1500,
     dimensions: '16x24',
-    imageUrl: 'http://dummyimage.com/376x350.jpg/ff4444/ffffff',
+    imageUrl:
+      'https://media1.s-nbcnews.com/j/newscms/2014_11/248401/140312-grumpy-cat-jms-1825_10dac16e180db5439aaaba7232b86596.fit-760w.jpg',
     category: 'Kittens',
-    description:
-      'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.'
+    description: 'Meow meow meow. Kittens!'
   },
   {
-    title: 'Matsoft',
-    price: 449,
-    pieceCount: 6742,
+    title: 'Serena Williams',
+    price: 1499,
+    pieceCount: 1500,
     dimensions: '32x46',
-    imageUrl: 'http://dummyimage.com/328x201.jpg/5fa2dd/ffffff',
+    imageUrl:
+      'https://images.ctfassets.net/yixw23k2v6vo/cmq4RuZchqG8asksoSuUu/af7f8c9b855f6d85a48977bf44406eb8/Serena-Williams-GettyImages-544090226.jpg?w=600&h=400&fm=jpg&fit=thumb&q=65&fl=progressive',
     category: 'Sports',
-    description:
-      'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.'
+    description: 'The Champ!'
   },
   {
     title: 'Hogwarts',
-    price: 1939,
-    pieceCount: 9574,
+    price: 1999,
+    pieceCount: 2000,
     dimensions: '12x18',
-    imageUrl: 'http://dummyimage.com/277x367.jpg/cc0000/ffffff',
+    imageUrl:
+      'https://imgix.bustle.com/rehost/2016/9/13/70371c31-7d4c-4b46-839f-3225d06f8f99.jpg?w=970&h=546&fit=crop&crop=faces&auto=format%2Ccompress&cs=srgb&q=70',
     category: 'Fantasy',
-    description:
-      'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.'
+    description: "Hogwarts Castle from J.K. Rowling's Harry Potter series"
   },
+
   {
-    title: 'Y-find',
-    price: 318,
-    pieceCount: 9463,
-    dimensions: '10x8',
-    imageUrl: 'http://dummyimage.com/213x382.jpg/cc0000/ffffff',
-    category: 'Pop Culture',
-    description:
-      'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.'
-  },
-  {
-    title: 'Fintone',
-    price: 912,
-    pieceCount: 2961,
+    title: 'Pokemon',
+    price: 1999,
+    pieceCount: 2000,
     dimensions: '16x24',
-    imageUrl: 'http://dummyimage.com/388x256.jpg/dddddd/000000',
+    imageUrl:
+      'https://www.altoonalibrary.org/wp-content/uploads/2019/08/pokemon.jpg',
     category: 'Fantasy',
-    description:
-      'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.'
+    description: "Say 'I Choose You' to this adorable Pokemon puzzle"
   },
   {
-    title: 'Stim',
-    price: 3062,
-    pieceCount: 1671,
+    title: 'Girl With A Pearl Earing',
+    price: 1499,
+    pieceCount: 1500,
     dimensions: '11x16',
-    imageUrl: 'http://dummyimage.com/266x305.jpg/5fa2dd/ffffff',
+    imageUrl:
+      'https://lh3.googleusercontent.com/proxy/x0YY0CKf7WW0OIlL79zhsiBRcFNzcYA8f42JnbfdIHqDRnEsi18gCPf1V2igkJIdH3G_GexXFnfLXEkwP7uBFN8nr3la1JQNxUXsmy5dUUilO4WyLECpDXvNtGNBRnaFNUWiSTHFroe2aifXFbrx8vZBPymD7bz6xjBywwidhNGlZWAGS_eYzSkLBvXU6sDdBxk',
     category: 'Art',
     description:
-      'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'
+      "This beautiful puzzle represents Johannes Vermeer's A Girl with a Pearl Earring. Sure to be treasured by the art lover in your family!"
   },
   {
-    title: 'Wrigley Field',
-    price: 2309,
-    pieceCount: 7397,
+    title: 'Ball is Life',
+    price: 2000,
+    pieceCount: 1999,
     dimensions: '12x18',
-    imageUrl: 'http://dummyimage.com/226x338.jpg/cc0000/ffffff',
+    imageUrl:
+      'https://www.rotoworld.com/sites/default/files/svod/thumbnail/nbc_nhl_nbacoronavirusupdate_200311.jpg',
     category: 'Sports',
-    description:
-      'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.'
+    description: 'Go Sports!'
   },
   {
-    title: 'Treeflex',
-    price: 3229,
-    pieceCount: 1629,
+    title: 'Big World, Little Kitten',
+    price: 2999,
+    pieceCount: 3000,
     dimensions: '32x46',
-    imageUrl: 'http://dummyimage.com/383x317.jpg/ff4444/ffffff',
+    imageUrl:
+      'https://images.squarespace-cdn.com/content/v1/55e7b445e4b04e7d0095c2cd/1556296318516-36C15R1S3A4H1GUP62QL/ke17ZwdGBToddI8pDm48kFyD7pzB8zoMIVY5aiUuFlp7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0jG2lbcDYBOeMi4OFSYem8DMb5PTLoEDdB05UqhYu-xbnSznFxIRsaAU-3g5IaylIg/AdobeStock_170586850+%281%29.jpeg?format=1000w',
     category: 'Kittens',
-    description:
-      'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.'
+    description: 'Meow meow meow. Kittens!'
   },
   {
-    title: 'Domainer',
-    price: 1022,
-    pieceCount: 744,
+    title: 'A Cup of Kittens',
+    price: 1000,
+    pieceCount: 999,
     dimensions: '12x18',
-    imageUrl: 'http://dummyimage.com/322x336.jpg/dddddd/000000',
+    imageUrl: 'https://s1.dmcdn.net/v/AgmiK1LgyblVL95DG/x1080',
     category: 'Kittens',
-    description:
-      'Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.'
+    description: 'Meow meow meow. Kittens!'
   }
 ]
 
