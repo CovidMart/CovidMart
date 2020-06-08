@@ -30,7 +30,6 @@ class AuthForm extends React.Component {
         this.validateEmail()
       }
     )
-    console.log(this.state, '<---handleEmailChange')
   }
 
   handlePasswordChange() {
@@ -40,7 +39,6 @@ class AuthForm extends React.Component {
       },
       () => {
         this.validatePassword()
-        console.log(this.state, '<---handleEmailChange')
       }
     )
   }

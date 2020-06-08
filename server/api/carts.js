@@ -33,8 +33,14 @@ router.get('/:userId', userLoggedIn, async (req, res, next) => {
       where: {stillInCart: true},
       include: [{model: Puzzle}]
     })
-    if (activeOrders) res.json(activeOrders[0])
-    else res.json({})
+    if (activeOrders.length) res.json(activeOrders[0])
+    else
+      res.json({
+        id: null,
+        pricePaid: 0,
+        puzzles: [],
+        userId: uid
+      })
   } catch (error) {
     next(error)
   }
