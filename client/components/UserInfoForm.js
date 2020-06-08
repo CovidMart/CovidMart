@@ -36,7 +36,6 @@ class UserInfoForm extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state, '<----local form state')
   }
 
   handleEmailChange = event => {
@@ -49,7 +48,6 @@ class UserInfoForm extends React.Component {
         this.validateEmail()
       }
     )
-    console.log(this.state, '<----local form state')
   }
 
   validateEmail() {
@@ -69,7 +67,6 @@ class UserInfoForm extends React.Component {
         this.validatePhone()
       }
     )
-    console.log(this.state, '<----local form state')
   }
 
   validatePhone() {
@@ -89,7 +86,6 @@ class UserInfoForm extends React.Component {
         this.validateAddress()
       }
     )
-    console.log(this.state, '<----local form state')
   }
 
   validateAddress() {

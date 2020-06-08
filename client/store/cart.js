@@ -16,9 +16,7 @@ const calculateTotal = puzzleArr => {
 }
 
 export const fetchCart = userData => {
-  console.log('fetchCart thunk is running')
   if (userData && userData.id) {
-    console.log('We got a user and their ID')
     return async dispatch => {
       try {
         const {data} = await axios.get(`/api/cart/${userData.id}`)
@@ -26,14 +24,12 @@ export const fetchCart = userData => {
         if (pricePaid <= 0) {
           pricePaid = calculateTotal(puzzles)
         }
-        console.log('Setting cart with:', {id, pricePaid, puzzles, userId})
         dispatch(setCart({id, pricePaid, puzzles, userId}))
       } catch (error) {
         console.error(error)
       }
     }
   } else if (window.localStorage.guestCart) {
-    console.log('Found a guest Cart!')
     const guestCart = {}
     guestCart.cartData = JSON.parse(window.localStorage.guestCart)
     if (typeof guestCart.cartData === 'object') {
@@ -53,7 +49,6 @@ export const fetchCart = userData => {
       }
     } else window.localStorage.setItem('guestCart', '{}')
   } else {
-    console.log('No user or guest cart, setting empty guest')
     window.localStorage.setItem('guestCart', '{}')
   }
 }

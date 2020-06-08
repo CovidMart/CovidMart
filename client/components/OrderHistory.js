@@ -14,7 +14,6 @@ export class OrderHistory extends React.Component {
 
   render() {
     let orderInfo = this.props.orderHistory
-    console.log(this.props)
     return (
       <div>
         <h2>Order History:</h2>

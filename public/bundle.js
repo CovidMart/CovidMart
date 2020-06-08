@@ -912,8 +912,6 @@ var Cart = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props, 'this.props in Cart');
-
       var _ref2 = this.props.activeCart || 0,
           userId = _ref2.userId;
 
@@ -1085,9 +1083,6 @@ var CheckoutPage = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log('---CHECKOUT PAGE IS RENDERED-----');
-      console.log(this.props, 'checkoutpage this.props'); // if (this.state.mounted) {
-
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Current User Info On File"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.firstName, " ", this.props.user.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.address), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.user.phone)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfoForm__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Order Total: $", this.props.cart.pricePaid / 100), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_Checkout__WEBPACK_IMPORTED_MODULE_4__["default"], {
         amount: this.props.cart.pricePaid / 100,
         name: "Puzzle Party",
@@ -1224,7 +1219,6 @@ var OrderHistory = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var orderInfo = this.props.orderHistory;
-      console.log(this.props);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Order History:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, " Please click the order number to view details "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Order Number"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Puzzle Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Quantity"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Total"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Shipping Status"))), orderInfo && orderInfo.map(function (order) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", {
           key: order.id
@@ -1722,8 +1716,6 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
       _this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
         _this.validateEmail();
       });
-
-      console.log(_this.state, '<----local form state');
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (event) {
@@ -1765,7 +1757,6 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
     value: function handleChange(event) {
       console.log('regular handlechange');
       this.setState(_defineProperty({}, event.target.name, event.target.value));
-      console.log(this.state, '<----local form state');
     }
   }, {
     key: "validateEmail",
@@ -1783,7 +1774,6 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
       this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
         _this2.validatePhone();
       });
-      console.log(this.state, '<----local form state');
     }
   }, {
     key: "validatePhone",
@@ -1801,7 +1791,6 @@ var UserInfoForm = /*#__PURE__*/function (_React$Component) {
       this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
         _this3.validateAddress();
       });
-      console.log(this.state, '<----local form state');
     }
   }, {
     key: "validateAddress",
@@ -1960,7 +1949,6 @@ var AuthForm = /*#__PURE__*/function (_React$Component) {
       this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
         _this2.validateEmail();
       });
-      console.log(this.state, '<---handleEmailChange');
     }
   }, {
     key: "handlePasswordChange",
@@ -1969,8 +1957,6 @@ var AuthForm = /*#__PURE__*/function (_React$Component) {
 
       this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
         _this3.validatePassword();
-
-        console.log(_this3.state, '<---handleEmailChange');
       });
     }
   }, {
@@ -2890,10 +2876,7 @@ var calculateTotal = function calculateTotal(puzzleArr) {
 };
 
 var fetchCart = function fetchCart(userData) {
-  console.log('fetchCart thunk is running');
-
   if (userData && userData.id) {
-    console.log('We got a user and their ID');
     return /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
         var _yield$axios$get, data, id, pricePaid, puzzles, userId;
@@ -2915,32 +2898,26 @@ var fetchCart = function fetchCart(userData) {
                   pricePaid = calculateTotal(puzzles);
                 }
 
-                console.log('Setting cart with:', {
-                  id: id,
-                  pricePaid: pricePaid,
-                  puzzles: puzzles,
-                  userId: userId
-                });
                 dispatch(setCart({
                   id: id,
                   pricePaid: pricePaid,
                   puzzles: puzzles,
                   userId: userId
                 }));
-                _context.next = 14;
+                _context.next = 13;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](0);
                 console.error(_context.t0);
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 11]]);
+        }, _callee, null, [[0, 10]]);
       }));
 
       return function (_x) {
@@ -2948,7 +2925,6 @@ var fetchCart = function fetchCart(userData) {
       };
     }();
   } else if (window.localStorage.guestCart) {
-    console.log('Found a guest Cart!');
     var guestCart = {};
     guestCart.cartData = JSON.parse(window.localStorage.guestCart);
 
@@ -3000,7 +2976,6 @@ var fetchCart = function fetchCart(userData) {
       }();
     } else window.localStorage.setItem('guestCart', '{}');
   } else {
-    console.log('No user or guest cart, setting empty guest');
     window.localStorage.setItem('guestCart', '{}');
   }
 };
